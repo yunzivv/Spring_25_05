@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.service.ArticleService;
 import com.example.demo.vo.Article;
 
 import lombok.AllArgsConstructor;
@@ -17,29 +18,18 @@ import lombok.Data;
 @Controller
 public class UserArticleController {
 
-	private int id;
-	private List<Article> articles;
+	private ArticleService articleService;
 
 	public UserArticleController() {
-		id = 0;
-		articles = new ArrayList<>();
+		articleService = new ArticleService();
 	};
 	
-	public Article getArticleById(int id) {
-		
-		for(Article article : articles) {
-			if(article.getId() == id) return article;
-		}
-		return null;
-	}
-
+	
 	@RequestMapping("user/article/doAdd")
 	@ResponseBody
 	public Article getArticle(String title, String body) {
 
-		id++;
-		Article article = new Article(id, title, body);
-		articles.add(article);
+		Article article = articleService.doWrite(title, body);
 
 		return article;
 	}
@@ -48,7 +38,7 @@ public class UserArticleController {
 	@ResponseBody
 	public List<Article> getArticles() {
 
-		return articles;
+		return articleService.getArticles();
 	}
 
 	@RequestMapping("user/article/doDelete")
@@ -56,9 +46,10 @@ public class UserArticleController {
 	public String doDelete(int id) {
 		String response = id + "번 글은 없음 메롱";
 		
-		Article article = getArticleById(id);
+		Article article = articleService.getArticleById(id);
+		
 		if(article != null) {
-			articles.remove(article);
+			id = articleService.doDelete(id);
 			response =  id + "번 글이 삭제 되었습니다.";
 		}
 		
@@ -67,18 +58,18 @@ public class UserArticleController {
 	
 	@RequestMapping("user/article/doModify")
 	@ResponseBody
-	public String doModify(int id, String title, String body) {
+	 // return 타입을 Object 로 설정하면 String / article 선택해서서 반환 가능
+	public String doModify(int id, String title, String body) { 
 		String response = id + "번 글은 없음 메롱";
 	
-		Article article = getArticleById(id);
+		Article article = articleService.getArticleById(id);
 		if(article == null) {
 			return response;
 		}
 		
-		article.setTitle(title);
-		article.setBody(body);
+		article = articleService.doModify(id, title, body);
 		
-		response = id + "번 글이 수정되었습니다." + article;
+		response = id + "번 글이 수정되었습니다. " + article;
 		
 		return response;
 	}
