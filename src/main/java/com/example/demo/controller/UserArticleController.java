@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,11 +19,8 @@ import lombok.Data;
 @Controller
 public class UserArticleController {
 
+	@Autowired
 	private ArticleService articleService;
-
-	public UserArticleController() {
-		articleService = new ArticleService();
-	};
 	
 	
 	@RequestMapping("user/article/doAdd")
@@ -44,33 +42,24 @@ public class UserArticleController {
 	@RequestMapping("user/article/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {
-		String response = id + "번 글은 없음 메롱";
 		
-		Article article = articleService.getArticleById(id);
-		
-		if(article != null) {
-			id = articleService.doDelete(id);
-			response =  id + "번 글이 삭제 되었습니다.";
+		if(articleService.doDelete(id) != -1) {
+			return  id + "번 글이 삭제 되었습니다.";
 		}
 		
-		return response;
+		return  id + "번 글은 없음 메롱";
 	}
 	
 	@RequestMapping("user/article/doModify")
 	@ResponseBody
 	 // return 타입을 Object 로 설정하면 String / article 선택해서서 반환 가능
 	public String doModify(int id, String title, String body) { 
-		String response = id + "번 글은 없음 메롱";
-	
-		Article article = articleService.getArticleById(id);
-		if(article == null) {
-			return response;
+		
+		Article article = articleService.doModify(id, title, body);
+		if(article != null) {
+			return  id + "번 글이 수정 되었습니다." + article;
 		}
 		
-		article = articleService.doModify(id, title, body);
-		
-		response = id + "번 글이 수정되었습니다. " + article;
-		
-		return response;
+		return  id + "번 글은 없음 메롱";
 	}
 }
