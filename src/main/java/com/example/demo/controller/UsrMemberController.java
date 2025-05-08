@@ -29,6 +29,8 @@ public class UsrMemberController {
 		if(Ut.isIncorrectParams(cellPhone)) return "올바르지 않은 전화번호";
 		if(Ut.isIncorrectParams(email) || !email.contains("@")) return "올바르지 않은 이메일";
 		
+		if(memberService.isExistsNameNEmail(name, email)) return "너 이미 가입햇잔아";
+		
 		if(memberService.isJoinableLogInId(loginId) != 0) {
 			return "이미 사용중인 아이디입니다.";
 		}

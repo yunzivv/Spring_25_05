@@ -34,5 +34,10 @@ public class MemberService {
 		return memberRepository.getLastInsertId(); // 방금 가입된 멤버의 id 반환
 	}
 
+	public boolean isExistsNameNEmail(String name, String email) {
+		
+		return memberRepository.isExistsNameNEmail(name, email) != 0;
+	}
+
 
 }

@@ -24,4 +24,7 @@ public interface MemberRepository {
 
 //  @Select("SELECT COUNT(*) FROM `member` WHERE loginId = #{loginId}")
 	public int isJoinableLogInId(String loginId);
+
+//  @Select("SELECT COUNT(*) FROM `member` WHERE `name` = #{name} AND email = #{email})" 
+	public int isExistsNameNEmail(String name, String email);
 }

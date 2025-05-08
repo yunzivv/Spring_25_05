@@ -30,5 +30,11 @@
 		SELECT COUNT(*) FROM `member`
 		WHERE loginId = #{loginId}
 	</select>
+	
+	<select id="isExistsNameNEmail" parameterType="String">
+		SELECT COUNT(*) FROM `member`
+		WHERE `name` = #{name} AND
+		email = #{email}
+	</select>
 
 </mapper>
