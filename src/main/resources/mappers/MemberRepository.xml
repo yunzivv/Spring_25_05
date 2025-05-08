@@ -26,7 +26,7 @@
 		WHERE id = #{id}
 	</select>
 	
-	<select id="isJoinableLogInId" parameterType="int">
+	<select id="isJoinableLogInId" parameterType="String">
 		SELECT COUNT(*) FROM `member`
 		WHERE loginId = #{loginId}
 	</select>

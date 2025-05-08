@@ -21,6 +21,7 @@ public interface MemberRepository {
 	public int getLastInsertId();
 	
 	public Member getMemberById(int id);
-	
+
+//  @Select("SELECT COUNT(*) FROM `member` WHERE loginId = #{loginId}")
 	public int isJoinableLogInId(String loginId);
 }
