@@ -22,21 +22,14 @@ public class MemberService {
 		
 		return memberRepository.getMemberById(id);
 	}
-	
-	public int isJoinableLogInId(String loginId) {
-		
-		return memberRepository.isJoinableLogInId(loginId);
-	}
 
 	public int doJoin(String loginId, String loginPw, String name, String nickName, String cellPhone, String email) {
 		
+		if(memberRepository.isJoinableLogInId(loginId) == 1) return -1; // 중복 아이디
+		if(memberRepository.isExistsNameNEmail(name, email) == 1) return -2; // 중복 이름, 이메일
+		
 		memberRepository.doJoin(loginId, loginPw, name, nickName, cellPhone, email);
 		return memberRepository.getLastInsertId(); // 방금 가입된 멤버의 id 반환
-	}
-
-	public boolean isExistsNameNEmail(String name, String email) {
-		
-		return memberRepository.isExistsNameNEmail(name, email) != 0;
 	}
 
 

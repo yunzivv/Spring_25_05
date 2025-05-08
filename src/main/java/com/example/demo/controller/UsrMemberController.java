@@ -28,14 +28,12 @@ public class UsrMemberController {
 		if(Ut.isIncorrectParams(nickName)) return Ut.f("%s는 올바르지 않은 닉네임입니다.", nickName);
 		if(Ut.isIncorrectParams(cellPhone)) return Ut.f("%s는 올바르지 않은 전화번호입니다.", cellPhone);
 		if(Ut.isIncorrectParams(email) || !email.contains("@")) return Ut.f("%s는 올바르지 않은 이메일입니다.", email);
-		
-		if(memberService.isExistsNameNEmail(name, email)) return Ut.f("이미 사용 중인 이름, 이메일입니다.");
-		
-		if(memberService.isJoinableLogInId(loginId) != 0) {
-			return Ut.f("%s는 이미 사용중인 아이디입니다.", loginId);
-		}
-		
+
 		int id = memberService.doJoin(loginId, loginPw, name, nickName, cellPhone, email);
+		
+		if(id == -1) return Ut.f("%s는 이미 사용중인 아이디입니다.", loginId);
+		if(id == -2) return Ut.f("이미 사용 중인 이름, 이메일입니다.");
+		
 		Member member = memberService.getMemberById(id);
 		int joinId = member.getId();
 		

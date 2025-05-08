@@ -20,7 +20,7 @@ public class Ut {
 		return false;
 	}
 	
-	public static Object f(String str, Object...args){ // 가변인자 활용
+	public static String f(String str, Object...args){ // 가변인자 활용
 		
 		return String.format(str, args);
 	}
