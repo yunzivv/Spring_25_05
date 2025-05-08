@@ -16,11 +16,6 @@ public class UsrArticleController {
 	
 	@Autowired
 	private ArticleService articleService;
-	private final DemoApplication demoApplication;
-	
-	UsrArticleController(DemoApplication demoApplication) { // ?
-		this.demoApplication = demoApplication;
-	}
 
 	// 액션메서드
 	@RequestMapping("/usr/article/getArticle")

@@ -18,4 +18,7 @@ public interface MemberRepository {
 //	@Select("SELECT * FROM `member` WHERE id = #{id}")
 	public void doLogin(int id);
 
+	public int getLastInsertId();
+	
+	public Member getMemberById(int id);
 }

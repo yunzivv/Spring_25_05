@@ -1,13 +1,10 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.DemoApplication;
 import com.example.demo.service.MemberService;
 import com.example.demo.vo.Member;
 
@@ -16,11 +13,7 @@ public class UsrMemberController {
 	
 	@Autowired
 	private MemberService memberService;
-	private final DemoApplication demoApplication;
-	
-	UsrMemberController(DemoApplication demoApplication) { // ?
-		this.demoApplication = demoApplication;
-	}
+
 
 	// 액션메서드
 	@RequestMapping("/usr/member/doJoin")
@@ -28,8 +21,10 @@ public class UsrMemberController {
 	public Object doJoin(String loginId, String loginPw, String name, String nickName, String cellPhone, String email) {
 		
 		int id = memberService.doJoin(loginId, loginPw, name, nickName, cellPhone, email);
+		Member member = memberService.getMemberById(id);
+		int joinId = member.getId();
 		
-		return id + "번 회원가입 완료";
+		return id + "번 회원 : " + member;
 	}
 	
 //	@RequestMapping("/usr/member/doLogin")

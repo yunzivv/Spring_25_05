@@ -18,16 +18,15 @@ public class MemberService {
 		this.memberRepository = memberRepository;
 	}
 	
-	public int getMemberById(int id) {
+	public Member getMemberById(int id) {
 		
-		return 0;
+		return memberRepository.getMemberById(id);
 	}
 
-
 	public int doJoin(String loginId, String loginPw, String name, String nickName, String cellPhone, String email) {
+		
 		memberRepository.doJoin(loginId, loginPw, name, nickName, cellPhone, email);
-		Member member = new Member(loginId, loginPw, name, nickName, cellPhone, email);
-		return member.getId();
+		return memberRepository.getLastInsertId(); // 방금 가입된 멤버의 id 반환
 	}
 
 
