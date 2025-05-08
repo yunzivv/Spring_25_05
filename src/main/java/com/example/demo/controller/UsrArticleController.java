@@ -7,14 +7,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.DemoApplication;
 import com.example.demo.service.ArticleService;
 import com.example.demo.vo.Article;
 
 @Controller
 public class UsrArticleController {
-
+	
 	@Autowired
 	private ArticleService articleService;
+	private final DemoApplication demoApplication;
+	
+	UsrArticleController(DemoApplication demoApplication) { // ?
+		this.demoApplication = demoApplication;
+	}
 
 	// 액션메서드
 	@RequestMapping("/usr/article/getArticle")
