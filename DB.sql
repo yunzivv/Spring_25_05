@@ -1,8 +1,9 @@
-DROP DATABASE IF EXISTS `AM_spring_25_05`;
-CREATE DATABASE `AM_spring_25_05`;
-USE `AM_spring_25_05`;
+# AM_spring_25_05 데이터 베이스 추가
+DROP DATABASE IF EXISTS AM_spring_25_05;
+CREATE DATABASE AM_spring_25_05;
+USE AM_spring_25_05;
 
-# 게시글 테이블 생성
+# 게시물 테이블 추가
 CREATE TABLE article(
     id INT(100) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
@@ -11,14 +12,58 @@ CREATE TABLE article(
     `body` TEXT NOT NULL
 );
 
-# 게시글 데이터 대량 생성
+# 게시물 테이블 데이터 추가
 INSERT INTO article
 SET regDate = NOW(),
     updateDate = NOW(),
     title = CONCAT('제목', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
     `body` = CONCAT('내용', SUBSTRING(RAND() *1000 FROM 1 FOR 2));
+    
+# 게시물 테이블 조회
+SELECT * FROM article ORDER BY DESC;
 
-# 게시글 데이터 조회
-SELECT *
-FROM article
-ORDER BY id DESC;
+# 회원 테이블 추가
+CREATE TABLE `member`(
+    id INT(100) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    loginId VARCHAR(100) NOT NULL UNIQUE,
+    loginPw VARCHAR(100) NOT NULL,
+    `name` VARCHAR(10) NOT NULL
+);
+
+# 회원 테이블 추가
+CREATE TABLE `member`(
+    id INT(100) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    loginId VARCHAR(100) NOT NULL UNIQUE,
+    loginPw VARCHAR(100) NOT NULL,
+    `name` VARCHAR(10) NOT NULL,
+    nickName VARCHAR(10) NOT NULL,
+    cellPhone VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
+
+# admin 회원 데이터 추가
+INSERT INTO `member`
+SET regDate = NOW(),
+    loginId = 'admin',
+    loginPw = 'admin',
+    `name` = 'admin',
+    nickName = 'admin',
+    cellPhone = '01012345678',
+    email = 'admin@spring.com'; 
+
+# 회원 테이블 데이터 추가
+INSERT INTO `member`
+SET regDate = NOW(),
+    loginId = CONCAT('id', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
+    loginPw = CONCAT('pw', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
+    `name` = CONCAT('이름', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
+    nickName = CONCAT('닉네임', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
+    cellPhone = CONCAT('010123456', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
+    email = CONCAT(SUBSTRING(RAND() *1000 FROM 1 FOR 2), 'mail@gmail.com'); 
+    
+# 회원 테이블 데이터 조회
+SELECT * FROM `member` ORDER BY id DESC;
+
+# http://localhost:8080/usr/member/doJoin?loginId=keroro&loginPw=keroro&name=keroro&nickName=keroro&cellPhone=01032165498&email=keroro@mail.com
