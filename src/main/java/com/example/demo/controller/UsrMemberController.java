@@ -20,6 +20,10 @@ public class UsrMemberController {
 	@ResponseBody
 	public Object doJoin(String loginId, String loginPw, String name, String nickName, String cellPhone, String email) {
 		
+//		if(memberService.isJoinableLogInId(loginId) != 0) {
+//			return "이미 사용중인 아이디입니다.";
+//		}
+		
 		int id = memberService.doJoin(loginId, loginPw, name, nickName, cellPhone, email);
 		Member member = memberService.getMemberById(id);
 		int joinId = member.getId();

@@ -37,10 +37,13 @@ CREATE TABLE `member`(
     regDate DATETIME NOT NULL,
     loginId VARCHAR(100) NOT NULL UNIQUE,
     loginPw VARCHAR(100) NOT NULL,
+    `authLevel` SMALLINT(2) UNSIGNED DEFAULT 3 COMMENT '권한 레벨 (3=일반/7=관리자)',
     `name` VARCHAR(10) NOT NULL,
     nickName VARCHAR(10) NOT NULL,
     cellPhone VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL
+    email VARCHAR(100) NOT NULL,
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '탈퇴 여부(0=존재/1=탈퇴)',
+    delDate DATETIME COMMENT '탈퇴날짜'
 );
 
 # admin 회원 데이터 추가
@@ -48,10 +51,12 @@ INSERT INTO `member`
 SET regDate = NOW(),
     loginId = 'admin',
     loginPw = 'admin',
+    `authLevel` = 7,
     `name` = 'admin',
     nickName = 'admin',
     cellPhone = '01012345678',
     email = 'admin@spring.com'; 
+
 
 # 회원 테이블 데이터 추가
 INSERT INTO `member`

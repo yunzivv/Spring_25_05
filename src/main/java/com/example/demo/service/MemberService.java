@@ -22,6 +22,11 @@ public class MemberService {
 		
 		return memberRepository.getMemberById(id);
 	}
+	
+	public int isJoinableLogInId(String loginId) {
+		
+		return memberRepository.isJoinableLogInId(loginId);
+	}
 
 	public int doJoin(String loginId, String loginPw, String name, String nickName, String cellPhone, String email) {
 		

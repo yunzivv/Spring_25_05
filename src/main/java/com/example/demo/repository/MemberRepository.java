@@ -21,4 +21,6 @@ public interface MemberRepository {
 	public int getLastInsertId();
 	
 	public Member getMemberById(int id);
+	
+	public int isJoinableLogInId(String loginId);
 }

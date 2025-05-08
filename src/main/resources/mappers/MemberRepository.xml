@@ -25,5 +25,10 @@
 		SELECT * FROM `member`
 		WHERE id = #{id}
 	</select>
+	
+	<select id="isJoinableLogInId" parameterType="int">
+		SELECT COUNT(*) FROM `member`
+		WHERE loginId = #{loginId}
+	</select>
 
 </mapper>
