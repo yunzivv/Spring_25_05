@@ -1,39 +1,52 @@
 package com.example.demo.service;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.ArticleRepository;
 import com.example.demo.vo.Article;
 
+@Service
 public class ArticleService {
-	
+
+	@Autowired
 	private ArticleRepository articleRepository;
-	
+
 	public ArticleService(ArticleRepository articleRepository) {
-
-		articleRepository = new ArticleRepository();
-		
-	}
-	
-	public Article doWrite(String title, String body) {
-		
-		return articleRepository.doWrite(title, body);
+		this.articleRepository = articleRepository;
+		makeTestData();
 	}
 
-	
-	public Article doModify(int id, String title, String body) {
-		
-		return articleRepository.doModify(id, title, body);
+	private void makeTestData() {
+		for (int i = 1; i <= 10; i++) {
+			String title = "제목 " + i;
+			String body = "내용" + i;
+
+			articleRepository.writeArticle(title, body);
+		}
+
 	}
 
-	public int doDelete(int id) {
-		
-		return articleRepository.doDelete(id);
+	public Article writeArticle(String title, String body) {
+		articleRepository.writeArticle(title, body);
+		return new Article(title, body);
+	}
+
+	public void deleteArticle(int id) {
+		articleRepository.deleteArticle(id);
+	}
+
+	public void modifyArticle(int id, String title, String body) {
+		articleRepository.modifyArticle(id, title, body);
+	}
+
+	public Article getArticleById(int id) {
+		return articleRepository.getArticleById(id);
 	}
 
 	public List<Article> getArticles() {
-		
 		return articleRepository.getArticles();
 	}
 

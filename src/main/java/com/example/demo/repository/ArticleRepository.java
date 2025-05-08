@@ -3,66 +3,35 @@ package com.example.demo.repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.vo.Article;
 
-@Component
-public class ArticleRepository {
-	
-	int lastId;
-	private List<Article> articles;
-	
-	public ArticleRepository() {
-		lastId = 0;
-		articles = new ArrayList<>();
-	}
-	
+@Mapper
+public interface ArticleRepository {
 
-	public Article getArticleById(int id) {
+	// INSERT INTO article SET regDate = NOW(), updateDate = NOW(), title = ?, `body` = ?
+	@Insert("INSERT INTO article SET regDate = NOW(), updateDate = NOW(), title = #{title}, `body` = #{body}")
+	int writeArticle(String title, String body);
 
-		for (Article article : articles) {
-			if (article.getId() == id)
-				return article;
-		}
-		return null;
-	}
-	
-	
-	public Article doWrite(String title, String body) {
-		
-		lastId++;
-		Article article = new Article(lastId, title, body);
-		articles.add(article);
-		
-		return article;
-		
-	}
-	
-	public List<Article> getArticles() {
-		
-		return articles;
-	}
-	
-	public Article doModify(int id, String title, String body) {
-		
-		Article article = getArticleById(id);
-		if(article == null) return null;
-		
-		article.setTitle(title);
-		article.setBody(body);
-		return article;
-		
-	}
+	// DELETE FROM article WHERE id = ?
+	@Delete("DELETE FROM article WHERE id = #{id}")
+	void deleteArticle(int id);
 
+	// UPDATE article SET updateDate = NOW(), title = ?, `body` = ? WHERE id = ?
+	@Update("UPDATE article SET updateDate = NOW(), title = #{title}, `body` = #{body} WHERE id = #{id}")
+	void modifyArticle(int id, String title, String body);
 
-	public int doDelete(int id) {
-		
-		Article article = getArticleById(id);
-		if(article == null) return -1;
-		articles.remove(article);
-		return id;
-	}
+	// SELECT * FROM article WHERE id = ?
+	@Select("SELECT * FROM article WHERE id = #{id}")
+	Article getArticleById(int id);
 
-
+	// SELECT * FROM article ORDER BY id DESC
+	@Select("SELECT * FROM article ORDER BY id DESC")
+	List<Article> getArticles();
 }
