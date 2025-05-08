@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.service.MemberService;
 import com.example.demo.vo.Member;
 
+import util.Ut;
+
 @Controller
 public class UsrMemberController {
 	
@@ -19,6 +21,13 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public Object doJoin(String loginId, String loginPw, String name, String nickName, String cellPhone, String email) {
+		
+		if(Ut.isIncorrectParams(loginId)) return "올바르지 않은 아이디";
+		if(Ut.isIncorrectParams(loginPw)) return "올바르지 않은 비번";
+		if(Ut.isIncorrectParams(name)) return "올바르지 않은 이름";
+		if(Ut.isIncorrectParams(nickName)) return "올바르지 않은 닉네임";
+		if(Ut.isIncorrectParams(cellPhone)) return "올바르지 않은 전화번호";
+		if(Ut.isIncorrectParams(email) || !email.contains("@")) return "올바르지 않은 이메일";
 		
 		if(memberService.isJoinableLogInId(loginId) != 0) {
 			return "이미 사용중인 아이디입니다.";
