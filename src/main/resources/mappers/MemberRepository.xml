@@ -36,5 +36,11 @@
 		WHERE `name` = #{name} AND
 		email = #{email}
 	</select>
+	
+	<select id="doLogin" parameterType="String">
+		SELECT `name` FROM `member`
+		WHERE loginId = #{loginId} AND
+		loginPw = #{loginPw}
+	</select>
 
 </mapper>

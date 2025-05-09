@@ -46,6 +46,10 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
 	public ResultData doWrite(String title, String body) {
+		
+		if(Ut.isEmpty(title)) return ResultData.from("F-2", Ut.f("제목 써"));
+		if(Ut.isEmpty(body)) return ResultData.from("F-2", Ut.f("내용 써"));
+		
 		Article article = articleService.writeArticle(title, body);
 		return ResultData.from("S-3", Ut.f("게시글 %d 번 작성 완료", articleService.getLastInsertId()), article);
 	}
