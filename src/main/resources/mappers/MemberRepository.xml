@@ -37,10 +37,10 @@
 		email = #{email}
 	</select>
 	
-	<select id="doLogin" parameterType="String">
-		SELECT `name` FROM `member`
-		WHERE loginId = #{loginId} AND
-		loginPw = #{loginPw}
+	<select id="getMemberByLoginId" parameterType="String"
+		resultType="com.example.demo.vo.Member">
+		SELECT * FROM `member`
+		WHERE loginId = #{loginId}
 	</select>
 
 </mapper>

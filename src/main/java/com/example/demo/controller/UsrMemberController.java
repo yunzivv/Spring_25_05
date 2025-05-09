@@ -9,6 +9,7 @@ import com.example.demo.service.MemberService;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
 
+import jakarta.servlet.http.HttpSession;
 import util.Ut;
 
 @Controller
@@ -32,8 +33,8 @@ public class UsrMemberController {
 
 		int id = memberService.doJoin(loginId, loginPw, name, nickName, cellPhone, email);
 		
-		if(id == -1) return ResultData.from("f-2", Ut.f("%s는 이미 사용중인 아이디입니다.", loginId));
-		if(id == -2) return ResultData.from("f-2",  Ut.f("이미 사용 중인 이름, 이메일입니다."));
+		if(id == -1) return ResultData.from("F-2", Ut.f("%s는 이미 사용중인 아이디입니다.", loginId));
+		if(id == -2) return ResultData.from("F-2",  Ut.f("이미 사용 중인 이름, 이메일입니다."));
 		
 		Member member = memberService.getMemberById(id);
 		int joinId = member.getId();
@@ -45,12 +46,19 @@ public class UsrMemberController {
 	@ResponseBody
 	public ResultData doLogin(String loginId, String loginPw) {
 		
-		if(Ut.isEmpty(loginId)) return ResultData.from("F-1", "아이디를 입력하세요");
-		if(Ut.isEmpty(loginPw)) return ResultData.from("F-1", "비밀번호를 입력하세요");
+		if(Ut.isEmpty(loginId)) return ResultData.from("F-1", "아이디를 입력하세요.");
+		if(Ut.isEmpty(loginPw)) return ResultData.from("F-1", "비밀번호를 입력하세요.");
 		
-		String name = memberService.doLogin(loginId, loginPw);
+		Member member = memberService.doLogin(loginId);
+		if(member == null) return ResultData.from("F-4", "존재하지 않는 아이디입니다.");
+		if(!member.getLoginPw().equals(loginPw)) return ResultData.from("F-5", "올바르지 않은 비밀번호 입니다.");
 		
-		return ResultData.from("S-2",  Ut.f("%s님 로그인 되었습니다.", name));
+//		HttpSession session = request.getSession();
+//		session.setAttribute("loginedMember", member);
+//		session.setAttribute("loginedMemberId", member.getId());
+//		session.setAttribute("loginedMemberLoginId", member.getLoginId());
+		
+		return ResultData.from("S-2",  Ut.f("%s님 로그인 되었습니다.", member.getName()), member);
 	}
 	
 	@RequestMapping("/usr/member/doLogout")

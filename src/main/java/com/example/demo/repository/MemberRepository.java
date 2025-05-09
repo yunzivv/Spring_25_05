@@ -19,7 +19,8 @@ public interface MemberRepository {
 	public void doLogin(int id);
 
 	public int getLastInsertId();
-	
+
+//  @Select("SELECT * FROM `member` WHERE loginId = #{loginId}")
 	public Member getMemberById(int id);
 
 //  @Select("SELECT COUNT(*) FROM `member` WHERE loginId = #{loginId}")
@@ -28,6 +29,6 @@ public interface MemberRepository {
 //  @Select("SELECT COUNT(*) FROM `member` WHERE `name` = #{name} AND email = #{email}")
 	public int isExistsNameNEmail(String name, String email);
 
-//  @Select("SELECT `name` FROM `member` WHERE loginId = #{loginId} AND loginPw = #{loginPw}")
-	public String doLogin(String loginId, String loginPw);
+//  @Select("SELECT * FROM `member` WHERE loginId = #{loginId}")
+	public Member getMemberByLoginId(String loginId);
 }
