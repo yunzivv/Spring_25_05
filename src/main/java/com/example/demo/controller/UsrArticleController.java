@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,13 +39,14 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String getArticles(HttpServletRequest request) {
-
-		List<Article> articles = articleService.getArticles();
+	public String getArticles(Model model) {
 
 //		return ResultData.from("S-2", Ut.f("게시글 목록"), articles);
-		ResultData rd = ResultData.from("S-2", Ut.f("게시글 목록"), articles);
-		request.setAttribute("rd", rd);
+//		ResultData rd = ResultData.from("S-2", Ut.f("게시글 목록"), articles);
+	
+		List<Article> articles = articleService.getArticles();
+
+		model.addAttribute("articles", articles);
 		
 		return "/usr/article/list";
 	}
