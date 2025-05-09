@@ -25,17 +25,18 @@ public class UsrArticleController {
 	private ArticleService articleService;
 
 	// 액션메서드
-	@RequestMapping("/usr/article/getArticle")
-	@ResponseBody
-	public ResultData getArticle(int id) {
+	@RequestMapping("/usr/article/detail")
+	public String getArticle(Model model, int id) {
 
 		Article article = articleService.getArticleById(id);
-
-		if (article == null) {
-			return ResultData.from("F-1", Ut.f("%d번 게시글은 없거던", id));
-		}
-
-		return ResultData.from("S-1", Ut.f("%d번 게시글", id), article);
+		model.addAttribute("article", article);
+//		if (article == null) {
+//			return ResultData.from("F-1", Ut.f("%d번 게시글은 없거던", id));
+//		}
+//
+//		return ResultData.from("S-1", Ut.f("%d번 게시글", id), article);
+		
+		return "/usr/article/detail";
 	}
 
 	@RequestMapping("/usr/article/list")
