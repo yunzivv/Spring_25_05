@@ -12,9 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Article {
-	public Article(String title, String body) {
+	public Article(String title, String body, int writerId) {
 		this.title = title;
 		this.body = body;
+		this.writerId = writerId;
 	}
 
 	private int id;
@@ -22,4 +23,5 @@ public class Article {
 	private LocalDateTime updateDate;
 	private String title;
 	private String body;
+	private int writerId;
 }
