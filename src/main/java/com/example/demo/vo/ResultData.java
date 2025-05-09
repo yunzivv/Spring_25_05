@@ -7,30 +7,38 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResultData { // 표준 데이터가 지켜야할 사항
-	
-	@Getter
-	private String ResultCode; // 성공 여부
-	@Getter
-	private Object msg; // 메세지
-	@Getter
-	private Object data; // 추가 데이터
 
-	public static ResultData from(String ResultCode, Object msg) {
+public class ResultData<DT> {
 
+	@Getter
+	private String ResultCode;
+	@Getter
+	private String msg;
+	@Getter
+	private DT data1;
+
+	public static <DT> ResultData<DT> from(String ResultCode, String msg) {
 		return from(ResultCode, msg, null);
 	}
 
-	public static ResultData from(String ResultCode, Object msg, Object data) {
+	public static <DT> ResultData<DT> from(String ResultCode, String msg, DT data) {
+		ResultData<DT> rd = new ResultData<DT>();
+		rd.ResultCode = ResultCode;
+		rd.msg = msg;
+		rd.data1 = data;
 
-		return new ResultData(ResultCode, msg, data);
+		return rd;
 	}
-	
-	public boolean isSuccess() { // is로 시작하는 함수는 자동으로 필드가 만들어진다.
-		return ResultCode.startsWith("S");
+
+	public boolean isSuccess() {
+		return ResultCode.startsWith("S-");
 	}
-	
-	public boolean isFailed() {
-		return !isSuccess();
+
+	public boolean isFail() {
+		return isSuccess() == false;
+	}
+
+	public static <DT> ResultData<DT> newData(ResultData rd, DT newData) {
+		return from(rd.getResultCode(), rd.getMsg(), newData);
 	}
 }

@@ -13,6 +13,7 @@ import com.example.demo.vo.Article;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import util.Ut;
 
@@ -36,13 +37,16 @@ public class UsrArticleController {
 		return ResultData.from("S-1", Ut.f("%d번 게시글", id), article);
 	}
 
-	@RequestMapping("/usr/article/getArticles")
-	@ResponseBody
-	public ResultData getArticles() {
+	@RequestMapping("/usr/article/list")
+	public String getArticles(HttpServletRequest request) {
 
 		List<Article> articles = articleService.getArticles();
 
-		return ResultData.from("S-2", Ut.f("게시글 목록"), articles);
+//		return ResultData.from("S-2", Ut.f("게시글 목록"), articles);
+		ResultData rd = ResultData.from("S-2", Ut.f("게시글 목록"), articles);
+		request.setAttribute("rd", rd);
+		
+		return "/usr/article/list";
 	}
 
 	@RequestMapping("/usr/article/doWrite")
@@ -64,6 +68,7 @@ public class UsrArticleController {
 		return ResultData.from("S-3", Ut.f("게시글 %d 번 작성 완료", articleService.getLastInsertId()), article);
 	}
 
+	// 로그인 체크 -> 유무 체크 -> 권한 체크
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public ResultData doModify(HttpSession session, int id, String title, String body) {
@@ -81,7 +86,7 @@ public class UsrArticleController {
 		}
 
 		if (article.getWriterId() != member.getId())
-			return ResultData.from("F-5", "권한 없음");
+			return ResultData.from("F-A", "권한 없음");
 
 		articleService.modifyArticle(id, title, body);
 
@@ -105,7 +110,7 @@ public class UsrArticleController {
 		}
 
 		if (article.getWriterId() != member.getId())
-			return ResultData.from("F-5", "권한 없음");
+			return ResultData.from("F-A", "권한 없음");
 
 		articleService.deleteArticle(id);
 
