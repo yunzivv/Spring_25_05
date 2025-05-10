@@ -1,0 +1,44 @@
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import="com.example.demo.vo.ResultData"%>
+<%@page import="com.example.demo.vo.Article"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+body {
+ text-align: center;
+}
+</style>
+<title>Article List</title>
+</head>
+<body>
+	<h2>article list</h2>
+	<div class="w-8/12 mx-auto my-4 border-solid border bg-red-300">
+		<table class="w-full text-sm text-center rtl:text-right text-neutral-800 text-neutral-400">
+				<thead class="text-base text-neutral-200 bg-neutral-800">
+					<tr>
+						<th scope="col" class="px-5 py-3">NO</th>
+						<th scope="col" class="px-5 py-3 w-3/5">TITLE</th>
+						<th scope="col" class="px-5 py-3">WRITER</th>
+						<th scope="col" class="px-5 py-3">REGISTATION DATE</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="article" items="${articles }">
+					<tr class="border-b bg-neutral-100 border-neutral-300 text-neutral-500">
+						<td class="px-5 py-3">${article.id }</td>
+						<td><a class="block text-left pl-6" href="detail?id=${article.id }">${article.title }</td>
+						<td class="px-5 py-3">${article.writerId }</td>
+						<td class="px-5 py-3">${article.regDate.toString().substring(0, 10) }</td>
+					</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+	</div>
+<script src="https://cdn.tailwindcss.com"></script>
+</body>
+</html>
