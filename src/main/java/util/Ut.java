@@ -27,4 +27,42 @@ public class Ut {
 		return String.format(str, args);
 	}
 
+	public static String isReplace(String resultCode, String msg, String replaceUri) {
+		
+		if(resultCode == null) resultCode = "";
+		if(msg == null) msg = "";
+		if(replaceUri == null) msg = "/";
+		
+		String resultMsg = resultCode + " : " + msg;
+		
+		return Ut.f("""
+				<script>
+					let resultMsg = '%s'.trim();
+
+					if(resultMsg.length > 0){
+						alert(resultMsg);
+					}
+
+					location.replace('%s');
+				</script>
+				""", resultMsg, replaceUri);
+	}
+
+	public static String isHistoryBack(String resultCode, String msg) {
+		
+		String resultMsg = resultCode + " : " + msg;
+		
+		return Ut.f("""
+				<script>
+					let resultMsg = '%s'.trim();
+
+					if(resultMsg.length > 0){
+						alert(resultMsg);
+					}
+
+					history.back();
+				</script>
+				""", resultMsg);
+	}
+
 }

@@ -22,23 +22,26 @@
 		
 			<div class="title text-3xl font-medium">${article.title }</div>
 			
-			<div class="articleInfo flex justify-between my-2">
+			<div class="articleInfo flex my-2">
 				<div class="writeInfo text-neutral-800 m-1">
-					<span> 작성 일자 : ${article.regDate.toString().substring(0, 10)} </span>
+					<span> 작성 일자 : ${article.regDate.toString().substring(0, 10)} &nbsp;</span>
 					<span> 작성자 : ${article.extra_writer } </span>
 				</div>
 
+				<div class="flex-grow"></div>
+				<div class="btn-box">
 				<c:if test="${article.userCanModify}">
-					<div class="articleBtn">
-						<button class="mx-1">
-							<a href="modify?id=${article.id}">modify</a>
-						</button>
-						<button class="mx-1">
-							<a onclick="return confirm('정말 삭제할거야? ㅠㅠ😢?');" 
-								href="doDelete?id=${article.id}">delete</a>
-						</button>
-					</div>
+					<button class="mx-1">
+						<a href="modify?id=${article.id}">modify</a>
+					</button>
 				</c:if>
+				<c:if test="${article.userCanDelete}">
+					<button class="mx-1">
+						<a onclick="return confirm('정말 삭제할거야? ㅠㅠ😢?');" 
+							href="doDelete?id=${article.id}">delete</a>
+					</button>
+				</c:if>
+				</div>
 				
 			</div>
 		</div>
