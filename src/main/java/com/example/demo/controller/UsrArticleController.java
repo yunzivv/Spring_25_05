@@ -102,11 +102,11 @@ public class UsrArticleController {
 	// 로그인 체크 -> 유무 체크 -> 권한 체크
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData doModify(int id, String title, String body) {
+	public String doModify(int id, String title, String body) {
 
 		articleService.modifyArticle(id, title, body);
 
-		return ResultData.from("S-4", Ut.f("게시글 %d번 수정 완료", id),articleService.getArticleById(id));
+		return Ut.jsReplace("S-1", Ut.f("게시글 %d번 수정 완료", id), Ut.f("../article/detail?id=%d", id));
 	}
 
 	@RequestMapping("/usr/article/doDelete")
