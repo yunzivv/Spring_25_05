@@ -26,10 +26,14 @@ public class UsrArticleController {
 
 	// 액션메서드
 	@RequestMapping("/usr/article/detail")
-	public String getArticle(Model model, int id) {
+	public String getArticle(Model model, HttpSession session, int id) {
 
 		Article article = articleService.getArticleById(id);
 		model.addAttribute("article", article);
+		
+		Member member = (Member) session.getAttribute("loginedMember");
+		if(member == null) model.addAttribute("memberId", -1);
+		else model.addAttribute("memberId", member.getId());
 //		if (article == null) {
 //			return ResultData.from("F-1", Ut.f("%d번 게시글은 없거던", id));
 //		}

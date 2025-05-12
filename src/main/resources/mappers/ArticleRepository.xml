@@ -30,14 +30,20 @@
 
 	<select id="getArticleById" parameterType="int"
 		resultType="com.example.demo.vo.Article">
-		SELECT * FROM article
-		WHERE id = #{id}
+		SELECT A.*, M.name as extra_writerName
+		FROM article A
+		JOIN `member` M
+		ON A.writerId = M.id
+		WHERE A.id = #{id}
 	</select>
 
 	<select id="getArticles"
 		resultType="com.example.demo.vo.Article">
-		SELECT * FROM article
-		ORDER BY id DESC
+		SELECT A.*, M.name as extra_writerName
+		FROM article A
+		JOIN `member` M
+		ON A.writerId = M.id
+		ORDER BY A.id DESC
 	</select>
 	
 	<select id="getLastInsertId" parameterType="int">

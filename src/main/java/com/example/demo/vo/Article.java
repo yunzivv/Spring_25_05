@@ -24,4 +24,6 @@ public class Article {
 	private String title;
 	private String body;
 	private int writerId;
+	
+	private String extra_writerName;
 }

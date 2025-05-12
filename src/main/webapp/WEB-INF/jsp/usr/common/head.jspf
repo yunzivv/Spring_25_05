@@ -25,12 +25,17 @@
 			<ul class="menu flex">
 				<li class="hover:underline hover:text-neutral-300"><a id="menu-list" class="block px-6" href="/">HOME</a></li>
 				<li class="hover:underline hover:text-neutral-300"><a class="block px-6" href="../article/list">LIST</a></li>
+				<li class="hover:underline hover:text-neutral-300"><a class="block px-6" href="../article/list">LOGIN</a></li>
 			</ul>
 		</div>		
 	</div>
 		
+<!-- 테일윈드 -->
 <script src="https://cdn.tailwindcss.com"></script>
+<!-- 폰트어썸 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<!-- 제이쿼리 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </body>
 </html>
