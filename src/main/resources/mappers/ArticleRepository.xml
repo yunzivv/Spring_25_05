@@ -30,7 +30,14 @@
 
 	<select id="getArticleById" parameterType="int"
 		resultType="com.example.demo.vo.Article">
-		SELECT A.*, M.name as extra_writerName
+		SELECT *
+		FROM article
+		WHERE id = #{id}
+	</select>
+	
+	<select id="getArticleForPrint" parameterType="int"
+		resultType="com.example.demo.vo.Article">
+		SELECT A.*, M.nickName as extra_writer
 		FROM article A
 		JOIN `member` M
 		ON A.writerId = M.id
@@ -39,7 +46,7 @@
 
 	<select id="getArticles"
 		resultType="com.example.demo.vo.Article">
-		SELECT A.*, M.name as extra_writerName
+		SELECT A.*, M.nickName as extra_writer
 		FROM article A
 		JOIN `member` M
 		ON A.writerId = M.id

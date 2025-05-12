@@ -25,15 +25,13 @@
 			<div class="articleInfo flex justify-between my-2">
 				<div class="writeInfo text-neutral-800 m-1">
 					<span> 작성 일자 : ${article.regDate.toString().substring(0, 10)} </span>
-					<span> 작성자 : ${article.extra_writerName } </span>
-					${memberId }
-					${article.writerId }
+					<span> 작성자 : ${article.extra_writer } </span>
 				</div>
 
-				<c:if test="${memberId eq article.writerId}">
+				<c:if test="${article.userCanModify}">
 					<div class="articleBtn">
 						<button class="mx-1">
-							<a href="doModify?id=${article.id}">modify</a>
+							<a href="modify?id=${article.id}">modify</a>
 						</button>
 						<button class="mx-1">
 							<a onclick="return confirm('정말 삭제할거야? ㅠㅠ😢?');" 

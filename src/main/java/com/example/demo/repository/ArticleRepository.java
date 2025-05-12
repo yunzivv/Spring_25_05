@@ -26,8 +26,11 @@ public interface ArticleRepository {
 
 //	@Select("SELECT * FROM article WHERE id = #{id}")
 	public Article getArticleById(int id);
+	
+//	@Select("SELECT A.*, M.name as extra_writerName FROM article A JOIN `member` M ON A.writerId = M.id WHERE A.id = #{id}")
+	public Article getArticleForPrint(int id);
 
-//	@Select("SELECT * FROM article ORDER BY id DESC")
+//	@Select("SELECT A.*, M.name as extra_writerName FROM article A JOIN `member` M ON A.writerId = M.id ORDER BY A.id DESC")
 	public List<Article> getArticles();
 
 //  @Select("SELECT LAST_INSERT_ID();")

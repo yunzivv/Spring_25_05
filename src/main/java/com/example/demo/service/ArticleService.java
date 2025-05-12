@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.ArticleRepository; 
 import com.example.demo.vo.Article;
+import com.example.demo.vo.ResultData;
+
+import util.Ut;
 
 @Service
 public class ArticleService {
@@ -17,6 +20,7 @@ public class ArticleService {
 	public ArticleService(ArticleRepository articleRepository) {
 		this.articleRepository = articleRepository;
 	}
+
 	
 	public int getLastInsertId() {
 		return articleRepository.getLastInsertId();
@@ -41,6 +45,33 @@ public class ArticleService {
 
 	public List<Article> getArticles() {
 		return articleRepository.getArticles();
+	}
+
+	public Article getArticleForPrint(int id, int loginedMemberId) {
+		
+		Article article = articleRepository.getArticleForPrint(id);
+
+		updateForPrintData(loginedMemberId, article);
+	    
+		return article;
+	}
+	
+	private void updateForPrintData(int loginedMemberId, Article article) {
+		if (article == null) {
+			return;
+		}
+
+		ResultData userCanModifyRd = userCanModify(loginedMemberId, article);
+		article.setUserCanModify(userCanModifyRd.isSuccess());
+	}
+	
+	public ResultData userCanModify(int loginedMemberId, Article article) {
+
+		if (article.getWriterId() != loginedMemberId) {
+			return ResultData.from("F-A", Ut.f("%d번 게시글 권한 없음", article.getId()));
+		}
+
+		return ResultData.from("S-1", Ut.f("%d번 게시글 권한 있음", article.getId()));
 	}
 
 }

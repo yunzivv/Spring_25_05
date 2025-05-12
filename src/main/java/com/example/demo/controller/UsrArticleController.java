@@ -28,17 +28,16 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String getArticle(Model model, HttpSession session, int id) {
 
-		Article article = articleService.getArticleById(id);
-		model.addAttribute("article", article);
+		boolean isLogined = false;
+		int loginedMemberId = 0;
 		
-		Member member = (Member) session.getAttribute("loginedMember");
-		if(member == null) model.addAttribute("memberId", -1);
-		else model.addAttribute("memberId", member.getId());
-//		if (article == null) {
-//			return ResultData.from("F-1", Ut.f("%d번 게시글은 없거던", id));
-//		}
-//
-//		return ResultData.from("S-1", Ut.f("%d번 게시글", id), article);
+		if (session.getAttribute("loginedMemberId") != null) {
+			isLogined = true;
+			loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		}
+		
+		Article article = articleService.getArticleForPrint(id, loginedMemberId);
+		model.addAttribute("article", article); // article 필드에 article 정보, 접근 권한까지 포함되어있음
 		
 		return "/usr/article/detail";
 	}
@@ -74,12 +73,9 @@ public class UsrArticleController {
 		Article article = articleService.writeArticle(title, body, member.getId());
 		return ResultData.from("S-3", Ut.f("게시글 %d 번 작성 완료", articleService.getLastInsertId()), article);
 	}
-
-	// 로그인 체크 -> 유무 체크 -> 권한 체크
-	@RequestMapping("/usr/article/doModify")
-	@ResponseBody
-	public ResultData doModify(HttpSession session, int id, String title, String body) {
-
+	
+	@RequestMapping("/usr/article/modify")
+	public Object modify(Model model, HttpSession session, int id, String title, String body) {
 		Member member = (Member) session.getAttribute("loginedMember");
 
 		if (member == null) {
@@ -95,9 +91,19 @@ public class UsrArticleController {
 		if (article.getWriterId() != member.getId())
 			return ResultData.from("F-A", "권한 없음");
 
+		model.addAttribute("article", article);
+		
+		return "/usr/article/modify";
+	}
+
+	// 로그인 체크 -> 유무 체크 -> 권한 체크
+	@RequestMapping("/usr/article/doModify")
+	@ResponseBody
+	public ResultData doModify(int id, String title, String body) {
+
 		articleService.modifyArticle(id, title, body);
 
-		return ResultData.from("S-4", Ut.f("게시글 %d번 수정 완료", id), article);
+		return ResultData.from("S-4", Ut.f("게시글 %d번 수정 완료", id),articleService.getArticleById(id));
 	}
 
 	@RequestMapping("/usr/article/doDelete")

@@ -26,7 +26,7 @@
 					<tr class="border-b bg-neutral-100 border-neutral-300">
 						<td class="px-5 py-3">${article.id }</td>
 						<td><a class="block text-left pl-6 hover:underline" href="detail?id=${article.id }">${article.title }</td>
-						<td class="px-5 py-3">${article.extra_writerName }</td>
+						<td class="px-5 py-3">${article.extra_writer }</td>
 						<td class="px-5 py-3">${article.regDate.toString().substring(0, 10) }</td>
 					</tr>
 					</c:forEach>

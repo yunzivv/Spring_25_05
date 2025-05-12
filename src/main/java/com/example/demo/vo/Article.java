@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -25,5 +26,7 @@ public class Article {
 	private String body;
 	private int writerId;
 	
-	private String extra_writerName;
+	private String extra_writer;
+	private boolean userCanModify;
+
 }
