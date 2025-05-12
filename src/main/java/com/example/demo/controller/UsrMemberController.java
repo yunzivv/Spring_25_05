@@ -44,35 +44,40 @@ public class UsrMemberController {
 		return ResultData.from("S-1",  Ut.f("%d번 회원 가입 완료.", id), member);
 	}
 	
+	@RequestMapping("/usr/member/login")
+	public String login() {
+		return "/usr/member/login";
+	}
+	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public ResultData doLogin(HttpSession session, String loginId, String loginPw) {
+	public String doLogin(HttpSession session, String loginId, String loginPw) {
 
-		if((Member)session.getAttribute("loginedMember") != null) return ResultData.from("F-10",  "이미 로그인 되어있음");
+		if((Member)session.getAttribute("loginedMember") != null) return Ut.jsHistoryBack("F-A", "이미 로그인 함");
 		
-		if(Ut.isEmpty(loginId)) return ResultData.from("F-1", "아이디를 입력하세요.");
-		if(Ut.isEmpty(loginPw)) return ResultData.from("F-1", "비밀번호를 입력하세요.");
+		if(Ut.isEmpty(loginId)) return Ut.jsHistoryBack("F-1", "아이디 입력해주세요");
+		if(Ut.isEmpty(loginPw)) return Ut.jsHistoryBack("F-2", "비밀번호 입력햇주세요");
 		
 		Member member = memberService.doLogin(loginId);
-		if(member == null) return ResultData.from("F-9", "존재하지 않는 아이디입니다.");
-		if(!member.getLoginPw().equals(loginPw)) return ResultData.from("F-5", "올바르지 않은 비밀번호 입니다.");
+		if(member == null) return Ut.jsHistoryBack("F-3", "존재하지 않는 아이디에요");
+		if(!member.getLoginPw().equals(loginPw)) return Ut.jsHistoryBack("F-A", "올바르지 않은 비밀번호에요");
 	
 		session.setAttribute("loginedMember", member);
 		session.setAttribute("loginedMemberId", member.getId());
 		
-		return ResultData.from("S-2",  Ut.f("%s님 로그인 되었습니다.", member.getName()), member);
+		return Ut.jsReplace("S-1", Ut.f("%s님 로그인 되었긔", member.getNickName()), "/");
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public ResultData doLogout(HttpSession session) {
+	public String doLogout(HttpSession session) {
 
-		if((Member)session.getAttribute("loginedMember") == null) return ResultData.from("F-10",  "이미 로그아웃 되어있음");
+		if((Member)session.getAttribute("loginedMember") == null) return Ut.jsHistoryBack("F-1", "이미 로그아웃 함");
 		
 		session.removeAttribute("loginedMember");
 		session.removeAttribute("loginedMemberId");
 		
-		return ResultData.from("S-3", "로그아웃 되었습니다.");
+		return Ut.jsReplace("S-1", "로그아웃 되었습니다", "/");
 		
 	}
 

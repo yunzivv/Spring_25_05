@@ -15,7 +15,7 @@
 	</span>
 </div>
 	<div class="border bg-neutral-100 border-neutral-400 rounded-3xl px-8 py-5">
-		<form action="doModify" method="POST">
+		<form action="../member/doModify" method="POST">
 			<div style="display: flex; flex-direction: column; justify-content: center;">
 				<input type="hidden" name="id" value="${article.id}">
 				제목

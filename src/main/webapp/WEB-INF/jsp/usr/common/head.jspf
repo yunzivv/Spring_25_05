@@ -25,7 +25,14 @@
 			<ul class="menu flex">
 				<li class="hover:underline hover:text-neutral-300"><a id="menu-list" class="block px-6" href="/">HOME</a></li>
 				<li class="hover:underline hover:text-neutral-300"><a class="block px-6" href="../article/list">LIST</a></li>
-				<li class="hover:underline hover:text-neutral-300"><a class="block px-6" href="../article/list">LOGIN</a></li>
+				<c:if test="${!rq.isLogined() }">
+					<li><a class="hover:underline" href="../member/login">LOGIN</a></li>
+				</c:if>
+				<c:if test="${rq.isLogined() }">
+					<li>
+						<a onclick="return confirm('로그아웃 하시겠습니까?');" class="hover:underline" href="../member/doLogout">LOGOUT</a>
+					</li>
+				</c:if>
 			</ul>
 		</div>		
 	</div>

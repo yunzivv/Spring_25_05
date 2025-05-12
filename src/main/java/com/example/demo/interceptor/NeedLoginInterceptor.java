@@ -17,7 +17,6 @@ public class NeedLoginInterceptor implements HandlerInterceptor{
 		Rq rq = (Rq) req.getAttribute("rq");
 		
 		if(!rq.isLogined()) {
-			System.out.println("login first");
 			rq.printHistoryBack("login first");
 			return false;
 		}
