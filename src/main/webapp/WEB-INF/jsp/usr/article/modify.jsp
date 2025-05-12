@@ -18,13 +18,15 @@
 		<form action="doModify" method="POST">
 			<div style="display: flex; flex-direction: column; justify-content: center;">
 				<input type="hidden" name="id" value="${article.id}">
-				<section>
-					<input type="text" name="title" value="${article.title}">
-				</section>
+				제목
+				<div class="border border-neutral-500 border-solid rounded-md p-1">
+					<input class="w-full" type="text" name="title" value="${article.title}">
+				</div>
 				<br>
-				<section>
-					<textarea name="body">${article.body}</textarea>
-				</section>
+				내용
+				<div class="border border-neutral-500 border-solid rounded-md p-1">
+					<textarea class="w-full"  name="body">${article.body}</textarea>
+				</div>
 				<br>
 				<div class="flex justify-end">
 					<button class="border border-neutral-400 rounded-lg px-3 py-2 hover:bg-neutral-300" 

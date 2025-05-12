@@ -27,7 +27,7 @@ public class Ut {
 		return String.format(str, args);
 	}
 
-	public static String isReplace(String resultCode, String msg, String replaceUri) {
+	public static String jsReplace(String resultCode, String msg, String replaceUri) {
 		
 		if(resultCode == null) resultCode = "";
 		if(msg == null) msg = "";
@@ -48,7 +48,7 @@ public class Ut {
 				""", resultMsg, replaceUri);
 	}
 
-	public static String isHistoryBack(String resultCode, String msg) {
+	public static String jsHistoryBack(String resultCode, String msg) {
 		
 		String resultMsg = resultCode + " : " + msg;
 		

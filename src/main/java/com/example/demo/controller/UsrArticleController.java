@@ -13,6 +13,7 @@ import com.example.demo.service.ArticleService;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
+import com.example.demo.vo.Rq;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -75,26 +76,32 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/modify")
-	public Object modify(Model model, HttpSession session, int id, String title, String body) {
-		Member member = (Member) session.getAttribute("loginedMember");
-
-		if (member == null) {
-			return ResultData.from("F-3", "로그인 후 가능");
+	public String modify(Model model, HttpServletRequest req, int id, String title, String body) {
+		
+		Rq rq = new Rq(req);
+		
+		if (rq.isLogined() == false) {
+			return Ut.jsReplace("F-3", "로그인 후 이용", "../member/doLogin");
 		}
 
 		Article article = articleService.getArticleById(id);
 
 		if (article == null) {
-			return ResultData.from("F-1", Ut.f("%d번 게시글은 없거던", id));
+			ResultData.from("F-1", Ut.f("%d번 게시글은 없거던", id));
+			return "/usr/article/list";
+//			return Ut.isHistoryBack("F-1", Ut.f("%d 번 게시물은 없으시오", id));
 		}
 
-		if (article.getWriterId() != member.getId())
-			return ResultData.from("F-A", "권한 없음");
-
+		if (article.getWriterId() != rq.getLoginedMemberId()) {
+			ResultData.from("F-A", "권한 없음");
+			return "/usr/article/list";
+//			return Ut.isHistoryBack("F-A", Ut.f("%d번 게시물에 대한 권한이 업습", id));
+		}
+		
 		model.addAttribute("article", article);
 		
 		return "/usr/article/modify";
-	}
+	} 
 
 	// 로그인 체크 -> 유무 체크 -> 권한 체크
 	@RequestMapping("/usr/article/doModify")
@@ -108,29 +115,28 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public String doDelete(HttpSession session, int id) {
+	public String doDelete(HttpServletRequest req, int id) {
 
-		Member member = (Member) session.getAttribute("loginedMember");
-
-		if (member == null) {
-			ResultData.from("F-3", "로그인 후 가능");
-			return Ut.isReplace("F-A", "로그인 후 이용", "../member/login");
+		Rq rq = new Rq(req);
+		
+		if (rq.isLogined() == false) {
+			return Ut.jsReplace("F-3", "로그인 후 이용", "../member/doLogin");
 		}
 
 		Article article = articleService.getArticleById(id);
 
 		if (article == null) {
 			ResultData.from("F-1", Ut.f("%d번 게시글은 없거던", id));
-			return Ut.isHistoryBack("F-1", Ut.f("%d 번 게시물은 없으시오", id));
+			return Ut.jsHistoryBack("F-1", Ut.f("%d 번 게시물은 없으시오", id));
 		}
 
-		if (article.getWriterId() != member.getId()) {
+		if (article.getWriterId() != rq.getLoginedMemberId()) {
 			ResultData.from("F-A", "권한 없음");
-			return Ut.isHistoryBack("F-2", Ut.f("%d번 게시물에 대한 권한이 업습", id));
+			return Ut.jsHistoryBack("F-A", Ut.f("%d번 게시물에 대한 권한이 업습", id));
 		}
 
 		articleService.deleteArticle(id);
 
-		return  Ut.isReplace("S-1", Ut.f("%d번 게시물 삭제 완료", id), "../article/list");
+		return  Ut.jsReplace("S-1", Ut.f("%d번 게시물 삭제 완료", id), "../article/list");
 	}
 }
