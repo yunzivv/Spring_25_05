@@ -77,8 +77,8 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/modify")
 	public String modify(Model model, HttpServletRequest req, int id, String title, String body) {
-		
-		Rq rq = new Rq(req);
+
+		Rq rq =(Rq) req.getAttribute("rq");
 		
 		if (rq.isLogined() == false) {
 			return Ut.jsReplace("F-3", "로그인 후 이용", "../member/doLogin");
@@ -117,7 +117,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public String doDelete(HttpServletRequest req, int id) {
 
-		Rq rq = new Rq(req);
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		if (rq.isLogined() == false) {
 			return Ut.jsReplace("F-3", "로그인 후 이용", "../member/doLogin");
