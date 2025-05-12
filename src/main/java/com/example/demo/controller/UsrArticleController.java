@@ -27,17 +27,19 @@ public class UsrArticleController {
 
 	// 액션메서드
 	@RequestMapping("/usr/article/detail")
-	public String getArticle(Model model, HttpSession session, int id) {
+	public String getArticle(Model model, HttpServletRequest req, int id) {
 
-		boolean isLogined = false;
-		int loginedMemberId = 0;
+		Rq rq = (Rq) req.getAttribute("rq");
 		
-		if (session.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-			loginedMemberId = (int) session.getAttribute("loginedMemberId");
-		}
+//		boolean isLogined = false;
+//		int loginedMemberId = 0;
+//		
+//		if (rq.getLoginedMemberId() != 0) {
+//			isLogined = true;
+//			loginedMemberId = (int) rq.getLoginedMemberId();
+//		}
 		
-		Article article = articleService.getArticleForPrint(id, loginedMemberId);
+		Article article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
 		model.addAttribute("article", article); // article 필드에 article 정보, 접근 권한까지 포함되어있음
 		
 		return "/usr/article/detail";
@@ -63,17 +65,18 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(HttpSession session, String title, String body) {
+	public String doWrite(HttpServletRequest req, String title, String body) {
 
-		Member member = (Member) session.getAttribute("loginedMember");
+		Rq rq = (Rq) req.getAttribute("rq");
 
 		if (Ut.isEmpty(title))
 			return Ut.jsHistoryBack("F-2", "제목 좀 써");
 		if (Ut.isEmpty(body))
 			return Ut.jsHistoryBack("F-2", "내용 좀 써");
 
-		Article article = articleService.writeArticle(title, body, member.getId());
+		Article article = articleService.writeArticle(title, body, rq.getLoginedMemberId());
 		int id = articleService.getLastInsertId();
+		
 		return Ut.jsReplace("S-1", Ut.f("게시글 %d 번 작성 완료", id), Ut.f("../article/detail?id=%d", id));
 	}
 	
@@ -84,20 +87,18 @@ public class UsrArticleController {
 
 		Article article = articleService.getArticleById(id);
 
+		// 권한이 없다면 이전 페이지로 돌아가야하고,
 		if (article == null) {
-			ResultData.from("F-1", Ut.f("%d번 게시글은 없거던", id));
-			return "/usr/article/list";
-//			return Ut.isHistoryBack("F-1", Ut.f("%d 번 게시물은 없으시오", id));
+			return Ut.jsHistoryBack("F-1", Ut.f("%d 번 게시물은 없으시오", id));
 		}
 
 		if (article.getWriterId() != rq.getLoginedMemberId()) {
-			ResultData.from("F-A", "권한 없음");
-			return "/usr/article/list";
-//			return Ut.isHistoryBack("F-A", Ut.f("%d번 게시물에 대한 권한이 업습", id));
+			return Ut.jsHistoryBack("F-A", "권한 없음");
 		}
 		
 		model.addAttribute("article", article);
 		
+		// 권한이 있다면 수정페이지로 돌아가야한다.
 		return "/usr/article/modify";
 	} 
 
@@ -108,7 +109,7 @@ public class UsrArticleController {
 
 		articleService.modifyArticle(id, title, body);
 
-		return Ut.jsReplace("S-1", Ut.f("게시글 %d번 수정 완료", id), Ut.f("../article/detail?id=%d", id));
+		return Ut.jsReplace("S-1",Ut.f("%d 번 게시물 수정 완료", id), Ut.f("../article/detail?id=%d", id));
 	}
 
 	@RequestMapping("/usr/article/doDelete")
