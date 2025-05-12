@@ -55,24 +55,26 @@ public class UsrArticleController {
 		
 		return "/usr/article/list";
 	}
+	
+	@RequestMapping("/usr/article/write")
+	public String write() {
+		return "/usr/article/write";
+	}
 
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public ResultData doWrite(HttpSession session, String title, String body) {
-
-		if ((Member) session.getAttribute("loginedMember") == null) {
-			return ResultData.from("F-3", "로그인 후 가능", Ut.f("logined : %b", session.getAttribute("isLogined")));
-		}
+	public String doWrite(HttpSession session, String title, String body) {
 
 		Member member = (Member) session.getAttribute("loginedMember");
 
 		if (Ut.isEmpty(title))
-			return ResultData.from("F-2", "제목 써");
+			return Ut.jsHistoryBack("F-2", "제목 좀 써");
 		if (Ut.isEmpty(body))
-			return ResultData.from("F-2", "내용 써");
+			return Ut.jsHistoryBack("F-2", "내용 좀 써");
 
 		Article article = articleService.writeArticle(title, body, member.getId());
-		return ResultData.from("S-3", Ut.f("게시글 %d 번 작성 완료", articleService.getLastInsertId()), article);
+		int id = articleService.getLastInsertId();
+		return Ut.jsReplace("S-1", Ut.f("게시글 %d 번 작성 완료", id), Ut.f("../article/detail?id=%d", id));
 	}
 	
 	@RequestMapping("/usr/article/modify")
