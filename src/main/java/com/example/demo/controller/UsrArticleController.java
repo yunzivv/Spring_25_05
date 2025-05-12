@@ -79,10 +79,6 @@ public class UsrArticleController {
 	public String modify(Model model, HttpServletRequest req, int id, String title, String body) {
 
 		Rq rq =(Rq) req.getAttribute("rq");
-		
-		if (rq.isLogined() == false) {
-			return Ut.jsReplace("F-3", "로그인 후 이용", "../member/doLogin");
-		}
 
 		Article article = articleService.getArticleById(id);
 

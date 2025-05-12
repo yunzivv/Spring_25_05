@@ -9,13 +9,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component // component로 만드는 게 규칙
-public class BeforeActionInterceptor implements HandlerInterceptor{
+public class NeedLoginInterceptor implements HandlerInterceptor{
 	
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception { 
 		
-		Rq rq = new Rq(req, resp);
-		req.setAttribute("rq", rq);
+		Rq rq = (Rq) req.getAttribute("rq");
+		
+		if(!rq.isLogined()) {
+			System.out.println("login first");
+			rq.printHistoryBack("login first");
+			return false;
+		}
 		
 		return HandlerInterceptor.super.preHandle(req, resp, handler);
 	}
