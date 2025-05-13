@@ -86,7 +86,7 @@ INSERT INTO board SET
 	regDate = NOW(),
 	updateDate = NOW(),
 	`code` = 'notice',
-	`name` = '공지사항'
+	`name` = '공지사항';
 	
 INSERT INTO board SET 
 	regDate = NOW(),
@@ -98,7 +98,7 @@ INSERT INTO board SET
 	regDate = NOW(),
 	updateDate = NOW(),
 	`code` = 'QnA',
-	`name` = '질의응답'
+	`name` = '질의응답';
 	
 SELECT * FROM board;
 

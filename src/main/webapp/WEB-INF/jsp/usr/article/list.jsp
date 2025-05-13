@@ -20,6 +20,7 @@
 				  <select name="boardId" id="boardId"
 				    class="block flex justify-center items-center h-8 px-8 border border-solid border-neutral-500 rounded-lg overflow-hidden">
 				    <option value="0" disabled selected hidden class="text-neutral-400">게시판 선택</option>
+				    <option value="0">전체 게시판</option>
 				    <option value="1">공지사항</option>
 				    <option value="2">자유 게시판</option>
 				    <option value="3">질문과 답변</option>
