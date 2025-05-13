@@ -11,17 +11,17 @@
 	<div class="container mx-auto mt-8 w-3/5">
 
 
-		<div class="text-4xl text-neutral-800 px-14 py-6">Article Write</div>
+		<div class="text-4xl text-neutral-800 px-1 py-6">Article Write</div>
 
 
 		<form action="doWrite" method="POST" class="w-full">
 			<div style="display: flex; flex-direction: column; justify-content: center;">
 				<section>
-					<input class="p-2 border border-neutral-200 border-solid rounded-md" type="text" name="title" placeholder="제목을 입력하세요" />
+					<input class="w-full p-2 border border-neutral-500 border-solid rounded-md " type="text" name="title" placeholder="제목을 입력하세요" />
 				</section>
 				<br>
 				<section>
-					<textarea class="p-2 h-96 border border-neutral-200 border-solid rounded-md" name="body"
+					<textarea class="resize-none w-full h-96 p-2 border border-neutral-500 border-solid rounded-md" name="body"
 						placeholder="내용을 입력하세요"></textarea>
 				</section>
 				<br>

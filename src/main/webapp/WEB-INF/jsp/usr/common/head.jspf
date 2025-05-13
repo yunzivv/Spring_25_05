@@ -23,15 +23,17 @@
 		<div class="menu-box items-center mr-6 text-4xl text-neutral-800">
 
 			<ul class="menu flex">
-				<li class="hover:underline hover:text-neutral-300"><a id="menu-list" class="block px-6" href="/">HOME</a></li>
-				<li class="hover:underline hover:text-neutral-300"><a class="block px-6" href="../article/list">LIST</a></li>
+				<li class="hover:underline hover:text-neutral-400"><a class="block px-6" href="/">HOME</a></li>
+				<li class="hover:underline hover:text-neutral-400"><a class="block px-6" href="../article/list">LIST</a></li>
 				<c:if test="${!rq.isLogined() }">
-					<li><a class="hover:underline" href="../member/login">LOGIN</a></li>
+					<li class="hover:underline hover:text-neutral-400"><a class="block px-6" href="../member/login">LOGIN</a></li>
+					<li class="hover:underline hover:text-neutral-400"><a class="block px-6" href="../member/join">JOIN</a></li>
 				</c:if>
 				<c:if test="${rq.isLogined() }">
-					<li>
-						<a onclick="return confirm('로그아웃 하시겠습니까?');" class="hover:underline" href="../member/doLogout">LOGOUT</a>
+					<li class="hover:underline hover:text-neutral-400">
+					<a onclick="return confirm('로그아웃 하시겠습니까?');" class="block px-6" href="../member/doLogout">LOGOUT</a>
 					</li>
+					<li class="hover:underline hover:text-neutral-400"><a class="block px-6" href="/">MY PAGE</a></li>
 				</c:if>
 			</ul>
 		</div>		

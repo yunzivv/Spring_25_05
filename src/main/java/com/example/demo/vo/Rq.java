@@ -56,7 +56,6 @@ public class Rq {
 	
 	public void login(Member member) {
 		
-		session.setAttribute("loginedMember", member);
 		session.setAttribute("loginedMemberId", member.getId());
 		System.out.println(session.getAttribute("loginedMemberId"));
 	}

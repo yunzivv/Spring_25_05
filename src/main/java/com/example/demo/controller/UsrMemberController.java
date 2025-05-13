@@ -33,24 +33,24 @@ public class UsrMemberController {
 	// 액션메서드
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public ResultData doJoin(String loginId, String loginPw, String name, String nickName, String cellPhone, String email) {
+	public String doJoin(String loginId, String loginPw, String checkLoginPw, String name, String nickName, String cellPhone, String email) {
 		
-		if(Ut.isEmpty(loginId)) return ResultData.from("F-1", "아이디를 입력하세요");
-		if(Ut.isEmpty(loginPw)) return ResultData.from("F-2", "비밀번호를 입력하세요");
-		if(Ut.isEmpty(name)) return ResultData.from("F-3", "이름을 입력하세요");
-		if(Ut.isEmpty(nickName)) return ResultData.from("F-4", "닉네임을 입력하세요");
-		if(Ut.isEmpty(cellPhone)) return ResultData.from("F-5", "전화번호를 입력하세요");
-		if(Ut.isEmpty(email) || !email.contains("@")) return ResultData.from("F-6", "이메일을 입력하세요");
+		if(Ut.isEmpty(loginId)) return Ut.jsHistoryBack("F-1", "아이디를 쓰시오");
+		if(Ut.isEmpty(loginPw)) return Ut.jsHistoryBack("F-2", "비밀번호를 쓰시오");
+		if(Ut.isEmpty(name)) return Ut.jsHistoryBack("F-3", "이름을 쓰시오");
+		if(Ut.isEmpty(nickName)) return Ut.jsHistoryBack("F-4", "닉네임을 쓰시오");
+		if(Ut.isEmpty(cellPhone)) return Ut.jsHistoryBack("F-5", "전화번호 좀 쓰시오");
+		if(Ut.isEmpty(email) || !email.contains("@")) return Ut.jsHistoryBack("F-6", "이메일 정확히 쓰시오");
+		if(!loginPw.equals(checkLoginPw)) return Ut.jsHistoryBack("F-7", "비밀번호가 일치하지 않소");
 
 		int id = memberService.doJoin(loginId, loginPw, name, nickName, cellPhone, email);
 		
-		if(id == -1) return ResultData.from("F-7", Ut.f("%s는 이미 사용중인 아이디입니다.", loginId));
-		if(id == -2) return ResultData.from("F-8",  Ut.f("이미 사용 중인 이름, 이메일입니다."));
+		if(id == -1) return Ut.jsHistoryBack("F-8", Ut.f("%s는 이미 사용 중인 아이디입니다.", loginId));
+		if(id == -2) return Ut.jsHistoryBack("F-9", Ut.f("이름 %s과 이메일 %s은(는) 이미 사용 중입니다.", loginId, email));
 		
 		Member member = memberService.getMemberById(id);
-		int joinId = member.getId();
 		
-		return ResultData.from("S-1",  Ut.f("%d번 회원 가입 완료.", id), member);
+		return Ut.jsReplace("S-1", Ut.f("%s 님 회원가입을 축하", nickName), "/");
 	}
 	
 	@RequestMapping("/usr/member/login")
