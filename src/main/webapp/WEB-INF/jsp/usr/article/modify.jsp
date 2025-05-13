@@ -19,13 +19,13 @@
 			<div style="display: flex; flex-direction: column; justify-content: center;">
 				<input type="hidden" name="id" value="${article.id}">
 				제목
-				<div class="border border-neutral-500 border-solid rounded-md p-1">
-					<input class="w-full" type="text" name="title" value="${article.title}">
+				<div class="border border-neutral-500 border-solid rounded-md overflow-hidden">
+					<input class="w-full p-2" required="required" type="text" name="title" value="${article.title}">
 				</div>
 				<br>
 				내용
-				<div class="border border-neutral-500 border-solid rounded-md p-1">
-					<textarea class="w-full"  name="body">${article.body}</textarea>
+				<div class="border border-neutral-500 border-solid rounded-md overflow-hidden">
+					<textarea class="w-full p-2"  required="required" name="body">${article.body}</textarea>
 				</div>
 				<br>
 				<div class="flex justify-end">

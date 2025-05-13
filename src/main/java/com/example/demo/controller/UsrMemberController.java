@@ -69,7 +69,7 @@ public class UsrMemberController {
 	@ResponseBody
 	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
 		
-		rq = (Rq) req.getAttribute("rq");
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		if(Ut.isEmpty(loginId)) return Ut.jsHistoryBack("F-1", "아이디 입력해주세요");
 		if(Ut.isEmpty(loginPw)) return Ut.jsHistoryBack("F-2", "비밀번호 입력햇주세요");

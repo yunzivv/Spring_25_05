@@ -54,7 +54,7 @@ public class UsrArticleController {
 //		return ResultData.from("S-2", Ut.f("게시글 목록"), articles);
 //		ResultData rd = ResultData.from("S-2", Ut.f("게시글 목록"), articles);
 	
-		List<Article> articles = articleService.getArticles();
+		List<Article> articles = articleService.getArticles(keyword);
 
 		model.addAttribute("articles", articles);
 		model.addAttribute("keyword", keyword);
@@ -85,7 +85,7 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/modify")
-	public String modify(Model model, HttpServletRequest req, int id, String title, String body) {
+	public String modify(Model model, HttpServletRequest req, int id) { //, String title, String body
 
 		Rq rq =(Rq) req.getAttribute("rq");
 

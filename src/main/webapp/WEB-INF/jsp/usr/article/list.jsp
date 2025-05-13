@@ -9,31 +9,32 @@
 		<span>
 		Article List
 		</span>
-		
-<%-- 		<c:if test="${keyword.length() != 0 }"> --%>
-<%-- 			<input type="text" name="keyword" placeholder="search keyword" class="block flex-grow p-4" value=${keyword }/> --%>
-<%-- 		</c:if> --%>
 			
-		<div class="search-bar px-2 text-sm mt-auto mb-0">
-			<form class="search-box flex text-neutral-400 h-8" action="list" method="POST">
-<!-- 			<div class="mx-2 border rounded-md border-neutral-400 overflow-hidden"> -->
-<!-- 				<input type="date" name="start" class="block h-full p-4"/>  -->
-<!-- 			</div> -->
-<!-- 			<div class="mx-2  border rounded-md border-neutral-400 overflow-hidden"> -->
-<!-- 				<input type="date"  name="end" class="block h-full p-4"/>  -->
-<!-- 			</div> -->
-<!-- 			<div class="flex-grow"></div> -->
-				<div class="border rounded-md border-neutral-400 overflow-hidden mx-2 w-80 flex bg-neutral-800">
-					<input type="text" name="keyword" placeholder="search keyword" class="block flex-grow p-4" value="${not empty keyword ? keyword : ''}"/>
-					<button type="submit">
-						<i class="fa-solid fa-magnifying-glass text-neutral-200 text-xl px-2"></i>
-					</button>
-				</div>
-				<div class="px-2">
-					<a class="block w-28 h-8 text-base flex items-center justify-center font-large bg-neutral-800 text-neutral-200 rounded-md hover:bg-neutral-700" href="write">새 글 작성</a>
-				</div>
+		<div class="search-bar flex justify-between px-2 text-sm mt-auto mb-0">
+			<form class="search-box flex h-8" action="list" method="POST">
+<!-- 				<div class="border rounded-md border-neutral-400 overflow-hidden mx-2 w-80 flex bg-neutral-800"> -->
+<%-- 					<input type="text" name="keyword" placeholder="search keyword" class="block flex-grow p-4" value="${not empty keyword ? keyword : ''}"/> --%>
+<!-- 					<button type="submit"> -->
+<!-- 						<i class="fa-solid fa-magnifying-glass text-neutral-200 text-xl px-2"></i> -->
+<!-- 					</button> -->
+<!-- 				</div> -->
+
+				<label class="input border border-solid border-neutral-500 mx-2 overflow-hidden rounded-md">
+				  <svg class="h-[1em] opacity-70" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+				    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+				      <circle cx="11" cy="11" r="8"></circle>
+				      <path d="m21 21-4.3-4.3"></path>
+				    </g>
+				  </svg>
+				  <input type="text" name="keyword" placeholder="Search"  value="${not empty keyword ? keyword : ''}"/>
+				</label>
 			</form>
+			<button class="btn">
+				<a class="block w-28 h-full text-base flex items-center justify-center font-large bg-neutral-800 text-neutral-200 rounded-md hover:bg-neutral-700" href="write">새 글 작성</a>
+			</button>
 		</div>
+		
+		
 	</div>
 	
 	<div class="mx-auto my-4 border-solid border rounded-xl overflow-hidden">

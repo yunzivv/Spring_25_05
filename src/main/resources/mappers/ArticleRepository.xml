@@ -51,6 +51,11 @@
 		FROM article A
 		JOIN `member` M
 		ON A.writerId = M.id
+		<where>
+	      <if test="keyword != null and keyword != ''">
+	        AND A.title LIKE CONCAT('%', #{keyword}, '%')
+	      </if>
+    	</where>
 		ORDER BY A.id DESC
 	</select>
 	

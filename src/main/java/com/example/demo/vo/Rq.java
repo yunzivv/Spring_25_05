@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -19,59 +20,51 @@ import util.Ut;
 @Setter
 public class Rq {
 
-	private boolean isLogined = false;
-	private int loginedMemberId = 0;
-	
 	private final HttpServletRequest req;
 	private final HttpServletResponse resp;
 	private final HttpSession session;
-	
+
+	private boolean isLogined = false;
+	private int loginedMemberId = 0;
+
 	public Rq(HttpServletRequest req, HttpServletResponse resp) {
-		
 		this.req = req;
 		this.resp = resp;
 		this.session = req.getSession();
 
-		HttpSession httpSession = req.getSession();
-		
-		if(httpSession.getAttribute("loginedMemberId") != null) {
+		if (session.getAttribute("loginedMemberId") != null) {
 			isLogined = true;
-			loginedMemberId = (int)httpSession.getAttribute("loginedMemberId");
+			loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		}
-		
+
 		this.req.setAttribute("rq", this);
 	}
 
 	public void printHistoryBack(String msg) throws IOException {
-		
-		resp.setContentType("text/html; charset=UTF-8");
-		println("<script>");
-		if (!Ut.isEmpty(msg)) {
-			println("alert('" + msg.replace("'", "\\'") + "');");
-		}
-		 println("history.back();");
-		    println("</script>");
-		    resp.getWriter().flush();
-		    resp.getWriter().close();
-
+	    resp.setContentType("text/html; charset=UTF-8");
+	    println("<script>");
+	    if (!Ut.isEmpty(msg)) {
+	    	println("alert('" + msg.replace("'", "\\'") + "');");
+	    }
+	    println("history.back();");
+	    println("</script>");
+	    resp.getWriter().flush();
+	    resp.getWriter().close();
 	}
 
 	private void println(String str) throws IOException {
 		print(str + "\n");
-
 	}
 
 	private void print(String str) throws IOException {
 		resp.getWriter().append(str);
 	}
-	
-	public void login(Member member) {
-		
-		session.setAttribute("loginedMemberId", member.getId());
-		System.out.println(session.getAttribute("loginedMemberId"));
-	}
 
 	public void logout() {
 		session.removeAttribute("loginedMemberId");
+	}
+
+	public void login(Member member) {
+		session.setAttribute("loginedMemberId", member.getId());
 	}
 }
