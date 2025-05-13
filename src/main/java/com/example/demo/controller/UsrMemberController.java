@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.service.MemberService;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
+import com.example.demo.vo.Rq;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import util.Ut;
 
@@ -21,6 +23,13 @@ public class UsrMemberController {
 	public UsrMemberController(HttpSession session) {
 		
 	}
+	
+	@RequestMapping("/usr/member/join")
+	public String join() {
+		
+		return "/usr/member/join";
+	}
+	
 	// 액션메서드
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
@@ -46,6 +55,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/login")
 	public String login() {
+		
 		return "/usr/member/login";
 	}
 	
@@ -53,7 +63,7 @@ public class UsrMemberController {
 	@ResponseBody
 	public String doLogin(HttpSession session, String loginId, String loginPw) {
 
-		if((Member)session.getAttribute("loginedMember") != null) return Ut.jsHistoryBack("F-A", "이미 로그인 함");
+		if((Member)session.getAttribute("loginedMember") != null) return Ut.jsHistoryBack("F-A", "이미 로그인 함???");
 		
 		if(Ut.isEmpty(loginId)) return Ut.jsHistoryBack("F-1", "아이디 입력해주세요");
 		if(Ut.isEmpty(loginPw)) return Ut.jsHistoryBack("F-2", "비밀번호 입력햇주세요");
@@ -65,17 +75,18 @@ public class UsrMemberController {
 		session.setAttribute("loginedMember", member);
 		session.setAttribute("loginedMemberId", member.getId());
 		
-		return Ut.jsReplace("S-1", Ut.f("%s님 로그인 되었긔", member.getNickName()), "/");
+		return Ut.jsReplace("S-1", Ut.f("%s님 로그인 되었서요", member.getNickName()), "/");
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpSession session) {
+	public String doLogout(HttpServletRequest req) {
 
-		if((Member)session.getAttribute("loginedMember") == null) return Ut.jsHistoryBack("F-1", "이미 로그아웃 함");
+		Rq rq = (Rq) req.getAttribute("rq");
 		
-		session.removeAttribute("loginedMember");
-		session.removeAttribute("loginedMemberId");
+		if(rq.isLogined()) return Ut.jsHistoryBack("F-1", "이미 로그아웃 함????"); // 없어져도 됨
+		
+		rq.logout();
 		
 		return Ut.jsReplace("S-1", "로그아웃 되었습니다", "/");
 		
