@@ -49,7 +49,7 @@ public class Rq {
 	    println("history.back();");
 	    println("</script>");
 	    resp.getWriter().flush();
-	    resp.getWriter().close();
+//	    resp.getWriter().close();
 	}
 
 	private void println(String str) throws IOException {

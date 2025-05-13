@@ -46,17 +46,20 @@
 	</select>
 
 	<select id="getArticles"
-		resultType="com.example.demo.vo.Article">
-		SELECT A.*, M.nickName as extra_writer
-		FROM article A
-		JOIN `member` M
-		ON A.writerId = M.id
-		<where>
-	      <if test="keyword != null and keyword != ''">
-	        AND A.title LIKE CONCAT('%', #{keyword}, '%')
-	      </if>
-    	</where>
-		ORDER BY A.id DESC
+        resultType="com.example.demo.vo.Article">
+	    SELECT A.*, M.nickName as extra_writer
+	    FROM article A
+	    JOIN `member` M
+	    ON A.writerId = M.id
+	    <where>
+	        <if test="keyword != null and keyword != ''">
+	            AND A.title LIKE CONCAT('%', #{keyword}, '%')
+	        </if>
+	        <if test="boardId != 0">
+	            AND A.boardId = #{boardId}
+	        </if>
+	    </where>
+    	ORDER BY A.id DESC
 	</select>
 	
 	<select id="getLastInsertId" parameterType="int">

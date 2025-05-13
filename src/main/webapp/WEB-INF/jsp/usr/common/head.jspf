@@ -11,7 +11,7 @@
 
 <body class="text-neutral-600">
 
-	<div class="flex h-30 w-full p-4 m-2">	
+	<div class="flex h-22 w-full p-4 m-2">	
 		<div class="logo pl-4">
 		<a href="/">
 			<i class="fa-solid fa-star"></i>
@@ -33,7 +33,7 @@
 					<li class="hover:underline hover:text-neutral-400">
 					<a onclick="return confirm('로그아웃 하시겠습니까?');" class="block px-6" href="../member/doLogout">LOGOUT</a>
 					</li>
-					<li class="hover:underline hover:text-neutral-400"><a class="block px-6" href="/">MY PAGE</a></li>
+					<li class="hover:underline hover:text-neutral-400"><a class="block px-6" href="../member/mypage">MY PAGE</a></li>
 				</c:if>
 			</ul>
 		</div>		

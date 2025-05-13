@@ -95,6 +95,12 @@ public class UsrMemberController {
 		return Ut.jsReplace("S-1", "로그아웃 되었습니다", "/");
 		
 	}
+	
+	@RequestMapping("/usr/member/mypage")
+	public String mypage() {
+		
+		return "/usr/member/mypage";
+	}
 
 	
 }

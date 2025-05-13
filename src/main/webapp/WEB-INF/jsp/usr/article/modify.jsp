@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var="pageTitle" value="Article Modify"></c:set>
+<c:set var="pageTitle" value="ARTICLE MODIFY"></c:set>
 <%@ include file="../common/head.jspf"%>
 
-
-<button onclick="history.back()" class="block text-4xl pl-10 pt-6 cursor-pointer">
-		<i class="fa-solid fa-angle-left"></i>
+<button onclick="history.back()" class="block text-4xl pl-10 cursor-pointer">
+	<i class="fa-solid fa-angle-left"></i>
 </button>
+
 <div class="container mx-auto">
 <div class="title text-neutral-800 text-4xl font-bold mx-2 my-6">
 	<span>

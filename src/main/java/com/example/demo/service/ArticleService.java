@@ -43,8 +43,8 @@ public class ArticleService {
 		return articleRepository.getArticleById(id);
 	}
 
-	public List<Article> getArticles(String keyword) {
-		return articleRepository.getArticles(keyword);
+	public List<Article> getArticles(String keyword, int boardId) {
+		return articleRepository.getArticles(keyword, boardId);
 	}
 
 	public Article getArticleForPrint(int id, int loginedMemberId) {

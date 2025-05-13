@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var="pageTitle" value="MAIN PAGE"></c:set>
+<c:set var="pageTitle" value="ARTICLE WRITE"></c:set>
 <%@ include file="../common/head.jspf"%>
 
-<button onclick="history.back()" class="block text-4xl pl-10 pt-6 cursor-pointer">
-		<i class="fa-solid fa-angle-left"></i>
-	</button>
+<button onclick="history.back()" class="block text-4xl pl-10 cursor-pointer">
+	<i class="fa-solid fa-angle-left"></i>
+</button>
 		
-	<div class="container mx-auto mt-8 p-6 w-3/5 border border-solid border-neutral-200 bg-neutral-300 rounded-xl overflow-hidden">
+	<div class="container mx-auto mt-8 p-6 w-4/5 border border-solid border-neutral-300 rounded-xl overflow-hidden">
 
 
 		<div class="font-semibold text-4xl text-neutral-800 px-1 py-6">Article Write</div>

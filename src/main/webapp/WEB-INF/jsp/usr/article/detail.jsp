@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var="pageTitle" value="Article Detail"></c:set>
+<c:set var="pageTitle" value="ARTICLE DETAIL"></c:set>
 <%@ include file="../common/head.jspf"%>
 
 
@@ -30,17 +30,17 @@
 
 				<div class="flex-grow"></div>
 				<div class="btn-box">
-				<c:if test="${article.userCanModify}">
-					<button class="mx-1">
-						<a href="modify?id=${article.id}">modify</a>
-					</button>
-				</c:if>
-				<c:if test="${article.userCanDelete}">
-					<button class="mx-1">
-						<a onclick="return confirm('정말 삭제할거야? ㅠㅠ😢?');" 
-							href="doDelete?id=${article.id}">delete</a>
-					</button>
-				</c:if>
+					<c:if test="${article.userCanModify}">
+						<button class="btn rounded-xl mx-1 px-3 hover:bg-neutral-300">
+							<a href="modify?id=${article.id}">Modify</a>
+						</button>
+					</c:if>
+					<c:if test="${article.userCanDelete}">
+						<button class="btn rounded-xl mx-1 px-3 hover:bg-neutral-300">
+							<a onclick="return confirm('정말 삭제할거야? ㅠㅠ😢?');" 
+								href="doDelete?id=${article.id}">Delete</a>
+						</button>
+					</c:if>
 				</div>
 				
 			</div>
@@ -48,7 +48,7 @@
 		
 		<hr class="border-neutral-400"/>
 
-		<div class="content p-4">
+		<div class="content mt-2 p-4">
 			${article.body}
 		</div>
 	</div>

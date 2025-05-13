@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var="pageTitle" value="Article List"></c:set>
+<c:set var="pageTitle" value="ARTICLE LIST"></c:set>
 <%@ include file="../common/head.jspf"%>
+
+<button onclick="history.back()" class="block text-4xl pl-10 cursor-pointer">
+	<i class="fa-solid fa-angle-left"></i>
+</button>
 
 <div class="container mx-auto w-5/6">
 	<div class="flex justify-between text-neutral-800 text-4xl font-bold mx-2 mt-20 mb-6">
@@ -10,14 +14,17 @@
 		Article List
 		</span>
 			
-		<div class="search-bar flex justify-between px-2 text-sm mt-auto mb-0">
-			<form class="search-box flex h-8" action="list" method="POST">
-<!-- 				<div class="border rounded-md border-neutral-400 overflow-hidden mx-2 w-80 flex bg-neutral-800"> -->
-<%-- 					<input type="text" name="keyword" placeholder="search keyword" class="block flex-grow p-4" value="${not empty keyword ? keyword : ''}"/> --%>
-<!-- 					<button type="submit"> -->
-<!-- 						<i class="fa-solid fa-magnifying-glass text-neutral-200 text-xl px-2"></i> -->
-<!-- 					</button> -->
-<!-- 				</div> -->
+		<div class="search-bar flex justify-between items-center px-2 text-sm mt-auto mb-0">
+			<form class="search-box flex h-8" action="list" method="POST">				
+				<label for="boardId" class="flex h-8">
+				  <select name="boardId" id="boardId"
+				    class="block flex justify-center items-center h-8 px-8 border border-solid border-neutral-500 rounded-lg overflow-hidden">
+				    <option value="0" disabled selected hidden class="text-neutral-400">게시판 선택</option>
+				    <option value="1">공지사항</option>
+				    <option value="2">자유 게시판</option>
+				    <option value="3">질문과 답변</option>
+				  </select>
+				</label>
 
 				<label class="input border border-solid border-neutral-500 mx-2 overflow-hidden rounded-md">
 				  <svg class="h-[1em] opacity-70" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -30,10 +37,11 @@
 				</label>
 			</form>
 			<button class="btn">
-				<a class="block w-28 h-full text-base flex items-center justify-center font-large bg-neutral-800 text-neutral-200 rounded-md hover:bg-neutral-700" href="write">새 글 작성</a>
+				<a href="write" 
+				class="block w-28 h-full text-base flex items-center justify-center font-large bg-neutral-800 text-neutral-200 rounded-md hover:bg-neutral-700">
+				새 글 작성</a>
 			</button>
 		</div>
-		
 		
 	</div>
 	
@@ -49,9 +57,9 @@
 				</thead>
 				<tbody>
 					<c:forEach var="article" items="${articles }">
-					<tr class="border-b bg-neutral-200 border-neutral-300">
+					<tr class="border-b bg-neutral-200 border-neutral-300 hover:bg-neutral-300">
 						<td class="px-5 py-3">${article.id }</td>
-						<td><a class="block text-left pl-6 hover:underline" href="detail?id=${article.id }">${article.title }</td>
+						<td><a class="block text-left pl-6" href="detail?id=${article.id }">${article.title }</a></td>
 						<td class="px-5 py-3">${article.extra_writer }</td>
 						<td class="px-5 py-3">${article.regDate.toString().substring(0, 10) }</td>
 					</tr>

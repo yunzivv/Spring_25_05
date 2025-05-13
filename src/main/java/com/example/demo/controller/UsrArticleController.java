@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.DemoApplication;
 import com.example.demo.service.ArticleService;
+import com.example.demo.service.BoardService;
 import com.example.demo.vo.Article;
+import com.example.demo.vo.Board;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
@@ -27,6 +30,9 @@ public class UsrArticleController {
 	
 	@Autowired
 	private ArticleService articleService;
+	
+	@Autowired
+	private BoardService boardService;
 
 	// 액션메서드
 	@RequestMapping("/usr/article/detail")
@@ -49,15 +55,14 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String getArticles(Model model, String keyword) {
+	public String getArticles(Model model, String keyword, @RequestParam(defaultValue = "0") int boardId) {
 
-//		return ResultData.from("S-2", Ut.f("게시글 목록"), articles);
-//		ResultData rd = ResultData.from("S-2", Ut.f("게시글 목록"), articles);
-	
-		List<Article> articles = articleService.getArticles(keyword);
+		Board board = boardService.getBoardById(boardId);
+		List<Article> articles = articleService.getArticles(keyword, boardId);
 
 		model.addAttribute("articles", articles);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("boardId", boardId);
 		
 		return "/usr/article/list";
 	}

@@ -29,4 +29,6 @@ public class Member {
 	private String nickName;
 	private String cellPhone;
 	private String email;
+	private boolean delStatus;
+	private LocalDateTime delDate;
 }
