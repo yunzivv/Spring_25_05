@@ -20,9 +20,9 @@
 	 		<button type="submit" class="py-2.5 px-5 me-2 mb-2 w-96 text-sm font-large bg-neutral-800 text-neutral-200 rounded-lg hover:bg-neutral-700">Login</button>
 		</form>
 		<div class="sub-menu text-center my-4 flex justify-center">
-			<a class="hover:text-underline" href="#">Join</a>
-			<a class="hover:text-underline"  href="#">Find ID</a>
-			<a class="hover:text-underline"  href="#">Find Password</a>		
+			<a class="hover:text-underline" href="join">Join</a>
+<!-- 			<a class="hover:text-underline"  href="#">Find ID</a> -->
+<!-- 			<a class="hover:text-underline"  href="#">Find Password</a>		 -->
 		</div>
 	</div>
 

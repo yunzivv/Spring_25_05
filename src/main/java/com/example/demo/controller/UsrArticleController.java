@@ -23,6 +23,9 @@ import util.Ut;
 public class UsrArticleController {
 
 	@Autowired
+	private Rq rq;
+	
+	@Autowired
 	private ArticleService articleService;
 
 	// 액션메서드
@@ -46,7 +49,7 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String getArticles(Model model) {
+	public String getArticles(Model model, String keyword) {
 
 //		return ResultData.from("S-2", Ut.f("게시글 목록"), articles);
 //		ResultData rd = ResultData.from("S-2", Ut.f("게시글 목록"), articles);
@@ -54,6 +57,7 @@ public class UsrArticleController {
 		List<Article> articles = articleService.getArticles();
 
 		model.addAttribute("articles", articles);
+		model.addAttribute("keyword", keyword);
 		
 		return "/usr/article/list";
 	}

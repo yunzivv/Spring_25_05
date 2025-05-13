@@ -2,22 +2,29 @@ package com.example.demo.vo;
 
 import java.io.IOException;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
+import lombok.Setter;
 import util.Ut;
 
+@Component
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Getter
+@Setter
 public class Rq {
 
-	@Getter
-	private boolean isLogined;
-	@Getter
-	private int loginedMemberId;
+	private boolean isLogined = false;
+	private int loginedMemberId = 0;
 	
-	private HttpServletRequest req;
-	private HttpServletResponse resp;
-	private HttpSession session;
+	private final HttpServletRequest req;
+	private final HttpServletResponse resp;
+	private final HttpSession session;
 	
 	public Rq(HttpServletRequest req, HttpServletResponse resp) {
 		
@@ -31,6 +38,8 @@ public class Rq {
 			isLogined = true;
 			loginedMemberId = (int)httpSession.getAttribute("loginedMemberId");
 		}
+		
+		this.req.setAttribute("rq", this);
 	}
 
 	public void printHistoryBack(String msg) throws IOException {
@@ -38,10 +47,12 @@ public class Rq {
 		resp.setContentType("text/html; charset=UTF-8");
 		println("<script>");
 		if (!Ut.isEmpty(msg)) {
-			println("alert('" + msg + "');");
+			println("alert('" + msg.replace("'", "\\'") + "');");
 		}
-		println("history.back();");
-		println("</script>");
+		 println("history.back();");
+		    println("</script>");
+		    resp.getWriter().flush();
+		    resp.getWriter().close();
 
 	}
 

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import com.example.demo.interceptor.BeforeActionInterceptor;
 import com.example.demo.service.MemberService;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
@@ -16,13 +16,19 @@ import util.Ut;
 
 @Controller
 public class UsrMemberController {
+
+    private final BeforeActionInterceptor beforeActionInterceptor;
+	
+	@Autowired
+	private Rq rq;
 	
 	@Autowired
 	private MemberService memberService;
 
-	public UsrMemberController(HttpSession session) {
-		
-	}
+	public UsrMemberController(HttpSession session, BeforeActionInterceptor beforeActionInterceptor) {
+        this.beforeActionInterceptor = beforeActionInterceptor;
+
+    }
 	
 	@RequestMapping("/usr/member/join")
 	public String join() {
@@ -63,7 +69,7 @@ public class UsrMemberController {
 	@ResponseBody
 	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
 		
-		Rq rq = (Rq) req.getAttribute("rq");
+		rq = (Rq) req.getAttribute("rq");
 		
 		if(Ut.isEmpty(loginId)) return Ut.jsHistoryBack("F-1", "아이디 입력해주세요");
 		if(Ut.isEmpty(loginPw)) return Ut.jsHistoryBack("F-2", "비밀번호 입력햇주세요");
