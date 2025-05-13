@@ -27,7 +27,7 @@ public class Rq {
 
 		HttpSession httpSession = req.getSession();
 		
-		if(httpSession.getAttribute("loginedMember") != null) {
+		if(httpSession.getAttribute("loginedMemberId") != null) {
 			isLogined = true;
 			loginedMemberId = (int)httpSession.getAttribute("loginedMemberId");
 		}
@@ -55,7 +55,10 @@ public class Rq {
 	}
 	
 	public void login(Member member) {
+		
+		session.setAttribute("loginedMember", member);
 		session.setAttribute("loginedMemberId", member.getId());
+		System.out.println(session.getAttribute("loginedMemberId"));
 	}
 
 	public void logout() {

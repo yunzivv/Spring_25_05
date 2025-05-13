@@ -32,7 +32,7 @@ public class MemberService {
 		return memberRepository.getLastInsertId(); // 방금 가입된 멤버의 id 반환
 	}
 
-	public Member doLogin(String loginId) {
+	public Member getMemberByLoginId(String loginId) {
 		
 		return memberRepository.getMemberByLoginId(loginId);
 	}

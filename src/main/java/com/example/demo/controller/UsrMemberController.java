@@ -61,21 +61,21 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpSession session, String loginId, String loginPw) {
-
-		if((Member)session.getAttribute("loginedMember") != null) return Ut.jsHistoryBack("F-A", "이미 로그인 함???");
+	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
+		
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		if(Ut.isEmpty(loginId)) return Ut.jsHistoryBack("F-1", "아이디 입력해주세요");
 		if(Ut.isEmpty(loginPw)) return Ut.jsHistoryBack("F-2", "비밀번호 입력햇주세요");
 		
-		Member member = memberService.doLogin(loginId);
+		Member member = memberService.getMemberByLoginId(loginId);
+		
 		if(member == null) return Ut.jsHistoryBack("F-3", "존재하지 않는 아이디에요");
 		if(!member.getLoginPw().equals(loginPw)) return Ut.jsHistoryBack("F-A", "올바르지 않은 비밀번호에요");
 	
-		session.setAttribute("loginedMember", member);
-		session.setAttribute("loginedMemberId", member.getId());
-		
-		return Ut.jsReplace("S-1", Ut.f("%s님 로그인 되었서요", member.getNickName()), "/");
+		rq.login(member);
+
+		return Ut.jsReplace("S-1", Ut.f("%s님 환영합니다", member.getNickName()), "/");
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
@@ -83,8 +83,6 @@ public class UsrMemberController {
 	public String doLogout(HttpServletRequest req) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
-		
-		if(rq.isLogined()) return Ut.jsHistoryBack("F-1", "이미 로그아웃 함????"); // 없어져도 됨
 		
 		rq.logout();
 		
