@@ -71,4 +71,44 @@ SET regDate = NOW(),
 # 회원 테이블 데이터 조회
 SELECT * FROM `member` ORDER BY id DESC;
 
-# http://localhost:8080/usr/member/doJoin?loginId=keroro&loginPw=keroro&name=keroro&nickName=keroro&cellPhone=01032165498&email=keroro@mail.com
+# board 테이블 추가		
+CREATE TABLE board(
+	id INT(100) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+	`code` VARCHAR(100) NOT NULL UNIQUE COMMENT 'Notice(공지사항), Free(자유게시판) QnA(질의응답)',    
+    `name` VARCHAR(100) NOT NULL UNIQUE COMMENT '게시판 이름',
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제 여부(0=존재/1=삭제)',
+    delDate DATETIME COMMENT '삭제일'
+);
+
+INSERT INTO board SET 
+	regDate = NOW(),
+	updateDate = NOW(),
+	`code` = 'notice',
+	`name` = '공지사항'
+	
+INSERT INTO board SET 
+	regDate = NOW(),
+	updateDate = NOW(),
+	`code` = 'free',
+	`name` = '자유게시판';
+
+INSERT INTO board SET 
+	regDate = NOW(),
+	updateDate = NOW(),
+	`code` = 'QnA',
+	`name` = '질의응답'
+	
+SELECT * FROM board;
+
+# boardId 컬럼 추가
+ALTER TABLE article ADD COLUMN boardId INT(10) NOT NULL AFTER writerId;
+
+UPDATE article SET boardId = 1 WHERE writerId = 1;
+UPDATE article SET boardId = 2 WHERE boardId = 0;
+
+SELECT * FROM board
+SELECT *
+		FROM board
+		WHERE id = 3 AND delStatus = 0
