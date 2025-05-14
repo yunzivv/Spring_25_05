@@ -53,7 +53,7 @@
 	    JOIN `member` M
 	    ON A.writerId = M.id
 	    <where>
-	        <if test="boardId != null and boardId != 0">
+	        <if test="boardId != 0 and boardId != null">
 	            AND A.boardId = #{boardId}
 	        </if>
 	        <if test="searchItem == 1 and keyword != null">

@@ -38,6 +38,7 @@
 					  </select>
 				  <input type="text" name="keyword" placeholder="Search"  value="${not empty keyword ? keyword : ''}"/>
 				</label>
+				
 				<button type="submit" class="btn block flex items-center justify-center p-4 bg-neutral-800 text-neutral-200 text-base font-large rounded-md hover:bg-neutral-700">
 					<svg class="h-[1em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 					    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
@@ -48,18 +49,17 @@
 				</button>
 				
 				<a href="write" 
-			class="block ml-6 px-5 whitespace-nowrap text-base flex items-center justify-center font-large rounded-md hover:bg-neutral-300">
-			글 작성</a>
+					class="block ml-6 px-5 whitespace-nowrap text-base flex items-center justify-center font-large rounded-md hover:bg-neutral-300">
+				글 작성</a>
 			</form>
 			
-			
-			
 		</div>
-		
 	</div>
 	
-	<div class="mx-auto my-4 border-solid border rounded-xl overflow-hidden">
-		<table class="w-full text-sm text-center rtl:text-right text-neutral-800">
+	<div class="container bg-blue-300 text-center">
+<!-- 		article table -->
+		<div class="mx-auto my-4 border-solid border rounded-xl overflow-hidden">
+			<table class="w-full text-sm text-center rtl:text-right text-neutral-800">
 				<thead class="h-5 text-base text-neutral-200 bg-neutral-800">
 					<tr>
 						<th scope="col" class="px-5 py-4">NO</th>
@@ -84,6 +84,14 @@
 					</c:if>
 				</tbody>
 			</table>
+		</div>
+
+<!-- 		pagenation -->
+		<div class="inline-flex mx-auto justify-between text-xl bg-red-300">
+		  <c:forEach var="i" begin="1" end="${totalPage}">
+		    <a href="list?page=${i }" class="block mx-2 px-3 py-1 hover:underline hover:text-neutral-500 bg-red-500">${i}</a>
+		  </c:forEach>
+		</div>
 	</div>
 </div>
 

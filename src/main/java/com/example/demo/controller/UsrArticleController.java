@@ -55,14 +55,12 @@ public class UsrArticleController {
 		// pagenation
 		int itemsInAPage = 10;
 		int limitFrom = (page - 1) * itemsInAPage;
-		int totalCnt = articleService.getArticleCnt();
-		int totalPage = (int) Math.ceil(totalCnt / (double) itemsInAPage);
-		System.out.println(limitFrom);
-		System.out.println(totalCnt);
-		System.out.println(totalPage);
 		
 		List<Article> articles = articleService.getArticles(keyword, boardId, searchItem, limitFrom, itemsInAPage);
-		System.out.println(articles.size());
+
+		int totalCnt = articles.size();
+		int totalPage = (int) Math.ceil(totalCnt / (double) itemsInAPage);
+		System.err.println("totalCnt : " + totalCnt + " totalPage : " + totalPage);
 
 		model.addAttribute("articles", articles);
 		model.addAttribute("keyword", keyword);
