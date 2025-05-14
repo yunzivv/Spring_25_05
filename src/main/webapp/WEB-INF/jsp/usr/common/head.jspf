@@ -26,11 +26,11 @@
 				<li class="hover:underline hover:text-neutral-400"><a class="block px-6" href="/">HOME</a></li>
 				<li id ="list" class="relative">
 					<a class="block px-6" href="../article/list">LIST</a>
-					<ul class="absolute hidden w-full t-full py-5 bg-red-300 text-center text-lg whitespace-nowrap">
-						<li><a href="../article/list?boardId=0" class="block h-full p-1">전체 게시판</a></li>
-						<li><a href="../article/list?boardId=1" class="block h-full p-1">공지사항</a></li>
-						<li><a href="../article/list?boardId=2" class="block h-full p-1">자유 게시판</a></li>
-						<li><a href="../article/list?boardId=3" class="block h-full p-1">QnA</a></li>
+					<ul class="absolute hidden w-full t-full py-5 text-center text-lg whitespace-nowrap">
+						<li><a href="../article/list?boardId=0" class="block h-full p-1 hover:underline hover:text-neutral-400">전체 게시판</a></li>
+						<li><a href="../article/list?boardId=1" class="block h-full p-1 hover:underline hover:text-neutral-400">공지사항</a></li>
+						<li><a href="../article/list?boardId=2" class="block h-full p-1 hover:underline hover:text-neutral-400">자유 게시판</a></li>
+						<li><a href="../article/list?boardId=3" class="block h-full p-1 hover:underline hover:text-neutral-400">QnA</a></li>
 					</ul>
 				</li>
 				<c:if test="${!rq.isLogined() }">

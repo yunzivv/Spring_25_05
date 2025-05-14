@@ -47,14 +47,15 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String getArticles(Model model, String keyword, @RequestParam(defaultValue = "0") int boardId) {
+	public String getArticles(Model model, String keyword, @RequestParam(defaultValue = "0") int boardId, @RequestParam(defaultValue = "1") int searchItem) {
 
 		Board board = boardService.getBoardById(boardId);
-		List<Article> articles = articleService.getArticles(keyword, boardId);
+		List<Article> articles = articleService.getArticles(keyword, boardId, searchItem);
 
 		model.addAttribute("articles", articles);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("boardId", boardId);
+		model.addAttribute("searchItem", searchItem);
 		
 		return "/usr/article/list";
 	}

@@ -15,10 +15,11 @@
 		</span>
 			
 		<div class="search-bar flex justify-between items-center h-8 px-2 text-sm mt-auto mb-0">
-			<form class="search-box flex" action="list" method="POST">				
+			<form class="search-box flex" action="list" method="POST">	
+						
 				<label for="boardId" class="flex">
 				  <select name="boardId" id="boardId" 
-				    class="block flex justify-center items-center px-8 border border-solid border-neutral-500 rounded-lg overflow-hidden">
+				    class="block flex justify-center items-center px-4 border border-solid border-neutral-500 rounded-lg overflow-hidden">
 				    <option value="0" disabled ${boardId eq 0 ? 'selected' : ''} hidden class="text-neutral-400">게시판 선택</option>
 				    <option value="0">전체 게시판</option>
 				    <option value="1" ${boardId eq 1 ? 'selected' : ''}>공지사항</option>
@@ -27,17 +28,23 @@
 				  </select>
 				</label>
 
-				<label class="input border border-solid border-neutral-500 mx-2 overflow-hidden rounded-md">
-<!-- 				  <svg class="h-[1em] opacity-70" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> -->
-<!-- 				    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor"> -->
-<%-- 				      <circle cx="11" cy="11" r="8"></circle> --%>
-<!-- 				      <path d="m21 21-4.3-4.3"></path> -->
-<!-- 				    </g> -->
-<!-- 				  </svg> -->
+				<label class="input border border-solid border-neutral-500 mx-2 overflow-hidden rounded-md pl-0 pr-3">
+					<select name="searchItem" id="searchItem" 
+					    class="block h-full pl-3 pr-1 flex justify-center items-center overflow-hidden ">
+<!-- 					    <option value="0" disabled ${searchItem eq 0 ? 'selected' : ''} hidden class="text-neutral-400">검색 기준</option> -->
+					    <option value="1" ${searchItem eq 1 ? 'selected' : ''}>제목</option>
+					    <option value="2" ${searchItem eq 2 ? 'selected' : ''}>내용</option>
+					    <option value="3" ${searchItem eq 3 ? 'selected' : ''}>작성자</option>
+					  </select>
 				  <input type="text" name="keyword" placeholder="Search"  value="${not empty keyword ? keyword : ''}"/>
 				</label>
 				<button type="submit" class="btn block flex items-center justify-center p-4 bg-neutral-800 text-neutral-200 text-base font-large rounded-md hover:bg-neutral-700">
-					검색
+					<svg class="h-[1em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+					    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+					      <circle cx="11" cy="11" r="8"></circle>
+					      <path d="m21 21-4.3-4.3"></path>
+					    </g>
+					  </svg>
 				</button>
 				
 				<a href="write" 

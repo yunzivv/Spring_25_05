@@ -53,11 +53,17 @@
 	    JOIN `member` M
 	    ON A.writerId = M.id
 	    <where>
-	        <if test="keyword != null and keyword != ''">
-	            AND A.title LIKE CONCAT('%', #{keyword}, '%')
-	        </if>
 	        <if test="boardId != 0">
 	            AND A.boardId = #{boardId}
+	        </if>
+	        <if test="searchItem == 1">
+	            AND A.title LIKE CONCAT('%', #{keyword}, '%')
+	        </if>
+	        <if test="searchItem == 2">
+	            AND A.body LIKE CONCAT('%', #{keyword}, '%')
+	        </if>
+	        <if test="searchItem == 3">
+	            AND M.nickName LIKE CONCAT('%', #{keyword}, '%')
 	        </if>
 	    </where>
     	ORDER BY A.id DESC
