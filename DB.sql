@@ -126,3 +126,8 @@ CREATE TABLE `like` (
 );
 
 INSERT INTO `like` SET memberId = 1, articleId = 1;
+
+# 댓글 테이블 추가
+CREATE TABLE reply (
+	
+);	
