@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.DemoApplication;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.BoardService;
+import com.example.demo.service.LikeService;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.Board;
 import com.example.demo.vo.Member;
@@ -33,19 +34,26 @@ public class UsrArticleController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private LikeService likeService;
 
 	// 액션메서드
 	@RequestMapping("/usr/article/detail")
-	public String getArticle(Model model, HttpServletRequest req, int id) {
+	public String getArticle(Model model, HttpServletRequest req, int id, String like) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
+		if(like == null) like = " ";
+		if(like.equals("♡")) likeService.insertLike(rq.getLoginedMemberId(), id);
+		if(like.equals("♥")) likeService.deleteLike(rq.getLoginedMemberId(), id);
+		
 		articleService.incHit(id);
 		Article article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
 		model.addAttribute("article", article); // article 필드에 article 정보, 접근 권한까지 포함되어있음
 		
 		// 좋아요 개수
-		int likes = articleService.getLikes(id);
+		int likes = likeService.getLikes(id);
 		model.addAttribute("likes", likes);
 
 		return "/usr/article/detail";

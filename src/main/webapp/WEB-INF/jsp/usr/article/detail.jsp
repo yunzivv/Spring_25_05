@@ -32,16 +32,21 @@
 
 				<div class="flex-grow"></div>
 				
-				<div class="like_box text-xl">
-				
-					<c:if test="${article.myLike}">
-						♥ ${likes }
-					</c:if>
-					
-					<c:if test="${!article.myLike}">
-						♡ ${likes }
-					</c:if>
-					
+				<div class="like_box flex items-center justify-center mx-2 text-xl cursor-pointer">
+					<form action="detail" method="POST">
+					<input type="hidden" name="id" value="${article.id}">
+						<c:if test="${article.myLike}">
+							<input name="like" type="submit" class="text-red-400 cursor-pointer" value="♥"/>
+								<span>&nbsp; ${likes }</span>
+						</c:if>
+						
+						<c:if test="${!article.myLike}">
+							<button type="submit">
+								<input name="like" type="submit" class="text-red-400 cursor-pointer" value="♡"/>
+								<span>&nbsp; ${likes }</span>
+							</button>
+						</c:if>					
+					</form>
 				</div>
 				
 				<div class="btn-box">
