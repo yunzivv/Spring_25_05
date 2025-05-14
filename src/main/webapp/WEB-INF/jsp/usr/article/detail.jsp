@@ -27,23 +27,24 @@
 					<span> 작성 일자 : ${article.regDate.toString().substring(0, 10)} &nbsp;&nbsp;&nbsp;</span>
 					<span> 수정 일자 : ${article.updateDate.toString().substring(0, 10)} &nbsp;&nbsp;&nbsp;</span>
 					<span> 작성자 : ${article.extra_writer } &nbsp;&nbsp;&nbsp;</span>
-					<span> 게시판 : ${article.extra_boardCode } </span>
+					<span> 게시판 : ${article.extra_boardCode } &nbsp;&nbsp;&nbsp;</span>
+					<span> 조회수 : ${article.hits } </span>
 				</div>
 
 				<div class="flex-grow"></div>
 				
-				<div class="like_box flex items-center justify-center mx-2 text-xl cursor-pointer">
+				<div class="like_box flex items-center justify-center mx-4 text-xl cursor-pointer">
 					<form action="detail" method="POST">
 					<input type="hidden" name="id" value="${article.id}">
 						<c:if test="${article.myLike}">
 							<input name="like" type="submit" class="text-red-400 cursor-pointer" value="♥"/>
-								<span>&nbsp; ${likes }</span>
+								<span>&nbsp;${likes }</span>
 						</c:if>
 						
 						<c:if test="${!article.myLike}">
 							<button type="submit">
 								<input name="like" type="submit" class="text-red-400 cursor-pointer" value="♡"/>
-								<span>&nbsp; ${likes }</span>
+								<span>&nbsp;${likes }</span>
 							</button>
 						</c:if>					
 					</form>
@@ -51,7 +52,7 @@
 				
 				<div class="btn-box">
 					<c:if test="${article.userCanModify}">
-						<button class="btn rounded-xl mx-1 px-3 hover:bg-neutral-300">
+						<button class="btn rounded-xl ml-4 mr-1 px-3 hover:bg-neutral-300">
 							<a href="modify?id=${article.id}">Modify</a>
 						</button>
 					</c:if>
