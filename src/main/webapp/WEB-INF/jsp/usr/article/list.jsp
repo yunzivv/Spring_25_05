@@ -89,8 +89,17 @@
 <!-- 		pagenation -->
 		<div class="inline-flex mx-auto justify-between text-xl">
 		  <c:forEach var="i" begin="1" end="${totalPage}">
-		    <a href="?keyword=${keyword }&boardId=${boardId }&searchItem=${searchItem}&page=${i }" 
-		    class="block mx-2 px-3 py-1 hover:underline hover:text-neutral-500 bg-red-300">${i}</a>
+		    <c:choose>
+			    <c:when test="${page eq i}">
+			        <a href="?keyword=${keyword}&boardId=${boardId}&searchItem=${searchItem}&page=${i}" 
+			           class="block mx-1 w-8 py-1 hover:underline bg-neutral-300">${i}</a>
+			    </c:when>
+			    <c:otherwise>
+			        <a href="?keyword=${keyword}&boardId=${boardId}&searchItem=${searchItem}&page=${i}" 
+			           class="block mx-1 w-8 py-1 hover:underline">${i}</a>
+			    </c:otherwise>
+			</c:choose>
+
 		  </c:forEach>
 		</div>
 	</div>
