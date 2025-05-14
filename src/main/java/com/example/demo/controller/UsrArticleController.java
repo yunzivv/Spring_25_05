@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.DemoApplication;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.BoardService;
+import com.example.demo.service.CommentService;
 import com.example.demo.service.LikeService;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.Board;
+import com.example.demo.vo.Comment;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
@@ -38,6 +40,9 @@ public class UsrArticleController {
 	
 	@Autowired
 	private LikeService likeService;
+	
+	@Autowired
+	private CommentService commentService;
 
 	// 액션메서드
 	@RequestMapping("/usr/article/detail")
@@ -45,11 +50,15 @@ public class UsrArticleController {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
+		// 좋아요 처리
 		if(like == null) like = "";
 		if(like.equals("♡")) likeService.insertLike(rq.getLoginedMemberId(), id);
 		if(like.equals("♥")) likeService.deleteLike(rq.getLoginedMemberId(), id);
 		
+		// 조회수 증가
 		articleService.incHit(id);
+		
+		// 검색 기준 article 조회
 		Article article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
 		model.addAttribute("article", article); // article 필드에 article 정보, 접근 권한까지 포함되어있음
 		
@@ -57,6 +66,10 @@ public class UsrArticleController {
 		int likes = likeService.getLikes(id);
 		model.addAttribute("likes", likes);
 
+		// 댓글 조회
+		List<Comment> comments = commentService.getComments(id);
+		model.addAttribute("comments", comments);
+		
 		return "/usr/article/detail";
 	}
 

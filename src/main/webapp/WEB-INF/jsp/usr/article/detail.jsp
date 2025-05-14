@@ -74,8 +74,27 @@
 		</div>
 	</div>
 </div>
-<div class="comment container m-auto">
-
+<div class="comment container flex justify-center flex-col mx-auto my-4 bg-red-300">
+	<form action="detail" class="text-center bg-blue-300">
+		<label class="flex items-center w-11/12 border border-neutral-500 mx-auto overflow-hidden rounded-lg p-2 gap-2">
+		  <input type="text" name="keyword" placeholder="나도 한마디 하기!"
+		         class="flex-grow min-w-0 px-2 py-1 " />
+		  <input type="submit" value="게시" class="px-3 py-1" />
+		</label>
+		
+<!-- 		<div class="w-11/12 m-auto rounded-lg border border-solid border-neutural-300 p-2"> -->
+<!-- 			<input type="text" placeholder="나도 한마디 하기!" /> -->
+<!-- 			<input type="submit" value="게시"/> -->
+<!-- 		</div> -->
+	</form>
+	<div class="mx-4 my-2 rounded-lg border border-solid border-neutural-300 p-2"">
+		댓글 1
+		<c:if test="${not empty comments }">
+			<c:forEach var="comment" items="${comments }">
+<%-- 				${comment.body } --%>
+			</c:forEach>
+		</c:if>
+	</div>
 </div>
 
 
