@@ -40,14 +40,6 @@ public class UsrArticleController {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 		
-//		boolean isLogined = false;
-//		int loginedMemberId = 0;
-//		
-//		if (rq.getLoginedMemberId() != 0) {
-//			isLogined = true;
-//			loginedMemberId = (int) rq.getLoginedMemberId();
-//		}
-		
 		Article article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
 		model.addAttribute("article", article); // article 필드에 article 정보, 접근 권한까지 포함되어있음
 		

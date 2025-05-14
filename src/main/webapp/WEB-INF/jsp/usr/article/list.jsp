@@ -14,34 +14,39 @@
 		Article List
 		</span>
 			
-		<div class="search-bar flex justify-between items-center px-2 text-sm mt-auto mb-0">
-			<form class="search-box flex h-8" action="list" method="POST">				
-				<label for="boardId" class="flex h-8">
-				  <select name="boardId" id="boardId"
-				    class="block flex justify-center items-center h-8 px-8 border border-solid border-neutral-500 rounded-lg overflow-hidden">
-				    <option value="0" disabled selected hidden class="text-neutral-400">게시판 선택</option>
+		<div class="search-bar flex justify-between items-center h-8 px-2 text-sm mt-auto mb-0">
+			<form class="search-box flex" action="list" method="POST">				
+				<label for="boardId" class="flex">
+				  <select name="boardId" id="boardId" 
+				    class="block flex justify-center items-center px-8 border border-solid border-neutral-500 rounded-lg overflow-hidden">
+				    <option value="0" disabled ${boardId eq 0 ? 'selected' : ''} hidden class="text-neutral-400">게시판 선택</option>
 				    <option value="0">전체 게시판</option>
-				    <option value="1">공지사항</option>
-				    <option value="2">자유 게시판</option>
-				    <option value="3">질문과 답변</option>
+				    <option value="1" ${boardId == 1 ? 'selected' : ''}>공지사항</option>
+				    <option value="2" ${boardId eq 2 ? 'selected' : ''}>자유 게시판</option>
+				    <option value="3" ${boardId eq 3 ? 'selected' : ''}>질문과 답변</option>
 				  </select>
 				</label>
 
 				<label class="input border border-solid border-neutral-500 mx-2 overflow-hidden rounded-md">
-				  <svg class="h-[1em] opacity-70" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-				    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
-				      <circle cx="11" cy="11" r="8"></circle>
-				      <path d="m21 21-4.3-4.3"></path>
-				    </g>
-				  </svg>
+<!-- 				  <svg class="h-[1em] opacity-70" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> -->
+<!-- 				    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor"> -->
+<%-- 				      <circle cx="11" cy="11" r="8"></circle> --%>
+<!-- 				      <path d="m21 21-4.3-4.3"></path> -->
+<!-- 				    </g> -->
+<!-- 				  </svg> -->
 				  <input type="text" name="keyword" placeholder="Search"  value="${not empty keyword ? keyword : ''}"/>
 				</label>
-			</form>
-			<button class="btn">
+				<button type="submit" class="btn block flex items-center justify-center p-4 bg-neutral-800 text-neutral-200 text-base font-large rounded-md hover:bg-neutral-700">
+					검색
+				</button>
+				
 				<a href="write" 
-				class="block w-28 h-full text-base flex items-center justify-center font-large bg-neutral-800 text-neutral-200 rounded-md hover:bg-neutral-700">
-				새 글 작성</a>
-			</button>
+			class="block ml-6 px-3 whitespace-nowrap text-base flex items-center justify-center font-large rounded-md hover:bg-neutral-300">
+			글 작성</a>
+			</form>
+			
+			
+			
 		</div>
 		
 	</div>
