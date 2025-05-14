@@ -27,10 +27,10 @@ public class UsrArticleController {
 
 	@Autowired
 	private Rq rq;
-	
+
 	@Autowired
 	private ArticleService articleService;
-	
+
 	@Autowired
 	private BoardService boardService;
 
@@ -39,27 +39,42 @@ public class UsrArticleController {
 	public String getArticle(Model model, HttpServletRequest req, int id) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
-		
+
 		Article article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
 		model.addAttribute("article", article); // article 필드에 article 정보, 접근 권한까지 포함되어있음
-		
+
 		return "/usr/article/detail";
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String getArticles(Model model, String keyword, @RequestParam(defaultValue = "0") int boardId, @RequestParam(defaultValue = "1") int searchItem) {
-
+	public String getArticles(Model model, String keyword, @RequestParam(defaultValue = "0") int boardId,
+			@RequestParam(defaultValue = "1") int searchItem, @RequestParam(defaultValue = "1") int page) {
+		
 		Board board = boardService.getBoardById(boardId);
-		List<Article> articles = articleService.getArticles(keyword, boardId, searchItem);
+		
+		// pagenation
+		int itemsInAPage = 10;
+		int limitFrom = (page - 1) * itemsInAPage;
+		int totalCnt = articleService.getArticleCnt();
+		int totalPage = (int) Math.ceil(totalCnt / (double) itemsInAPage);
+		System.out.println(limitFrom);
+		System.out.println(totalCnt);
+		System.out.println(totalPage);
+		
+		List<Article> articles = articleService.getArticles(keyword, boardId, searchItem, limitFrom, itemsInAPage);
+		System.out.println(articles.size());
 
 		model.addAttribute("articles", articles);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("searchItem", searchItem);
 		
+		model.addAttribute("totalCnt", totalCnt);
+		model.addAttribute("totalPage", totalPage);
+
 		return "/usr/article/list";
 	}
-	
+
 	@RequestMapping("/usr/article/write")
 	public String write() {
 		return "/usr/article/write";
@@ -78,14 +93,14 @@ public class UsrArticleController {
 
 		Article article = articleService.writeArticle(title, body, rq.getLoginedMemberId(), boardId);
 		int id = articleService.getLastInsertId();
-		
+
 		return Ut.jsReplace("S-1", Ut.f("게시글 %d 번 작성 완료", id), Ut.f("../article/detail?id=%d", id));
 	}
-	
-	@RequestMapping("/usr/article/modify")
-	public String modify(Model model, HttpServletRequest req, int id) { //, String title, String body
 
-		Rq rq =(Rq) req.getAttribute("rq");
+	@RequestMapping("/usr/article/modify")
+	public String modify(Model model, HttpServletRequest req, int id) { // , String title, String body
+
+		Rq rq = (Rq) req.getAttribute("rq");
 
 		Article article = articleService.getArticleById(id);
 
@@ -97,12 +112,12 @@ public class UsrArticleController {
 		if (article.getWriterId() != rq.getLoginedMemberId()) {
 			return Ut.jsHistoryBack("F-A", "권한 없음");
 		}
-		
+
 		model.addAttribute("article", article);
-		
+
 		// 권한이 있다면 수정페이지로 돌아가야한다.
 		return "/usr/article/modify";
-	} 
+	}
 
 	// 로그인 체크 -> 유무 체크 -> 권한 체크
 	@RequestMapping("/usr/article/doModify")
@@ -111,7 +126,7 @@ public class UsrArticleController {
 
 		articleService.modifyArticle(id, title, body);
 
-		return Ut.jsReplace("S-1",Ut.f("%d 번 게시물 수정 완료", id), Ut.f("../article/detail?id=%d", id));
+		return Ut.jsReplace("S-1", Ut.f("%d 번 게시물 수정 완료", id), Ut.f("../article/detail?id=%d", id));
 	}
 
 	@RequestMapping("/usr/article/doDelete")
@@ -119,7 +134,7 @@ public class UsrArticleController {
 	public String doDelete(HttpServletRequest req, int id) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
-		
+
 		if (rq.isLogined() == false) {
 			return Ut.jsReplace("F-3", "로그인 후 이용", "../member/login");
 		}
@@ -138,6 +153,6 @@ public class UsrArticleController {
 
 		articleService.deleteArticle(id);
 
-		return  Ut.jsReplace("S-1", Ut.f("%d번 게시물 삭제 완료", id), "../article/list");
+		return Ut.jsReplace("S-1", Ut.f("%d번 게시물 삭제 완료", id), "../article/list");
 	}
 }

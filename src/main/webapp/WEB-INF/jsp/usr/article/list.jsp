@@ -31,7 +31,7 @@
 				<label class="input border border-solid border-neutral-500 mx-2 overflow-hidden rounded-md pl-0 pr-3">
 					<select name="searchItem" id="searchItem" 
 					    class="block h-full pl-3 pr-1 flex justify-center items-center overflow-hidden ">
-<!-- 					    <option value="0" disabled ${searchItem eq 0 ? 'selected' : ''} hidden class="text-neutral-400">검색 기준</option> -->
+<!-- 					    <option value="0" disabled hidden class="text-neutral-400">검색 기준</option> -->
 					    <option value="1" ${searchItem eq 1 ? 'selected' : ''}>제목</option>
 					    <option value="2" ${searchItem eq 2 ? 'selected' : ''}>내용</option>
 					    <option value="3" ${searchItem eq 3 ? 'selected' : ''}>작성자</option>
@@ -77,8 +77,10 @@
 						<td class="px-5 py-3">${article.regDate.toString().substring(0, 10) }</td>
 					</tr>
 					</c:forEach>
-					<c:if test="">
-						<td>게시글이 없습니다.</td>
+					<c:if test="${empty articles }">
+						<tr class="text-center">
+							<td colspan="4" class="text-center text-base py-8">게시글이 없습니다</td>
+						</tr>
 					</c:if>
 				</tbody>
 			</table>

@@ -31,8 +31,11 @@ public interface ArticleRepository {
 	public Article getArticleForPrint(int id);
 
 //	@Select("SELECT A.*, M.name as extra_writerName FROM article A JOIN `member` M ON A.writerId = M.id ORDER BY A.id DESC")
-	public List<Article> getArticles(String keyword, int boardId, int searchItem);
+	public List<Article> getArticles(String keyword, int boardId, int searchItem, int limitFrom, int itemsInAPage);
 
 //  @Select("SELECT LAST_INSERT_ID();")
 	public int getLastInsertId();
+
+//  @Select("SELECT COUNT(*) FROM article")
+	public int getArticleCnt();
 }
