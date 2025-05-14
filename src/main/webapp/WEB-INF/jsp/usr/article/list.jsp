@@ -72,14 +72,14 @@
 				</thead>
 				<tbody>
 					<c:forEach var="article" items="${articles }">
-					<tr class="border-b bg-neutral-200 border-neutral-300 hover:bg-neutral-300">
-						<td class="px-5 py-3">${article.id }</td>
-						<td class="px-5 py-3">${article.extra_boardCode }</td>
-						<td><a class="block text-left pl-6" href="detail?id=${article.id }">${article.title }</a></td>
-						<td class="px-5 py-3">${article.extra_writer }</td>
-						<td class="px-5 py-3">${article.hits }</td>
-						<td class="px-5 py-3">${article.regDate.toString().substring(0, 10) }</td>
-					</tr>
+						<tr class="border-b bg-neutral-200 border-neutral-300 hover:bg-neutral-300">
+							<td class="px-5 py-3" onclick="location.href='detail?id=${article.id}'">${article.id }</td>
+							<td class="px-5 py-3" onclick="location.href='detail?id=${article.id}'">${article.extra_boardCode }</td>
+							<td onclick="location.href='detail?id=${article.id}'"><a class="block text-left pl-6" href="detail?id=${article.id }">${article.title }</a></td>
+							<td class="px-5 py-3" onclick="location.href='detail?id=${article.id}'">${article.extra_writer }</td>
+							<td class="px-5 py-3" onclick="location.href='detail?id=${article.id}'">${article.hits }</td>
+							<td class="px-5 py-3" onclick="location.href='detail?id=${article.id}'">${article.regDate.toString().substring(0, 10) }</td>
+						</tr>
 					</c:forEach>
 					<c:if test="${empty articles }">
 						<tr class="text-center">
