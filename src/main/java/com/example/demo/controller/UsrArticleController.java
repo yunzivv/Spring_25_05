@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,7 +112,7 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/modify")
-	public String modify(Model model, HttpServletRequest req, int id) { // , String title, String body
+	public String modify(Model model, HttpServletRequest req, int id) throws IOException { // , String title, String body
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
@@ -119,11 +120,11 @@ public class UsrArticleController {
 
 		// 권한이 없다면 이전 페이지로 돌아가야하고,
 		if (article == null) {
-			return Ut.jsHistoryBack("F-1", Ut.f("%d 번 게시물은 없으시오", id));
+			rq.printHistoryBack(Ut.f("%d 번 게시물은 없으시오", id));
 		}
 
 		if (article.getMemberId() != rq.getLoginedMemberId()) {
-			return Ut.jsHistoryBack("F-A", "권한 없음");
+			rq.printHistoryBack("권한 없음");
 		}
 
 		model.addAttribute("article", article);

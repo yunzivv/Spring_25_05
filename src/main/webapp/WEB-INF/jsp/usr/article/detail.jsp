@@ -8,7 +8,7 @@
 <button onclick="history.back()" class="block text-4xl pl-10 pt-6 cursor-pointer">
 		<i class="fa-solid fa-angle-left"></i>
 </button>
-<div class="container m-auto">
+<div class="article container m-auto">
 	
 	<div class="title text-neutral-800 text-4xl font-bold mx-2 my-6">
 		<span>
@@ -16,7 +16,7 @@
 		</span>
 	</div>
 	
-	<div class="border bg-neutral-100 border-neutral-400 rounded-3xl px-8 py-5">
+	<div class="border bg-neutral-100 border-neutral-400 rounded-xl px-8 py-5">
 	
 		<div class="header p-3">
 		
@@ -74,6 +74,10 @@
 		</div>
 	</div>
 </div>
+<div class="comment container m-auto">
+
+</div>
+
 
 
 <%@ include file="../common/foot.jspf"%>

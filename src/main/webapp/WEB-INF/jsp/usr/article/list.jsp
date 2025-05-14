@@ -56,6 +56,7 @@
 		</div>
 	</div>
 	
+	총 게시 글 : ${totalCnt }
 	<div class="container text-center">
 <!-- 		article table -->
 		<div class="mx-auto my-4 border-solid border rounded-xl overflow-hidden">
@@ -98,7 +99,7 @@
 		    <c:choose>
 			    <c:when test="${page eq i}">
 			        <a href="?keyword=${keyword}&boardId=${boardId}&searchItem=${searchItem}&page=${i}" 
-			           class="block mx-1 w-8 py-1 hover:underline bg-neutral-300">${i}</a>
+			           class="block mx-1 w-8 px-2 py-1 hover:underline bg-neutral-200 rounded-full">${i}</a>
 			    </c:when>
 			    <c:otherwise>
 			        <a href="?keyword=${keyword}&boardId=${boardId}&searchItem=${searchItem}&page=${i}" 
