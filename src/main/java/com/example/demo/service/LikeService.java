@@ -20,10 +20,12 @@ public class LikeService {
 	}
 
 	public void insertLike(int loginedMemberId, int id) {
+		if(loginedMemberId <= 0) return;
 		likeRepository.insertLike(loginedMemberId, id);
 	}
 
 	public void deleteLike(int loginedMemberId, int id) {
+		if(loginedMemberId <= 0) return;
 		likeRepository.deleteLike(loginedMemberId, id);
 		
 	}

@@ -44,7 +44,7 @@ public class UsrArticleController {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
-		if(like == null) like = " ";
+		if(like == null) like = "";
 		if(like.equals("♡")) likeService.insertLike(rq.getLoginedMemberId(), id);
 		if(like.equals("♥")) likeService.deleteLike(rq.getLoginedMemberId(), id);
 		

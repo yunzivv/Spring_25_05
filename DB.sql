@@ -15,24 +15,6 @@ CREATE TABLE article(
     hits INT(100) UNSIGNED NOT NULL DEFAULT 0
 );
 
-# 게시물 테이블 데이터 추가
-INSERT INTO article
-SET regDate = NOW(),
-    updateDate = NOW(),
-    title = CONCAT('제목', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
-    `body` = CONCAT('내용', SUBSTRING(RAND() *1000 FROM 1 FOR 2));
-    
-# 게시물 테이블 조회
-SELECT * FROM article ORDER BY DESC;
-
-# 회원 테이블 추가
-CREATE TABLE `member`(
-    id INT(100) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    regDate DATETIME NOT NULL,
-    loginId VARCHAR(100) NOT NULL UNIQUE,
-    loginPw VARCHAR(100) NOT NULL,
-    `name` VARCHAR(10) NOT NULL
-);
 
 # 회원 테이블 추가
 CREATE TABLE `member`(
@@ -49,31 +31,6 @@ CREATE TABLE `member`(
     delDate DATETIME COMMENT '탈퇴날짜'
 );
 
-# admin 회원 데이터 추가
-INSERT INTO `member`
-SET regDate = NOW(),
-    loginId = 'admin',
-    loginPw = 'admin',
-    `authLevel` = 7,
-    `name` = 'admin',
-    nickName = 'admin',
-    cellPhone = '01012345678',
-    email = 'admin@spring.com'; 
-
-
-# 회원 테이블 데이터 추가
-INSERT INTO `member`
-SET regDate = NOW(),
-    loginId = CONCAT('id', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
-    loginPw = CONCAT('pw', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
-    `name` = CONCAT('이름', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
-    nickName = CONCAT('닉네임', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
-    cellPhone = CONCAT('010123456', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
-    email = CONCAT(SUBSTRING(RAND() *1000 FROM 1 FOR 2), 'mail@gmail.com'); 
-    
-# 회원 테이블 데이터 조회
-SELECT * FROM `member` ORDER BY id DESC;
-
 # board 테이블 추가		
 CREATE TABLE board(
 	id INT(100) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -85,6 +42,58 @@ CREATE TABLE board(
     delDate DATETIME COMMENT '삭제일'
 );
 
+
+# like 테이블 추가
+CREATE TABLE `like` (
+	id INT(100) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	memberId INT(100) UNSIGNED NOT NULL,
+	articleId INT(100) UNSIGNED NOT NULL
+);
+
+# 댓글 테이블 추가
+CREATE TABLE `comment` (
+	id INT(100) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	memberId INT(100) UNSIGNED NOT NULL,
+	articleId INT(100) UNSIGNED NOT NULL,
+	`body` TEXT NOT NULL
+);
+
+
+# 게시물 테이블 데이터 추가
+INSERT INTO article
+SET regDate = NOW(),
+    updateDate = NOW(),
+    title = CONCAT('제목', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
+    `body` = CONCAT('내용', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
+    memberId = FLOOR(1 + RAND() * 5),
+    boardId = FLOOR(1 + RAND() * 3);
+
+
+# admin 회원 데이터 추가
+INSERT INTO `member`
+SET regDate = NOW(),
+    loginId = 'admin',
+    loginPw = 'admin',
+    `authLevel` = 7,
+    `name` = 'admin',
+    nickName = 'admin',
+    cellPhone = '01012345678',
+    email = 'admin@spring.com'; 
+
+# 회원 테이블 데이터 추가
+INSERT INTO `member`
+SET regDate = NOW(),
+    loginId = CONCAT('id', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
+    loginPw = CONCAT('pw', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
+    `name` = CONCAT('이름', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
+    nickName = CONCAT('닉네임', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
+    cellPhone = CONCAT('010123456', SUBSTRING(RAND() *1000 FROM 1 FOR 2)),
+    email = CONCAT(SUBSTRING(RAND() *1000 FROM 1 FOR 2), 'mail@gmail.com'); 
+
+
+# board 테이블 데이터 추가
 INSERT INTO board SET 
 	regDate = NOW(),
 	updateDate = NOW(),
@@ -102,32 +111,22 @@ INSERT INTO board SET
 	updateDate = NOW(),
 	`code` = 'QnA',
 	`name` = '질의응답';
-	
-SELECT * FROM board;
 
-# boardId 컬럼 추가
-ALTER TABLE article ADD COLUMN boardId INT(10) NOT NULL AFTER writerId;
 
-UPDATE article SET boardId = 1 WHERE writerId = 1;
-UPDATE article SET boardId = 2 WHERE boardId = 0;
+# like 테이블 데이터 추가
+INSERT INTO `like` SET 
+	memberId = FLOOR(1 + RAND() * 4), 
+	articleId = FLOOR(1 + RAND() * 5);
+
+# comment 테이블 데이터 추가
+INSERT INTO `COMMENT` SET
+	regDate = NOW(),
+	updateDate = NOW(),
+	memberId = FLOOR(1 + RAND() * 4),
+	articleId = FLOOR(1 + RAND() * 64),
+	`body` = 'hoho';
+
 
 SELECT * FROM article;
 SELECT * FROM `member`;
 SELECT * FROM board;
-		
-# hits 컬럼 추가
-ALTER TABLE article ADD COLUMN hits INT(100) UNSIGNED NOT NULL DEFAULT 0;
-
-# like 테이블 추가
-CREATE TABLE `like` (
-	id INT(100) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	memberId INT(100) UNSIGNED NOT NULL,
-	articleId INT(100) UNSIGNED NOT NULL
-);
-
-INSERT INTO `like` SET memberId = 1, articleId = 1;
-
-# 댓글 테이블 추가
-CREATE TABLE reply (
-	
-);	

@@ -13,6 +13,4 @@ public interface LikeRepository {
 
 	void deleteLike(int loginedMemberId, int id);
 
-
-
 }
