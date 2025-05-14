@@ -38,4 +38,6 @@ public interface ArticleRepository {
 
 //  @Select("SELECT COUNT(*) FROM article")
 	public int getArticleCnt();
+
+	public int getArticlesCnt(String keyword, int boardId, int searchItem);
 }

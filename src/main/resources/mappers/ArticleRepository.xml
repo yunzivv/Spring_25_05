@@ -70,6 +70,28 @@
     	LIMIT #{limitFrom}, #{itemsInAPage}
 	</select>
 	
+	<select id="getArticlesCnt">
+	    SELECT COUNT(*)
+	    FROM article A
+	    JOIN `member` M
+	    ON A.writerId = M.id
+	    <where>
+	        <if test="boardId != 0 and boardId != null">
+	            AND A.boardId = #{boardId}
+	        </if>
+	        <if test="searchItem == 1 and keyword != null">
+	            AND A.title LIKE CONCAT('%', #{keyword}, '%')
+	        </if>
+	        <if test="searchItem == 2 and keyword != null">
+	            AND A.body LIKE CONCAT('%', #{keyword}, '%')
+	        </if>
+	        <if test="searchItem == 3 and keyword != null">
+	            AND M.nickName LIKE CONCAT('%', #{keyword}, '%')
+	        </if>
+	    </where>
+	</select>
+	
+	
 	<select id="getLastInsertId" parameterType="int">
 		SELECT LAST_INSERT_ID()
 	</select>

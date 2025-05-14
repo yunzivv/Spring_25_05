@@ -56,7 +56,7 @@
 		</div>
 	</div>
 	
-	<div class="container bg-blue-300 text-center">
+	<div class="container text-center">
 <!-- 		article table -->
 		<div class="mx-auto my-4 border-solid border rounded-xl overflow-hidden">
 			<table class="w-full text-sm text-center rtl:text-right text-neutral-800">
@@ -87,9 +87,10 @@
 		</div>
 
 <!-- 		pagenation -->
-		<div class="inline-flex mx-auto justify-between text-xl bg-red-300">
+		<div class="inline-flex mx-auto justify-between text-xl">
 		  <c:forEach var="i" begin="1" end="${totalPage}">
-		    <a href="list?page=${i }" class="block mx-2 px-3 py-1 hover:underline hover:text-neutral-500 bg-red-500">${i}</a>
+		    <a href="?keyword=${keyword }&boardId=${boardId }&searchItem=${searchItem}&page=${i }" 
+		    class="block mx-2 px-3 py-1 hover:underline hover:text-neutral-500 bg-red-300">${i}</a>
 		  </c:forEach>
 		</div>
 	</div>

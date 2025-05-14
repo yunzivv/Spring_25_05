@@ -18,7 +18,7 @@
 			<div class="flex justify-center flex-col">
 				<div class="flex px-3">
 					<label for="boardId" class="flex mr-4">
-					  <select name="boardId" id="boardId" 
+					  <select name="boardId" id="boardId" required
 					    class="block flex justify-center items-center px-8 border border-solid border-neutral-500 rounded-lg overflow-hidden">
 					    <option value="0" disabled selected hidden class="text-neutral-400">게시판 선택</option>
 					    <option value="1">공지사항</option>  <%-- ${memberId != 1 ? 'disabled' : ''} --%>

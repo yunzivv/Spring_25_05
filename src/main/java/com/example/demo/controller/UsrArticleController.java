@@ -53,14 +53,13 @@ public class UsrArticleController {
 		Board board = boardService.getBoardById(boardId);
 		
 		// pagenation
-		int itemsInAPage = 10;
-		int limitFrom = (page - 1) * itemsInAPage;
+		int itemsInAPage = 10; // 한페이지에 보여줄 게시글 수
+		int limitFrom = (page - 1) * itemsInAPage; // 몇번부터
+		
+		int totalCnt =articleService.getArticlesCnt(keyword, boardId, searchItem); // 검색한 article의 총 개수
+		int totalPage = (int) Math.ceil(totalCnt / (double) itemsInAPage); // article 나누기 page
 		
 		List<Article> articles = articleService.getArticles(keyword, boardId, searchItem, limitFrom, itemsInAPage);
-
-		int totalCnt = articles.size();
-		int totalPage = (int) Math.ceil(totalCnt / (double) itemsInAPage);
-		System.err.println("totalCnt : " + totalCnt + " totalPage : " + totalPage);
 
 		model.addAttribute("articles", articles);
 		model.addAttribute("keyword", keyword);
@@ -80,7 +79,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(HttpServletRequest req, String title, String body, int boardId) {
+	public String doWrite(HttpServletRequest req, String title, String body, @RequestParam(defaultValue = "0")int boardId) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
@@ -88,6 +87,8 @@ public class UsrArticleController {
 			return Ut.jsHistoryBack("F-2", "제목 좀 써");
 		if (Ut.isEmpty(body))
 			return Ut.jsHistoryBack("F-2", "내용 좀 써");
+		if (boardId == 0)
+			return Ut.jsHistoryBack("F-3", "게시판 선택해주시오");
 
 		Article article = articleService.writeArticle(title, body, rq.getLoginedMemberId(), boardId);
 		int id = articleService.getLastInsertId();

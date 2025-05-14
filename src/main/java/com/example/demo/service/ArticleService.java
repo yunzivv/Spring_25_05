@@ -93,4 +93,9 @@ public class ArticleService {
 		return articleRepository.getArticleCnt();
 	}
 
+
+	public int getArticlesCnt(String keyword, int boardId, int searchItem) {
+		return articleRepository.getArticlesCnt(keyword, boardId, searchItem);
+	}
+
 }
