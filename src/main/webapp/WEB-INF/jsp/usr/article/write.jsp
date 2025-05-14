@@ -16,9 +16,21 @@
 
 		<form action="doWrite" method="POST" class="w-full">
 			<div class="flex justify-center flex-col">
-				<section>
-					<input class="w-full p-2 border border-neutral-500 border-solid rounded-lg " type="text" name="title" placeholder="제목을 입력하세요" />
-				</section>
+				<div class="flex">
+					<label for="boardId" class="flex mr-6">
+					  <select name="boardId" id="boardId" 
+					    class="block flex justify-center items-center px-8 border border-solid border-neutral-500 rounded-lg overflow-hidden">
+					    <option value="0" disabled ${boardId eq 0 ? 'selected' : ''} hidden class="text-neutral-400">게시판 선택</option>
+					    <option value="0">전체 게시판</option>
+					    <option value="1" ${boardId == 1 ? 'selected' : ''}>공지사항</option>
+					    <option value="2" ${boardId eq 2 ? 'selected' : ''}>자유 게시판</option>
+					    <option value="3" ${boardId eq 3 ? 'selected' : ''}>질문과 답변</option>
+					  </select>
+					</label>
+					<div class="flex-grow">
+						<input class="w-full p-2 border border-neutral-500 border-solid rounded-lg " type="text" name="title" placeholder="제목을 입력하세요" />
+					</div>
+				</div>
 				<br>
 				<section>
 					<textarea class="resize-none w-full h-96 p-2 border border-neutral-500 border-solid rounded-lg" name="body"

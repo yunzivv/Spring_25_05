@@ -11,7 +11,7 @@
 
 <body class="text-neutral-600">
 
-	<div class="flex h-22 w-full p-4 m-2">	
+	<div class="header flex h-22 w-full p-4 m-2">	
 		<div class="logo pl-4">
 		<a href="/">
 			<i class="fa-solid fa-star"></i>
@@ -24,7 +24,15 @@
 
 			<ul class="menu_ flex">
 				<li class="hover:underline hover:text-neutral-400"><a class="block px-6" href="/">HOME</a></li>
-				<li class="hover:underline hover:text-neutral-400"><a class="block px-6" href="../article/list">LIST</a></li>
+				<li id ="list" class="relative">
+					<a class="block px-6" href="../article/list">LIST</a>
+					<ul class="absolute hidden w-full t-full py-5 bg-red-300 text-center text-lg whitespace-nowrap">
+						<li><a href="../article/list?boardId=0" class="block h-full p-1">전체 게시판</a></li>
+						<li><a href="../article/list?boardId=1" class="block h-full p-1">공지사항</a></li>
+						<li><a href="../article/list?boardId=2" class="block h-full p-1">자유 게시판</a></li>
+						<li><a href="../article/list?boardId=3" class="block h-full p-1">QnA</a></li>
+					</ul>
+				</li>
 				<c:if test="${!rq.isLogined() }">
 					<li class="hover:underline hover:text-neutral-400"><a class="block px-6" href="../member/login">LOGIN</a></li>
 					<li class="hover:underline hover:text-neutral-400"><a class="block px-6" href="../member/join">JOIN</a></li>

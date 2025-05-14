@@ -70,6 +70,9 @@
 						<td class="px-5 py-3">${article.regDate.toString().substring(0, 10) }</td>
 					</tr>
 					</c:forEach>
+					<c:if test="">
+						<td>게시글이 없습니다.</td>
+					</c:if>
 				</tbody>
 			</table>
 	</div>
