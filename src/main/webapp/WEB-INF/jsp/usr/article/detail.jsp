@@ -24,8 +24,10 @@
 			
 			<div class="articleInfo flex my-2">
 				<div class="writeInfo text-neutral-800 m-1">
-					<span> 작성 일자 : ${article.regDate.toString().substring(0, 10)} &nbsp;</span>
-					<span> 작성자 : ${article.extra_writer } </span>
+					<span> 작성 일자 : ${article.regDate.toString().substring(0, 10)} &nbsp;&nbsp;&nbsp;</span>
+					<span> 수정 일자 : ${article.updateDate.toString().substring(0, 10)} &nbsp;&nbsp;&nbsp;</span>
+					<span> 작성자 : ${article.extra_writer } &nbsp;&nbsp;&nbsp;</span>
+					<span> 게시판 : ${article.extra_boardCode } </span>
 				</div>
 
 				<div class="flex-grow"></div>

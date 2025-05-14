@@ -11,7 +11,7 @@
 		updateDate = NOW(),
 		title = #{title},
 		body = #{body},
-		writerId = #{writerId},
+		memberId = #{memberId},
 		boardId = #{boardId}
 	</insert>
 
@@ -39,19 +39,23 @@
 	
 	<select id="getArticleForPrint" parameterType="int"
 		resultType="com.example.demo.vo.Article">
-		SELECT A.*, M.nickName as extra_writer
+		SELECT A.*, M.nickName as extra_writer, B.code AS extra_boardCode
 		FROM article A
 		JOIN `member` M
-		ON A.writerId = M.id
+		ON A.memberId = M.id
+		JOIN board B
+	    ON A.boardId = B.id
 		WHERE A.id = #{id}
 	</select>
 
 	<select id="getArticles"
         resultType="com.example.demo.vo.Article">
-	    SELECT A.*, M.nickName as extra_writer
+	    SELECT A.*, M.nickName AS extra_writer, B.code AS extra_boardCode
 	    FROM article A
 	    JOIN `member` M
-	    ON A.writerId = M.id
+	    ON A.memberId = M.id
+	    JOIN board B
+	    ON A.boardId = B.id
 	    <where>
 	        <if test="boardId != 0 and boardId != null">
 	            AND A.boardId = #{boardId}
@@ -74,7 +78,7 @@
 	    SELECT COUNT(*)
 	    FROM article A
 	    JOIN `member` M
-	    ON A.writerId = M.id
+	    ON A.memberId = M.id
 	    <where>
 	        <if test="boardId != 0 and boardId != null">
 	            AND A.boardId = #{boardId}
@@ -99,5 +103,10 @@
 	<select id="getArticleCnt" parameterType="int">
 		SELECT COUNT(*) FROM article
 	</select>
+	
+	<update id="incHit" parameterType="int">
+		UPDATE article SET hits = hits + 1 WHERE id = #{id}
+	</update>
+	
 
 </mapper>

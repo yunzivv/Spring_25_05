@@ -13,10 +13,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Article {
-	public Article(String title, String body, int writerId) {
+	public Article(String title, String body, int memberId, int boardId) {
 		this.title = title;
 		this.body = body;
-		this.writerId = writerId;
+		this.memberId = memberId;
+		this.boardId = boardId;
 	}
 
 	private int id;
@@ -24,9 +25,12 @@ public class Article {
 	private LocalDateTime updateDate;
 	private String title;
 	private String body;
-	private int writerId;
+	private int memberId;
+	private int boardId;
+	private int hits;
 	
 	private String extra_writer;
+	private String extra_boardCode;
 	private boolean userCanModify;
 	private boolean userCanDelete;
 

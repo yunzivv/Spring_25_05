@@ -24,7 +24,7 @@
 				    <option value="0">전체 게시판</option>
 				    <option value="1" ${boardId eq 1 ? 'selected' : ''}>공지사항</option>
 				    <option value="2" ${boardId eq 2 ? 'selected' : ''}>자유 게시판</option>
-				    <option value="3" ${boardId eq 3 ? 'selected' : ''}>질문과 답변</option>
+				    <option value="3" ${boardId eq 3 ? 'selected' : ''}>QnA</option>
 				  </select>
 				</label>
 
@@ -62,24 +62,28 @@
 			<table class="w-full text-sm text-center rtl:text-right text-neutral-800">
 				<thead class="h-5 text-base text-neutral-200 bg-neutral-800">
 					<tr>
-						<th scope="col" class="px-5 py-4">NO</th>
-						<th scope="col" class="px-5 py-4 w-3/5">TITLE</th>
-						<th scope="col" class="px-5 py-4">WRITER</th>
-						<th scope="col" class="px-5 py-4">REGISTATION DATE</th>
+						<th scope="col" class="px-6 py-4">NO</th>
+						<th scope="col" class="px-6 py-4">BOARD</th>
+						<th scope="col" class="px-6 py-4 w-1/2">TITLE</th>
+						<th scope="col" class="px-6 py-4">WRITER</th>
+						<th scope="col" class="px-6 py-4">HITS</th>
+						<th scope="col" class="px-6 py-4 whitespace-nowrap">REGISTATION DATE</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="article" items="${articles }">
 					<tr class="border-b bg-neutral-200 border-neutral-300 hover:bg-neutral-300">
 						<td class="px-5 py-3">${article.id }</td>
+						<td class="px-5 py-3">${article.extra_boardCode }</td>
 						<td><a class="block text-left pl-6" href="detail?id=${article.id }">${article.title }</a></td>
 						<td class="px-5 py-3">${article.extra_writer }</td>
+						<td class="px-5 py-3">${article.hits }</td>
 						<td class="px-5 py-3">${article.regDate.toString().substring(0, 10) }</td>
 					</tr>
 					</c:forEach>
 					<c:if test="${empty articles }">
 						<tr class="text-center">
-							<td colspan="4" class="text-center text-base py-8">게시글이 없습니다</td>
+							<td colspan="5" class="text-center text-lg py-8">게시글이 없습니다</td>
 						</tr>
 					</c:if>
 				</tbody>
@@ -88,6 +92,8 @@
 
 <!-- 		pagenation -->
 		<div class="inline-flex mx-auto justify-between text-xl">
+			
+		
 		  <c:forEach var="i" begin="1" end="${totalPage}">
 		    <c:choose>
 			    <c:when test="${page eq i}">
@@ -99,7 +105,6 @@
 			           class="block mx-1 w-8 py-1 hover:underline">${i}</a>
 			    </c:otherwise>
 			</c:choose>
-
 		  </c:forEach>
 		</div>
 	</div>

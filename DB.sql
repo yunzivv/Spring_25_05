@@ -9,7 +9,10 @@ CREATE TABLE article(
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
     title VARCHAR(100) NOT NULL,
-    `body` TEXT NOT NULL
+    `body` TEXT NOT NULL,
+    memberId INT(100) UNSIGNED NOT NULL,
+    boardId INT(10) UNSIGNED NOT NULL,
+    hits INT(100) UNSIGNED NOT NULL DEFAULT 0
 );
 
 # 게시물 테이블 데이터 추가
@@ -108,7 +111,18 @@ ALTER TABLE article ADD COLUMN boardId INT(10) NOT NULL AFTER writerId;
 UPDATE article SET boardId = 1 WHERE writerId = 1;
 UPDATE article SET boardId = 2 WHERE boardId = 0;
 
-SELECT * FROM board
-SELECT *
-		FROM board
-		WHERE id = 3 AND delStatus = 0
+SELECT * FROM article;
+SELECT * FROM `member`;
+SELECT * FROM board;
+		
+# hits 컬럼 추가
+ALTER TABLE article ADD COLUMN hits INT(100) UNSIGNED NOT NULL DEFAULT 0;
+
+# like 테이블 추가
+CREATE TABLE `like` (
+	id INT(100) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	memberId INT(100) UNSIGNED NOT NULL,
+	articleId INT(100) UNSIGNED NOT NULL
+);
+
+INSERT INTO `like` SET memberId = 1, articleId = 1;

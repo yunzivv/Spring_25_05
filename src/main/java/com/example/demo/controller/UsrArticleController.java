@@ -40,6 +40,7 @@ public class UsrArticleController {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
+		articleService.incHit(id);
 		Article article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
 		model.addAttribute("article", article); // article 필드에 article 정보, 접근 권한까지 포함되어있음
 
@@ -109,7 +110,7 @@ public class UsrArticleController {
 			return Ut.jsHistoryBack("F-1", Ut.f("%d 번 게시물은 없으시오", id));
 		}
 
-		if (article.getWriterId() != rq.getLoginedMemberId()) {
+		if (article.getMemberId() != rq.getLoginedMemberId()) {
 			return Ut.jsHistoryBack("F-A", "권한 없음");
 		}
 
@@ -146,7 +147,7 @@ public class UsrArticleController {
 			return Ut.jsHistoryBack("F-1", Ut.f("%d 번 게시물은 없으시오", id));
 		}
 
-		if (article.getWriterId() != rq.getLoginedMemberId()) {
+		if (article.getMemberId() != rq.getLoginedMemberId()) {
 			ResultData.from("F-A", "권한 없음");
 			return Ut.jsHistoryBack("F-A", Ut.f("%d번 게시물에 대한 권한이 업습", id));
 		}

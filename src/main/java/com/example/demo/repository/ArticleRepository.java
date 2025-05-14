@@ -16,7 +16,7 @@ import com.example.demo.vo.Article;
 public interface ArticleRepository {
 
 //	@Insert("INSERT INTO article SET regDate = NOW(), updateDate = NOW(), title = #{title}, `body` = #{body}")
-	public int writeArticle(String title, String body, int writerId, int boardId);
+	public int writeArticle(String title, String body, int memberId, int boardId);
 
 //	@Delete("DELETE FROM article WHERE id = #{id}")
 	public void deleteArticle(int id);
@@ -40,4 +40,6 @@ public interface ArticleRepository {
 	public int getArticleCnt();
 
 	public int getArticlesCnt(String keyword, int boardId, int searchItem);
+
+	public void incHit(int id);
 }

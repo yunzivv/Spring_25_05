@@ -26,9 +26,9 @@ public class ArticleService {
 		return articleRepository.getLastInsertId();
 	}
 
-	public Article writeArticle(String title, String body, int writerId, int boardId) {
-		articleRepository.writeArticle(title, body, writerId, boardId);
-		return new Article(title, body, writerId);
+	public Article writeArticle(String title, String body, int memberId, int boardId) {
+		articleRepository.writeArticle(title, body, memberId, boardId);
+		return new Article(title, body, memberId, boardId);
 	}
 
 	public void deleteArticle(int id) {
@@ -71,7 +71,7 @@ public class ArticleService {
 
 	public ResultData userCanModify(int loginedMemberId, Article article) {
 
-		if (article.getWriterId() != loginedMemberId) {
+		if (article.getMemberId() != loginedMemberId) {
 			return ResultData.from("F-A", Ut.f("%d번 게시글 수정 권한 없음", article.getId()));
 		}
 
@@ -80,7 +80,7 @@ public class ArticleService {
 	
 	private ResultData userCanDelete(int loginedMemberId, Article article) {
 		
-		if (article.getWriterId() != loginedMemberId) {
+		if (article.getMemberId() != loginedMemberId) {
 			return ResultData.from("F-A", Ut.f("%d번 게시글 삭제 권한 없음", article.getId()));
 		}
 
@@ -96,6 +96,12 @@ public class ArticleService {
 
 	public int getArticlesCnt(String keyword, int boardId, int searchItem) {
 		return articleRepository.getArticlesCnt(keyword, boardId, searchItem);
+	}
+
+
+	public void incHit(int id) {
+		articleRepository.incHit(id);
+		
 	}
 
 }
