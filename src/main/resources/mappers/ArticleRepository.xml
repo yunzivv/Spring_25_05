@@ -7,7 +7,8 @@
 
 	<insert id="writeArticle" parameterType="map">
 		INSERT INTO article
-		SET regDate = NOW(),
+		SET
+		regDate = NOW(),
 		updateDate = NOW(),
 		title = #{title},
 		body = #{body},
@@ -36,77 +37,92 @@
 		FROM article
 		WHERE id = #{id}
 	</select>
-	
+
 	<select id="getArticleForPrint" parameterType="int"
 		resultType="com.example.demo.vo.Article">
-		SELECT A.*, M.nickName as extra_writer, B.code AS extra_boardCode
+		SELECT A.*, M.nickName as extra_writer, B.code AS
+		extra_boardCode
 		FROM article A
 		JOIN `member` M
 		ON A.memberId = M.id
 		JOIN board B
-	    ON A.boardId = B.id
+		ON A.boardId = B.id
 		WHERE A.id = #{id}
 	</select>
 
 	<select id="getArticles"
-        resultType="com.example.demo.vo.Article">
-	    SELECT A.*, M.nickName AS extra_writer, B.code AS extra_boardCode
-	    FROM article A
-	    JOIN `member` M
-	    ON A.memberId = M.id
-	    JOIN board B
-	    ON A.boardId = B.id
-	    <where>
-	        <if test="boardId != 0 and boardId != null">
-	            AND A.boardId = #{boardId}
-	        </if>
-	        <if test="searchItem == 1 and keyword != null">
-	            AND A.title LIKE CONCAT('%', #{keyword}, '%')
-	        </if>
-	        <if test="searchItem == 2 and keyword != null">
-	            AND A.body LIKE CONCAT('%', #{keyword}, '%')
-	        </if>
-	        <if test="searchItem == 3 and keyword != null">
-	            AND M.nickName LIKE CONCAT('%', #{keyword}, '%')
-	        </if>
-	    </where>
-    	ORDER BY A.id DESC
-    	LIMIT #{limitFrom}, #{itemsInAPage}
+		resultType="com.example.demo.vo.Article">
+		SELECT A.*, M.nickName AS extra_writer, B.code AS extra_boardCode
+		FROM article A
+		JOIN `member` M
+		ON A.memberId = M.id
+		JOIN board B
+		ON A.boardId = B.id
+		<where>
+			<if test="boardId != 0 and boardId != null">
+				AND A.boardId = #{boardId}
+			</if>
+			<if test="searchItem == 1 and keyword != null">
+				AND A.title LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchItem == 2 and keyword != null">
+				AND A.body LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchItem == 3 and keyword != null">
+				AND M.nickName LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
+		ORDER BY A.id DESC
+		LIMIT #{limitFrom}, #{itemsInAPage}
 	</select>
-	
+
 	<select id="getArticlesCnt">
-	    SELECT COUNT(*)
-	    FROM article A
-	    JOIN `member` M
-	    ON A.memberId = M.id
-	    <where>
-	        <if test="boardId != 0 and boardId != null">
-	            AND A.boardId = #{boardId}
-	        </if>
-	        <if test="searchItem == 1 and keyword != null">
-	            AND A.title LIKE CONCAT('%', #{keyword}, '%')
-	        </if>
-	        <if test="searchItem == 2 and keyword != null">
-	            AND A.body LIKE CONCAT('%', #{keyword}, '%')
-	        </if>
-	        <if test="searchItem == 3 and keyword != null">
-	            AND M.nickName LIKE CONCAT('%', #{keyword}, '%')
-	        </if>
-	    </where>
+		SELECT COUNT(*)
+		FROM article A
+		JOIN `member` M
+		ON A.memberId = M.id
+		<where>
+			<if test="boardId != 0 and boardId != null">
+				AND A.boardId = #{boardId}
+			</if>
+			<if test="searchItem == 1 and keyword != null">
+				AND A.title LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchItem == 2 and keyword != null">
+				AND A.body LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchItem == 3 and keyword != null">
+				AND M.nickName LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
 	</select>
-	
-	
+
+
 	<select id="getLastInsertId" parameterType="int">
 		SELECT LAST_INSERT_ID()
 	</select>
-	
+
 	<select id="getArticleCnt" parameterType="int">
-		SELECT COUNT(*) FROM article
+		SELECT COUNT(*) 
+		FROM article
 	</select>
-	
+
 	<update id="incHit" parameterType="int">
-		UPDATE article SET hits = hits + 1 WHERE id = #{id}
+		UPDATE article 
+		SET hits = hits + 1 
+		WHERE id = #{id}
 	</update>
-	
+
+	<select id="getLikes" parameterType="int">
+		SELECT COUNT(*) 
+		FROM `like`
+		WHERE articleId = #{id}
+	</select>
+
+	<select id="isMyLike" parameterType="int">
+		SELECT COUNT(*) 
+		FROM `like`
+		WHERE articleId = #{articleId} AND memberId = #{loginedMemberId} 
+	</select>
 
 </mapper>

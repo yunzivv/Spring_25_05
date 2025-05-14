@@ -31,7 +31,9 @@ public class Article {
 	
 	private String extra_writer;
 	private String extra_boardCode;
+	
 	private boolean userCanModify;
 	private boolean userCanDelete;
+	private boolean myLike;
 
 }

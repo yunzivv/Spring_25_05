@@ -52,14 +52,22 @@ public class ArticleService {
 		Article article = articleRepository.getArticleForPrint(id);
 
 		updateForPrintData(loginedMemberId, article);
+		myLike(loginedMemberId, article);
 	    
 		return article;
 	}
 	
+	private void myLike(int loginedMemberId, Article article) {
+		
+		if (article == null) return;
+		
+		int isMyLike = articleRepository.isMyLike(article.getId(), loginedMemberId);
+		if(isMyLike != 0) article.setMyLike(true);
+	}
+
+
 	private void updateForPrintData(int loginedMemberId, Article article) {
-		if (article == null) {
-			return;
-		}
+		if (article == null) return;
 
 		ResultData userCanModifyRd = userCanModify(loginedMemberId, article);
 		article.setUserCanModify(userCanModifyRd.isSuccess());
@@ -102,6 +110,11 @@ public class ArticleService {
 	public void incHit(int id) {
 		articleRepository.incHit(id);
 		
+	}
+
+
+	public int getLikes(int id) {
+		return articleRepository.getLikes(id);
 	}
 
 }

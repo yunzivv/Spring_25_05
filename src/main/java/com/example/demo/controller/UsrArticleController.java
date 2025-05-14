@@ -43,6 +43,10 @@ public class UsrArticleController {
 		articleService.incHit(id);
 		Article article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
 		model.addAttribute("article", article); // article 필드에 article 정보, 접근 권한까지 포함되어있음
+		
+		// 좋아요 개수
+		int likes = articleService.getLikes(id);
+		model.addAttribute("likes", likes);
 
 		return "/usr/article/detail";
 	}

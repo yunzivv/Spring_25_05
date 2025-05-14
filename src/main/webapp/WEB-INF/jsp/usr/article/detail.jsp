@@ -31,6 +31,19 @@
 				</div>
 
 				<div class="flex-grow"></div>
+				
+				<div class="like_box text-xl">
+				
+					<c:if test="${article.myLike}">
+						♥ ${likes }
+					</c:if>
+					
+					<c:if test="${!article.myLike}">
+						♡ ${likes }
+					</c:if>
+					
+				</div>
+				
 				<div class="btn-box">
 					<c:if test="${article.userCanModify}">
 						<button class="btn rounded-xl mx-1 px-3 hover:bg-neutral-300">
