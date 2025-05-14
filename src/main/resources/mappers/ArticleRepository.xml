@@ -11,7 +11,8 @@
 		updateDate = NOW(),
 		title = #{title},
 		body = #{body},
-		writerId = #{writerId}
+		writerId = #{writerId},
+		boardId = #{boardId}
 	</insert>
 
 	<delete id="deleteArticle" parameterType="int">

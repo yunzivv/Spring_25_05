@@ -21,7 +21,7 @@
 				    class="block flex justify-center items-center px-8 border border-solid border-neutral-500 rounded-lg overflow-hidden">
 				    <option value="0" disabled ${boardId eq 0 ? 'selected' : ''} hidden class="text-neutral-400">게시판 선택</option>
 				    <option value="0">전체 게시판</option>
-				    <option value="1" ${boardId == 1 ? 'selected' : ''}>공지사항</option>
+				    <option value="1" ${boardId eq 1 ? 'selected' : ''}>공지사항</option>
 				    <option value="2" ${boardId eq 2 ? 'selected' : ''}>자유 게시판</option>
 				    <option value="3" ${boardId eq 3 ? 'selected' : ''}>질문과 답변</option>
 				  </select>
@@ -41,7 +41,7 @@
 				</button>
 				
 				<a href="write" 
-			class="block ml-6 px-3 whitespace-nowrap text-base flex items-center justify-center font-large rounded-md hover:bg-neutral-300">
+			class="block ml-6 px-5 whitespace-nowrap text-base flex items-center justify-center font-large rounded-md hover:bg-neutral-300">
 			글 작성</a>
 			</form>
 			
