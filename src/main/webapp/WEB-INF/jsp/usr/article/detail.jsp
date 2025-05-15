@@ -91,7 +91,7 @@
 		댓글 1
 		<c:if test="${not empty comments }">
 			<c:forEach var="comment" items="${comments }">
-<%-- 				${comment.body } --%>
+				${comment.body }
 			</c:forEach>
 		</c:if>
 	</div>

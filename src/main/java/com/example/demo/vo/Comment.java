@@ -2,6 +2,15 @@ package com.example.demo.vo;
 
 import java.time.LocalDateTime;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Comment {
 
 	private int id;
@@ -10,4 +19,5 @@ public class Comment {
 	private int memberId;
 	private int articleId;
 	private String body;
+	
 }
