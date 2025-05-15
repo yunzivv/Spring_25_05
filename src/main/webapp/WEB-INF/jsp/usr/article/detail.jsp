@@ -87,11 +87,18 @@
 <!-- 			<input type="submit" value="게시"/> -->
 <!-- 		</div> -->
 	</form>
-	<div class="mx-4 my-2 rounded-lg border border-solid border-neutural-300 p-2"">
+	<div class="mx-4 my-2 rounded-lg border border-solid border-neutral-500 p-4"">
+		<div class="px-4">
 		댓글 1
+		</div>
 		<c:if test="${not empty comments }">
 			<c:forEach var="comment" items="${comments }">
-				${comment.body }
+				<div>
+					<hr class="border border-neutral-500 border-solid my-4"/>
+					<div class="px-4">
+						${comment.memberId } : ${comment.body }
+					</div>
+				</div>
 			</c:forEach>
 		</c:if>
 	</div>
