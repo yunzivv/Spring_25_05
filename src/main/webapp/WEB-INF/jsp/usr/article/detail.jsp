@@ -5,6 +5,29 @@
 <%@ include file="../common/head.jspf"%>
 
 
+<script>
+	const params = {};
+	params.id = parseInt('${param.id}');
+	
+</script>
+
+<script>
+	function articleDetail_increaseHits() {
+		$.get('../article/doIncHits',{
+			id : params.id, <!-- 매개변수 설정 -->
+			ajaxMode : 'Y' <!-- 매개변수 설정 -->
+		}, function(data){ <!-- incHits의 return 값이 data에 저장된다. -->
+			$('.article_detail_hit_count').html("조회수 : " + data.data1);
+		}, 'json');
+	}
+	
+	$(function() {
+		articleDetail_increaseHits();
+// 		setTimeout(articleDetail_increaseHits, 2000);
+
+	})
+</script>
+
 <button onclick="history.back()" class="block text-4xl pl-10 pt-6 cursor-pointer">
 		<i class="fa-solid fa-angle-left"></i>
 </button>
@@ -28,13 +51,13 @@
 					<span> 수정 일자 : ${article.updateDate.toString().substring(0, 10)} &nbsp;&nbsp;&nbsp;</span>
 					<span> 작성자 : ${article.extra_writer } &nbsp;&nbsp;&nbsp;</span>
 					<span> 게시판 : ${article.extra_boardCode } &nbsp;&nbsp;&nbsp;</span>
-					<span> 조회수 : ${article.hits } </span>
+					<span class="article_detail_hit_count"> 조회수 : ${article.hits } </span>
 				</div>
 
 				<div class="flex-grow"></div>
 				
 				<div class="like_box flex items-center justify-center mx-4 text-xl cursor-pointer">
-					<form action="detail" method="POST">
+					<form action="doLike" method="POST">
 					<input type="hidden" name="id" value="${article.id}">
 						<c:if test="${article.myLike}">
 							<input name="like" type="submit" class="text-red-400 cursor-pointer" value="♥"/>
@@ -76,7 +99,7 @@
 </div>
 
 
-<div class="comment-box container flex justify-center flex-col mx-auto my-4">
+<div class="comment-box container flex justify-center flex-col mx-auto mt-4 mb-20">
 	<c:if test="${not empty comments }">
 		<div class="comments-box my-2 rounded-xl border border-solid border-neutral-500 px-4 py-6">
 			<c:forEach var="comment" items="${comments }">

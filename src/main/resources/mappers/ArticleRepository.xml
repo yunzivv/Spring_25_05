@@ -107,11 +107,18 @@
 		FROM article
 	</select>
 
-	<update id="incHit" parameterType="int">
+	<update id="doIncHits" parameterType="int">
 		UPDATE article 
 		SET hits = hits + 1 
 		WHERE id = #{id}
 	</update>
+	
+	<select id="getHits" parameterType="int">
+		SELECT hits
+		FROM article
+		WHERE id = #{id}
+	</select>
+	
 
 	<select id="getLikes" parameterType="int">
 		SELECT COUNT(*) 

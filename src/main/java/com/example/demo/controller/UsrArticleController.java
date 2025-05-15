@@ -46,17 +46,17 @@ public class UsrArticleController {
 
 	// 액션메서드
 	@RequestMapping("/usr/article/detail")
-	public String getArticle(Model model, HttpServletRequest req, int id, String like) {
+	public String getArticle(Model model, HttpServletRequest req, int id) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		// 좋아요 처리
-		if(like == null) like = "";
-		if(like.equals("♡")) likeService.insertLike(rq.getLoginedMemberId(), id);
-		if(like.equals("♥")) likeService.deleteLike(rq.getLoginedMemberId(), id);
+//		if(like == null) like = "";
+//		if(like.equals("♡")) likeService.insertLike(rq.getLoginedMemberId(), id);
+//		if(like.equals("♥")) likeService.deleteLike(rq.getLoginedMemberId(), id);
 		
 		// 조회수 증가
-		articleService.incHit(id);
+//		articleService.incHit(id);
 		
 		// 검색 기준 article 조회
 		Article article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
@@ -71,6 +71,32 @@ public class UsrArticleController {
 		model.addAttribute("comments", comments);
 		
 		return "/usr/article/detail";
+	}
+	
+	@RequestMapping("/usr/article/doIncHits")
+	@ResponseBody
+	public ResultData doIncHits(int id) {
+
+		ResultData increaseHitCountRd = articleService.doIncHits(id);
+
+		if (increaseHitCountRd.isFail()) {
+			return increaseHitCountRd;
+		}
+		
+		return ResultData.newData(increaseHitCountRd, "hitCount", articleService.getHits(id));
+	}
+	
+	@RequestMapping("/usr/article/doLike")
+	@ResponseBody
+	public String doLike(HttpServletRequest req, int id, String like) {
+
+		Rq rq = (Rq) req.getAttribute("rq");
+
+		if(like == null) like = "";
+		if(like.equals("♡")) likeService.insertLike(rq.getLoginedMemberId(), id);
+		if(like.equals("♥")) likeService.deleteLike(rq.getLoginedMemberId(), id);
+
+		return Ut.jsReplace(Ut.f("../article/detail?id=%d", id));
 	}
 	
 	@RequestMapping("/usr/article/doCommentWrite")

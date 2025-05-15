@@ -8,11 +8,14 @@
 	<i class="fa-solid fa-angle-left"></i>
 </button>
 
-<div class="container mx-auto w-5/6">
-	<div class="flex justify-between text-neutral-800 text-4xl font-bold mx-2 mt-20 mb-6">
-		<span>
-		Article List
-		</span>
+<div class="container mx-auto my-10 w-5/6">
+	<span class="text-4xl font-bold m-4">
+		Article list
+	</span>
+	<div class="flex justify-between items-end text-neutral-800 mx-2 my-3">
+		<div class="articleCnt font-normal mx-4">
+		총 게시 글 : ${totalCnt }
+		</div>
 			
 		<div class="search-bar flex justify-between items-center h-8 px-2 text-sm mt-auto mb-0">
 			<form class="search-box flex" action="list" method="POST">	
@@ -56,7 +59,7 @@
 		</div>
 	</div>
 	
-	총 게시 글 : ${totalCnt }
+	
 	<div class="container text-center">
 <!-- 		article table -->
 		<div class="mx-auto my-4 border-solid border rounded-xl overflow-hidden">

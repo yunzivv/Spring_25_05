@@ -107,14 +107,25 @@ public class ArticleService {
 	}
 
 
-	public void incHit(int id) {
-		articleRepository.incHit(id);
+	public ResultData doIncHits(int id) {
 		
+		int affectedRow = articleRepository.doIncHits(id);
+		
+		if (affectedRow == 0) {
+			return ResultData.from("F-1", "해당 게시글 없음", "id", id);
+		}
+
+		return ResultData.from("S-1", "조회수 증가", "id", id);
 	}
 
 
 	public int getLikes(int id) {
 		return articleRepository.getLikes(id);
+	}
+
+
+	public int getHits(int id) {
+		return articleRepository.getHits(id);
 	}
 
 }

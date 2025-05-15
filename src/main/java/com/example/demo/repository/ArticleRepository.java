@@ -41,9 +41,11 @@ public interface ArticleRepository {
 
 	public int getArticlesCnt(String keyword, int boardId, int searchItem);
 
-	public void incHit(int id);
+	public int doIncHits(int id);
 
 	public int getLikes(int id);
 
 	public int isMyLike(int articleId, int loginedMemberId);
+
+	public int getHits(int id);
 }
