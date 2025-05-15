@@ -12,8 +12,20 @@
 </script>
 
 <script>
+// 조회수 증가 함수
 	function articleDetail_increaseHits() {
 		$.get('../article/doIncHits',{
+			id : params.id, <!-- 매개변수 설정 -->
+			ajaxMode : 'Y' <!-- 매개변수 설정 -->
+		}, function(data){ <!-- incHits의 return 값이 data에 저장된다. -->
+			$('.article_detail_hit_count').html("조회수 : " + data.data1);
+		}, 'json');
+	}
+	
+// 	좋아요 함수
+
+ 	function articleDetail_like() {
+ 		$.get('../article/doIncHits',{
 			id : params.id, <!-- 매개변수 설정 -->
 			ajaxMode : 'Y' <!-- 매개변수 설정 -->
 		}, function(data){ <!-- incHits의 return 값이 data에 저장된다. -->
@@ -26,6 +38,9 @@
 // 		setTimeout(articleDetail_increaseHits, 2000);
 
 	})
+	
+	$("")
+	
 </script>
 
 <button onclick="history.back()" class="block text-4xl pl-10 pt-6 cursor-pointer">
