@@ -47,6 +47,15 @@ public class Ut {
 				</script>
 				""", resultMsg, replaceUri);
 	}
+	
+	public static String jsReplace(String replaceUri) {
+		
+		return Ut.f("""
+				<script>
+					location.replace('%s');
+				</script>
+				""", replaceUri);
+	}
 
 	public static String jsHistoryBack(String resultCode, String msg) {
 		

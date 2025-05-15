@@ -6,9 +6,21 @@
 <mapper namespace="com.example.demo.repository.CommentRepository">
 
 	<select id="getComments" parameterType="int">
-		SELECT *
-		FROM `comment`
+		SELECT C.*, M.nickName AS extra_memberNickName
+		FROM `comment` C
+		JOIN `member` M
+		ON C.memberId = M.id
 		WHERE articleId = #{id}
 	</select>
+	
+	<insert id="doCommentWrtie">
+		INSERT INTO `comment`
+		SET
+		regDate = NOW(),
+		updateDate = NOW(),
+		memberId = #{memberId},
+		articleId = #{articleId},
+		`body` = #{body}
+	</insert>
 
 </mapper>

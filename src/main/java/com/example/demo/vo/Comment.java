@@ -20,4 +20,6 @@ public class Comment {
 	private int articleId;
 	private String body;
 	
+	private String extra_memberNickName;
+	
 }

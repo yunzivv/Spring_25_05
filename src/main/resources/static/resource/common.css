@@ -28,3 +28,7 @@ li {
 	z-index: 20;
 	display: block;
 }
+
+.comments-box hr:first-of-type {
+	display: none;
+}

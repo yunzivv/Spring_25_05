@@ -23,5 +23,9 @@ public class CommentService {
 		return commentRepository.getComments(id);
 	}
 
+	public int doCommentWrtie(int id, int loginedMemberId, String body) {
+		return commentRepository.doCommentWrtie(id, loginedMemberId, body);
+	}
+
 
 }

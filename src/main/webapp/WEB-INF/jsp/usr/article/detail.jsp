@@ -74,33 +74,34 @@
 		</div>
 	</div>
 </div>
-<div class="comment container flex justify-center flex-col mx-auto my-4 bg-red-300">
-	<form action="detail" class="text-center bg-blue-300">
-		<label class="flex items-center w-11/12 border border-neutral-500 mx-auto overflow-hidden rounded-lg p-2 gap-2">
-		  <input type="text" name="keyword" placeholder="나도 한마디 하기!"
-		         class="flex-grow min-w-0 px-2 py-1 " />
-		  <input type="submit" value="게시" class="px-3 py-1" />
-		</label>
-		
-<!-- 		<div class="w-11/12 m-auto rounded-lg border border-solid border-neutural-300 p-2"> -->
-<!-- 			<input type="text" placeholder="나도 한마디 하기!" /> -->
-<!-- 			<input type="submit" value="게시"/> -->
-<!-- 		</div> -->
-	</form>
-	<div class="mx-4 my-2 rounded-lg border border-solid border-neutral-500 p-4"">
-		<div class="px-4">
-		댓글 1
-		</div>
-		<c:if test="${not empty comments }">
+
+
+<div class="comment-box container flex justify-center flex-col mx-auto my-4">
+	<c:if test="${not empty comments }">
+		<div class="comments-box my-2 rounded-xl border border-solid border-neutral-500 px-4 py-6">
 			<c:forEach var="comment" items="${comments }">
-				<div>
-					<hr class="border border-neutral-500 border-solid my-4"/>
-					<div class="px-4">
-						${comment.memberId } : ${comment.body }
+				<hr class="border-neutral-500 my-4"/>
+				<div class="flex items-center px-4">
+					<div class="avatar">
+					  <div class="w-12 rounded">
+					    <img src="https://img.daisyui.com/images/profile/demo/batperson@192.webp" />
+					  </div>
 					</div>
+					<strong class="ml-2 mr-6">${comment.extra_memberNickName }</strong>
+					<div class="flex-grow">${comment.body }</div>
 				</div>
 			</c:forEach>
-		</c:if>
+		</div>
+	</c:if>
+	<div class="input-comment-box">
+		<form action="doCommentWrite" class="text-center">
+			<input type="hidden" name="id" value="${article.id}">
+			<label class="flex items-center border border-neutral-500 mx-auto overflow-hidden rounded-3xl p-2 gap-2">
+			  <input type="text" name="body" placeholder="나도 한마디 하기!"
+			         class="flex-grow min-w-0 px-2 py-1 focus-within:outline-none" />
+			  <input type="submit" value="게시" class="px-3 py-1 font-bold" />
+			</label>
+		</form>
 	</div>
 </div>
 

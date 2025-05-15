@@ -72,6 +72,20 @@ public class UsrArticleController {
 		
 		return "/usr/article/detail";
 	}
+	
+	@RequestMapping("/usr/article/doCommentWrite")
+	@ResponseBody
+	public String doCommentWrite(HttpServletRequest req, int id, String body) {
+
+		Rq rq = (Rq) req.getAttribute("rq");
+
+		if (Ut.isEmpty(body))
+			return Ut.jsHistoryBack("F-1", "내용 안썻어");
+
+		int commentId = commentService.doCommentWrtie(id, rq.getLoginedMemberId(), body);
+
+		return Ut.jsReplace(Ut.f("../article/detail?id=%d", id));
+	}
 
 	@RequestMapping("/usr/article/list")
 	public String getArticles(Model model, String keyword, @RequestParam(defaultValue = "0") int boardId,

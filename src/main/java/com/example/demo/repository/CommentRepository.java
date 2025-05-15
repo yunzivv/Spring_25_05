@@ -11,4 +11,6 @@ public interface CommentRepository {
 
 	public List<Comment> getComments(int id);
 
+	public int doCommentWrtie(int articleId, int memberId, String body);
+
 }
