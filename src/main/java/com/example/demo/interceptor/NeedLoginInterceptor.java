@@ -18,8 +18,6 @@ public class NeedLoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
 
-//		Rq rq = (Rq) req.getAttribute("rq");
-
 		if (!rq.isLogined()) {
 
 			rq.printHistoryBack("로그인 하고 와");

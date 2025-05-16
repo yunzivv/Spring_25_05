@@ -73,6 +73,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public ResultData doReaction(HttpServletRequest req, int id) {
 
+		
 		System.out.println("article controller doRdaction 실행됨");
 		
 		Rq rq = (Rq) req.getAttribute("rq");
