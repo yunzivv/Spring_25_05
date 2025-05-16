@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.repository.ArticleRepository; 
+import com.example.demo.repository.ArticleRepository;
+import com.example.demo.repository.ReactionRepository;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.ResultData;
 
@@ -16,6 +17,9 @@ public class ArticleService {
 
 	@Autowired
 	private ArticleRepository articleRepository;
+	
+	@Autowired
+	private ReactionRepository reactionRepository;
 
 	public ArticleService(ArticleRepository articleRepository) {
 		this.articleRepository = articleRepository;
@@ -52,17 +56,8 @@ public class ArticleService {
 		Article article = articleRepository.getArticleForPrint(id);
 
 		updateForPrintData(loginedMemberId, article);
-		myLike(loginedMemberId, article); // 내 좋아요 확인
 	    
 		return article;
-	}
-	
-	private void myLike(int loginedMemberId, Article article) {
-		
-		if (article == null) return;
-		
-		int isMyLike = articleRepository.isMyLike(article.getId(), loginedMemberId); // 내 좋아요 확인
-		if(isMyLike != 0) article.setMyLike(true); // 내 좋아요 저장
 	}
 
 
@@ -74,6 +69,32 @@ public class ArticleService {
 		
 		ResultData userCanDeleteRd = userCanDelete(loginedMemberId, article);
 		article.setUserCanDelete(userCanModifyRd.isSuccess());
+		
+		ResultData userReactionRd = userReaction(loginedMemberId, article.getId());
+		if(userReactionRd == null) return;
+		article.setUserReaction((int)userReactionRd.getData1());
+
+		
+		
+		
+		
+		
+		
+		System.out.println(userReactionRd.getData1Name() + userReactionRd.getData1()); ////////////// 출력
+	}
+
+
+	public ResultData userReaction(int loginedMemberId, int id) {
+		
+		int isReactioned = reactionRepository.getIsReactioned(loginedMemberId, id);
+		if(isReactioned == 0) return null;
+		
+		int reactionPoint = reactionRepository.getUserReaction(loginedMemberId, id);
+		
+		if(reactionPoint == 0) return ResultData.from("F-1",Ut.f("%d번 게시글 반응", id), "없음", reactionPoint);
+		else if(reactionPoint == 1) return ResultData.from("S-1",Ut.f("%d번 게시글 반응", id), "좋아요", reactionPoint);
+		else return ResultData.from("F-A",Ut.f("%d번 게시글 반응", id), "싫어요", reactionPoint);
+		
 	}
 
 

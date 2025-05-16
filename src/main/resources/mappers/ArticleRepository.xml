@@ -110,7 +110,6 @@
 		</where>
 	</select>
 
-
 	<select id="getLastInsertId" parameterType="int">
 		SELECT LAST_INSERT_ID()
 	</select>
@@ -131,7 +130,6 @@
 		FROM article
 		WHERE id = #{id}
 	</select>
-	
 
 	<select id="getLikes" parameterType="int">
 		SELECT COUNT(*) 
@@ -139,10 +137,12 @@
 		WHERE articleId = #{id}
 	</select>
 
-	<select id="isMyLike" parameterType="int">
-		SELECT COUNT(*) 
-		FROM `like`
-		WHERE articleId = #{articleId} AND memberId = #{loginedMemberId} 
+	<select id="isMyreaction" parameterType="int">
+		SELECT IFNULL((SELECT `point` 
+		FROM reactionPoint
+		WHERE relTypeCode = 'article' 
+		AND relId =  #{articleId}
+		AND memberId = #{loginedMemberId}), 0)
 	</select>
 
 </mapper>

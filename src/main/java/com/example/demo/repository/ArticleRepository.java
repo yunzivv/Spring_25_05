@@ -45,7 +45,7 @@ public interface ArticleRepository {
 
 	public int getLikes(int id);
 
-	public int isMyLike(int articleId, int loginedMemberId);
+	public int isMyreaction(int articleId, int loginedMemberId);
 
 	public int getHits(int id);
 }

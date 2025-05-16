@@ -56,22 +56,11 @@ public class UsrArticleController {
 	public String getArticle(Model model, HttpServletRequest req, int id) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
-
-		// 좋아요 처리
-//		if(like == null) like = "";
-//		if(like.equals("♡")) likeService.insertLike(rq.getLoginedMemberId(), id);
-//		if(like.equals("♥")) likeService.deleteLike(rq.getLoginedMemberId(), id);
-		
-		// 조회수 증가
-//		articleService.incHit(id);
 		
 		// 검색 기준 article 조회
 		Article article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
-		model.addAttribute("article", article); // article 필드에 article 정보, 접근 권한까지 포함되어있음
-		
-		// 좋아요 개수
-		int likes = likeService.getLikes(id);
-		model.addAttribute("likes", likes);
+		// article 필드에 작성자, 게시판 이름, 수정 삭제 권한, 좋아요 싫어요 합계 개수 저장
+		model.addAttribute("article", article);
 
 		// 댓글 조회
 		List<Comment> comments = commentService.getComments(id);
@@ -80,25 +69,27 @@ public class UsrArticleController {
 		return "/usr/article/detail";
 	}
 	
-	@RequestMapping("/usr/article/doLike")
+	@RequestMapping("/usr/article/doReaction")
 	@ResponseBody
-	public ResultData doLike(HttpServletRequest req, int id) {
+	public ResultData doReaction(HttpServletRequest req, int id) {
 
-		System.out.println("실행됨");
+		System.out.println("article controller doRdaction 실행됨");
+		
 		Rq rq = (Rq) req.getAttribute("rq");
+		ResultData doReactionRd = articleService.userReaction(rq.getLoginedMemberId(), id);
 		
-		ResultData doLikeRd;
+		if(doReactionRd == null) {
+			System.err.println("insert");
+			return null;
+		}
+		else if((int)doReactionRd.getData1() == 1){
+			System.err.println("good -> bad");
+			return null;
+		}
 		
-		if(likeService.isMyLike(rq.getLoginedMemberId(), id)) {
-			System.out.println("insert");
-			doLikeRd = likeService.insertLike(rq.getLoginedMemberId(), id);
-		}
-		else {
-			System.out.println("deleteLike");
-			doLikeRd = likeService.deleteLike(rq.getLoginedMemberId(), id);
-		}
+		System.err.println("good -> bad");
 			
-		return ResultData.newData(doLikeRd, "isMyLike", "♡");
+		return null;
 	}
 	
 	@RequestMapping("/usr/article/doIncHits")

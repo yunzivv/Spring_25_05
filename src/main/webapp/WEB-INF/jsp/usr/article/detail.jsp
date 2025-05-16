@@ -23,9 +23,9 @@
 	}
 	
 // 	좋아요 활성화 함수
- 	function articleDetail_like() {
+ 	function articleDetail_reAction() {
 	console.log("affected")
- 		$.get('../article/doLike',{
+ 		$.get('../article/doReaction',{
 			id : params.id, <!-- 매개변수 설정 -->
 			ajaxMode : 'Y' <!-- 매개변수 설정 -->
 		}, function(data){ <!-- incHits의 return 값이 data에 저장된다. -->
@@ -71,29 +71,25 @@
 				<div class="flex-grow"></div>
 				
 <!-- 				like -->
-				<div class="like_box flex items-center justify-center mx-4 text-xl cursor-pointer">			
+				<div class="reaction_box flex items-center justify-center mx-4 text-xl cursor-pointer">		
 					<c:choose>
-						<c:when test="${article.myLike}">
-							<button class="like_btn" onClick="articleDetail_like()">♡</button>
+						<c:when test="${article.userReaction == 1}">
+							<button class="good_btn bg-red-400" onClick="articleDetail_reAction()">good&nbsp;${article.extra_goodReactionPoint }</button>
 						</c:when>
 						<c:otherwise>
-							<button class="like_btn text-red-400" onClick="articleDetail_like()">♥</button>
+							<button class="bad_btn" onClick="articleDetail_reAction()">good&nbsp;${article.extra_goodReactionPoint }</button>
 				   		</c:otherwise>
-					</c:choose> &nbsp;${article.extra_goodReactionPoint } &nbsp;&nbsp;&nbsp;
-					⍤⃝&nbsp; ${article.extra_badReactionPoint }
-<!-- 					<form action="doLike" method="POST"> -->
-<%-- 					<input type="hidden" name="id" value="${article.id}"> --%>
-<%-- 						<c:if test="${article.myLike}"> --%>
-<!-- 							<input name="like" type="submit" class="text-red-400 cursor-pointer" value="♥"/> -->
-<%-- 						</c:if> --%>
-						
-<%-- 						<c:if test="${!article.myLike}"> --%>
-<!-- 							<button type="submit"> -->
-<!-- 								<input name="like" type="submit" class="text-red-400 cursor-pointer bg-red-500" value="♡"/> -->
-<!-- 							</button> -->
-<%-- 						</c:if>	 --%>
-<%-- 						<span>&nbsp;${likes }</span>				 --%>
-<!-- 					</form> -->
+					</c:choose>  
+					&nbsp;&nbsp;&nbsp;
+					<c:choose>
+						<c:when test="${article.userReaction == -1}">
+							<button class="good_btn bg-red-400" onClick="articleDetail_reAction()">bad&nbsp; ${article.extra_badReactionPoint }</button>
+						</c:when>
+						<c:otherwise>
+							<button class="bad_btn" onClick="articleDetail_reAction()">bad&nbsp; ${article.extra_badReactionPoint }</button>
+				   		</c:otherwise>
+					</c:choose>
+					
 				</div>
 					
 <!-- 				modify, delete btn -->
