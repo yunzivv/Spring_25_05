@@ -70,6 +70,9 @@
 						<th scope="col" class="px-6 py-4">BOARD</th>
 						<th scope="col" class="px-6 py-4 w-1/2">TITLE</th>
 						<th scope="col" class="px-6 py-4">WRITER</th>
+						<th scope="col" class="px-6 py-4">sumReaction</th>
+						<th scope="col" class="px-6 py-4">goodReaction</th>
+						<th scope="col" class="px-6 py-4">badReaction</th>
 						<th scope="col" class="px-6 py-4">HITS</th>
 						<th scope="col" class="px-6 py-4 whitespace-nowrap">REGISTATION DATE</th>
 					</tr>
@@ -81,6 +84,9 @@
 							<td class="px-5 py-3" onclick="location.href='detail?id=${article.id}'">${article.extra_boardCode }</td>
 							<td onclick="location.href='detail?id=${article.id}'"><a class="block text-left pl-6" href="detail?id=${article.id }">${article.title }</a></td>
 							<td class="px-5 py-3" onclick="location.href='detail?id=${article.id}'">${article.extra_writer }</td>
+							<td class="px-5 py-3" onclick="location.href='detail?id=${article.id}'">${article.extra_sumReactionPoint }</td>
+							<td class="px-5 py-3" onclick="location.href='detail?id=${article.id}'">${article.extra_goodReactionPoint }</td>
+							<td class="px-5 py-3" onclick="location.href='detail?id=${article.id}'">${article.extra_badReactionPoint }</td>
 							<td class="px-5 py-3" onclick="location.href='detail?id=${article.id}'">${article.hits }</td>
 							<td class="px-5 py-3" onclick="location.href='detail?id=${article.id}'">${article.regDate.toString().substring(0, 10) }</td>
 						</tr>

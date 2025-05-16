@@ -65,8 +65,6 @@
 					<span> 수정 일자 : ${article.updateDate.toString().substring(0, 10)} &nbsp;&nbsp;&nbsp;</span>
 					<span> 작성자 : ${article.extra_writer } &nbsp;&nbsp;&nbsp;</span>
 					<span> 게시판 : ${article.extra_boardCode } &nbsp;&nbsp;&nbsp;</span>
-					<span> 조항요 : ${article.extra_goodReactionPoint } &nbsp;&nbsp;&nbsp;</span>
-					<span> 시러요 : ${article.extra_badReactionPoint } &nbsp;&nbsp;&nbsp;</span>
 					<span class="article_detail_hit_count"> 조회수 : ${article.hits } </span>
 				</div>
 
@@ -79,9 +77,10 @@
 							<button class="like_btn" onClick="articleDetail_like()">♡</button>
 						</c:when>
 						<c:otherwise>
-							<button class="like_btn" onClick="articleDetail_like()">♥</button>
+							<button class="like_btn text-red-400" onClick="articleDetail_like()">♥</button>
 				   		</c:otherwise>
-					</c:choose>
+					</c:choose> &nbsp;${article.extra_goodReactionPoint } &nbsp;&nbsp;&nbsp;
+					⍤⃝&nbsp; ${article.extra_badReactionPoint }
 <!-- 					<form action="doLike" method="POST"> -->
 <%-- 					<input type="hidden" name="id" value="${article.id}"> --%>
 <%-- 						<c:if test="${article.myLike}"> --%>
