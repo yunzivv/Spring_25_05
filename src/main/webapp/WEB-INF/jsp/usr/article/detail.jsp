@@ -22,14 +22,14 @@
 		}, 'json');
 	}
 	
-// 	좋아요 함수
-
+// 	좋아요 활성화 함수
  	function articleDetail_like() {
- 		$.get('../article/doIncHits',{
+	console.log("affected")
+ 		$.get('../article/doLike',{
 			id : params.id, <!-- 매개변수 설정 -->
 			ajaxMode : 'Y' <!-- 매개변수 설정 -->
 		}, function(data){ <!-- incHits의 return 값이 data에 저장된다. -->
-			$('.article_detail_hit_count').html("조회수 : " + data.data1);
+			$('.like_btn').html(data.data1);
 		}, 'json');
 	}
 	
@@ -38,8 +38,6 @@
 // 		setTimeout(articleDetail_increaseHits, 2000);
 
 	})
-	
-	$("")
 	
 </script>
 
@@ -61,33 +59,45 @@
 			<div class="title text-3xl font-medium">${article.title }</div>
 			
 			<div class="articleInfo flex my-2">
+<!-- 				article info -->
 				<div class="writeInfo text-neutral-800 m-1">
 					<span> 작성 일자 : ${article.regDate.toString().substring(0, 10)} &nbsp;&nbsp;&nbsp;</span>
 					<span> 수정 일자 : ${article.updateDate.toString().substring(0, 10)} &nbsp;&nbsp;&nbsp;</span>
 					<span> 작성자 : ${article.extra_writer } &nbsp;&nbsp;&nbsp;</span>
 					<span> 게시판 : ${article.extra_boardCode } &nbsp;&nbsp;&nbsp;</span>
+					<span> 조항요 : ${article.extra_goodReactionPoint } &nbsp;&nbsp;&nbsp;</span>
+					<span> 시러요 : ${article.extra_badReactionPoint } &nbsp;&nbsp;&nbsp;</span>
 					<span class="article_detail_hit_count"> 조회수 : ${article.hits } </span>
 				</div>
 
 				<div class="flex-grow"></div>
 				
-				<div class="like_box flex items-center justify-center mx-4 text-xl cursor-pointer">
-					<form action="doLike" method="POST">
-					<input type="hidden" name="id" value="${article.id}">
-						<c:if test="${article.myLike}">
-							<input name="like" type="submit" class="text-red-400 cursor-pointer" value="♥"/>
-								<span>&nbsp;${likes }</span>
-						</c:if>
+<!-- 				like -->
+				<div class="like_box flex items-center justify-center mx-4 text-xl cursor-pointer">			
+					<c:choose>
+						<c:when test="${article.myLike}">
+							<button class="like_btn" onClick="articleDetail_like()">♡</button>
+						</c:when>
+						<c:otherwise>
+							<button class="like_btn" onClick="articleDetail_like()">♥</button>
+				   		</c:otherwise>
+					</c:choose>
+<!-- 					<form action="doLike" method="POST"> -->
+<%-- 					<input type="hidden" name="id" value="${article.id}"> --%>
+<%-- 						<c:if test="${article.myLike}"> --%>
+<!-- 							<input name="like" type="submit" class="text-red-400 cursor-pointer" value="♥"/> -->
+<%-- 						</c:if> --%>
 						
-						<c:if test="${!article.myLike}">
-							<button type="submit">
-								<input name="like" type="submit" class="text-red-400 cursor-pointer" value="♡"/>
-								<span>&nbsp;${likes }</span>
-							</button>
-						</c:if>					
-					</form>
+<%-- 						<c:if test="${!article.myLike}"> --%>
+<!-- 							<button type="submit"> -->
+<!-- 								<input name="like" type="submit" class="text-red-400 cursor-pointer bg-red-500" value="♡"/> -->
+<!-- 							</button> -->
+<%-- 						</c:if>	 --%>
+<%-- 						<span>&nbsp;${likes }</span>				 --%>
+<!-- 					</form> -->
 				</div>
-				
+					
+<!-- 				modify, delete btn -->
 				<div class="btn-box">
 					<c:if test="${article.userCanModify}">
 						<button class="btn rounded-xl ml-4 mr-1 px-3 hover:bg-neutral-300">

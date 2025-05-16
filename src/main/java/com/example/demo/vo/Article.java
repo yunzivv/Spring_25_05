@@ -32,6 +32,10 @@ public class Article {
 	private String extra_writer;
 	private String extra_boardCode;
 	
+	private int extra_goodReactionPoint;
+	private int extra_badReactionPoint;
+	private int extra_sumReactionPoint;
+	
 	private boolean userCanModify;
 	private boolean userCanDelete;
 	private boolean myLike;

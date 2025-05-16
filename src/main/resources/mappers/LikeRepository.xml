@@ -22,5 +22,11 @@
 		WHERE memberId = ${loginedMemberId} 
 		AND articleId = ${id} 
 	</insert>
-
+	
+	<select id="isMyLike">
+		SELECT COUNT(*) FROM `like`
+		WHERE memberId = ${loginedMemberId} 
+		AND articleId = ${id} 
+	</select>
+	
 </mapper>

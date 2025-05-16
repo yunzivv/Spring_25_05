@@ -52,7 +52,7 @@ public class ArticleService {
 		Article article = articleRepository.getArticleForPrint(id);
 
 		updateForPrintData(loginedMemberId, article);
-		myLike(loginedMemberId, article);
+		myLike(loginedMemberId, article); // 내 좋아요 확인
 	    
 		return article;
 	}
@@ -61,8 +61,8 @@ public class ArticleService {
 		
 		if (article == null) return;
 		
-		int isMyLike = articleRepository.isMyLike(article.getId(), loginedMemberId);
-		if(isMyLike != 0) article.setMyLike(true);
+		int isMyLike = articleRepository.isMyLike(article.getId(), loginedMemberId); // 내 좋아요 확인
+		if(isMyLike != 0) article.setMyLike(true); // 내 좋아요 저장
 	}
 
 

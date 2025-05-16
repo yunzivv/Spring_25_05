@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.DemoApplication;
+import com.example.demo.interceptor.BeforeActionInterceptor;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.CommentService;
@@ -29,6 +30,8 @@ import util.Ut;
 @Controller
 public class UsrArticleController {
 
+    private final BeforeActionInterceptor beforeActionInterceptor;
+
 	@Autowired
 	private Rq rq;
 
@@ -43,6 +46,10 @@ public class UsrArticleController {
 	
 	@Autowired
 	private CommentService commentService;
+
+    UsrArticleController(BeforeActionInterceptor beforeActionInterceptor) {
+        this.beforeActionInterceptor = beforeActionInterceptor;
+    }
 
 	// 액션메서드
 	@RequestMapping("/usr/article/detail")
@@ -73,30 +80,38 @@ public class UsrArticleController {
 		return "/usr/article/detail";
 	}
 	
+	@RequestMapping("/usr/article/doLike")
+	@ResponseBody
+	public ResultData doLike(HttpServletRequest req, int id) {
+
+		System.out.println("실행됨");
+		Rq rq = (Rq) req.getAttribute("rq");
+		
+		ResultData doLikeRd;
+		
+		if(likeService.isMyLike(rq.getLoginedMemberId(), id)) {
+			System.out.println("insert");
+			doLikeRd = likeService.insertLike(rq.getLoginedMemberId(), id);
+		}
+		else {
+			System.out.println("deleteLike");
+			doLikeRd = likeService.deleteLike(rq.getLoginedMemberId(), id);
+		}
+			
+		return ResultData.newData(doLikeRd, "isMyLike", "♡");
+	}
+	
 	@RequestMapping("/usr/article/doIncHits")
 	@ResponseBody
 	public ResultData doIncHits(int id) {
-
+		
 		ResultData increaseHitCountRd = articleService.doIncHits(id);
-
+		
 		if (increaseHitCountRd.isFail()) {
 			return increaseHitCountRd;
 		}
 		
 		return ResultData.newData(increaseHitCountRd, "hitCount", articleService.getHits(id));
-	}
-	
-	@RequestMapping("/usr/article/doLike")
-	@ResponseBody
-	public String doLike(HttpServletRequest req, int id, String like) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
-
-		if(like == null) like = "";
-		if(like.equals("♡")) likeService.insertLike(rq.getLoginedMemberId(), id);
-		if(like.equals("♥")) likeService.deleteLike(rq.getLoginedMemberId(), id);
-
-		return Ut.jsReplace(Ut.f("../article/detail?id=%d", id));
 	}
 	
 	@RequestMapping("/usr/article/doCommentWrite")

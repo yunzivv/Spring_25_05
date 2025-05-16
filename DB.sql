@@ -50,6 +50,19 @@ CREATE TABLE `like` (
 	articleId INT(100) UNSIGNED NOT NULL
 );
 
+
+# reactionPoint 테이블 추가
+CREATE TABLE reactionPoint (
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	memberId INT(100) UNSIGNED NOT NULL,
+	relTypeCode CHAR(50) NOT NULL COMMENT '관련 데이터 코드',
+	relId INT(10) NOT NULL COMMENT '관련 데이터 id',
+	`point` INT(10) NOT NULL
+);
+
+
 # 댓글 테이블 추가
 CREATE TABLE `comment` (
 	id INT(100) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -127,6 +140,15 @@ INSERT INTO `COMMENT` SET
 	`body` = 'hoho';
 
 
+# reactionPoint 데이터 추가
+INSERT INTO reactionPoint 
+VALUES (12, NOW(), NOW(), 2, 'article', 105, -1);
+
+
+
 SELECT * FROM article;
 SELECT * FROM `member`;
 SELECT * FROM board;
+SELECT * FROM `like`;
+SELECT * FROM `comment`;
+SELECT * FROM reactionPoint;

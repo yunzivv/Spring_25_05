@@ -9,8 +9,10 @@ public interface LikeRepository {
 
 	int getLikes(int id);
 
-	void insertLike(int loginedMemberId, int id);
+	int insertLike(int loginedMemberId, int id);
 
-	void deleteLike(int loginedMemberId, int id);
+	int deleteLike(int loginedMemberId, int id);
+
+	int isMyLike(int loginedMemberId, int id);
 
 }
