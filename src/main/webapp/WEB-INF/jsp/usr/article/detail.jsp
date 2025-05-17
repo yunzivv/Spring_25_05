@@ -25,26 +25,26 @@
 // 	좋아요 활성화 함수
  	function articleDetail_goodReaction() {
  		const value = $(".good_btn").val();
-		console.log(value)
  		$.get('../article/doGoodReaction',{
 			id : params.id,
  			rec : value,
 			ajaxMode : 'Y'
 		}, function(data){
-			$('.hello').html(data.data1);
+			$('.good_btn').toggleClass("bg-red-300");
+			$('.good_btn').removeClass("bg-red-300");
 		}, 'json');
 	}
 	
 // 	싫어요 활성화 함수
  	function articleDetail_badReaction() {
  		const value = $(".bad_btn").val();
-		console.log(value)
  		$.get('../article/doBadReaction',{
 			id : params.id,
  			rec : value,
  			ajaxMode : 'Y'
 		}, function(data){
-			$('.hello').addClass("bg-red-300");
+			$('.bad_btn').toggleClass("bg-red-300");
+			$('.good_btn').removeClass("bg-red-300");
 		}, 'json');
 	}
 	
@@ -93,7 +93,7 @@
 					</div>	
 					<c:choose>
 						<c:when test="${article.userReaction == 1}">
-							<button class="good_btn bg-red-400" onClick="articleDetail_goodReaction()"
+							<button class="good_btn bg-red-300" onClick="articleDetail_goodReaction()"
 							value="${article.userReaction}">good&nbsp;${article.extra_goodReactionPoint }</button>
 						</c:when>
 						<c:otherwise>
@@ -104,7 +104,7 @@
 					&nbsp;&nbsp;&nbsp;
 					<c:choose>
 						<c:when test="${article.userReaction == -1}">
-							<button class="bad_btn bg-red-400" onClick="articleDetail_badReaction()"
+							<button class="bad_btn bg-red-300" onClick="articleDetail_badReaction()"
 							value="${article.userReaction}">bad&nbsp; ${article.extra_badReactionPoint }</button>
 						</c:when>
 						<c:otherwise>

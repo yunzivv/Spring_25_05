@@ -27,8 +27,8 @@ public class ResultData<DT> {
 		ResultData<DT> rd = new ResultData<DT>();
 		rd.ResultCode = ResultCode;
 		rd.msg = msg;
-		rd.data1 = data;
 		rd.data1Name = data1Name;
+		rd.data1 = data;
 
 		return rd;
 	}

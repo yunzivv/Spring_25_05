@@ -85,16 +85,12 @@ public class UsrArticleController {
 		ResultData doReactionRd = articleService.userReaction(rq.getLoginedMemberId(), id);
 		
 		if(doReactionRd == null) {
-			System.err.println("insert");
 			reactionService.doGoodReaction(rq.getLoginedMemberId(), id);
-			return null;
+			return doReactionRd.newData(doReactionRd, "reaction", "좋아요 insert");
 		}
 		
 		reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 1);
-		System.err.println("bad -> good");
-		//reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 1);
-			
-		return null;
+		return doReactionRd.newData(doReactionRd, "reaction", "좋아요로 수정");
 	}
 	
 	@RequestMapping("/usr/article/doBadReaction")
@@ -109,15 +105,12 @@ public class UsrArticleController {
 		ResultData doReactionRd = articleService.userReaction(rq.getLoginedMemberId(), id);
 		
 		if(doReactionRd == null) {
-			System.err.println("insert");
 			reactionService.doBadReaction(rq.getLoginedMemberId(), id);
-			return null;
+			return doReactionRd.newData(doReactionRd, "reaction", "싫어요 insert");
 		}
 		
-		System.err.println("bad -> good");
 		reactionService.doChangeReaction(rq.getLoginedMemberId(), id, -1);
-			
-		return null;
+		return doReactionRd.newData(doReactionRd, "reaction", "싫어요로 수정");
 	}
 	
 	@RequestMapping("/usr/article/doIncHits")
