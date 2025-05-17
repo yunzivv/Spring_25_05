@@ -87,6 +87,10 @@ public class UsrArticleController {
 		if(doReactionRd == null) {
 			reactionService.doGoodReaction(rq.getLoginedMemberId(), id);
 			return doReactionRd.newData(doReactionRd, "reaction", "좋아요 insert");
+		}else if((int)doReactionRd.getData1() == 1) {
+			System.out.println("좋아요 취소");
+			reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 0);
+			return doReactionRd.newData(doReactionRd, "reaction", "좋아요 취소");
 		}
 		
 		reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 1);
@@ -107,6 +111,10 @@ public class UsrArticleController {
 		if(doReactionRd == null) {
 			reactionService.doBadReaction(rq.getLoginedMemberId(), id);
 			return doReactionRd.newData(doReactionRd, "reaction", "싫어요 insert");
+		}else if((int)doReactionRd.getData1() == -1) {
+			System.out.println("싫어요 취소");
+			reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 0);
+			return doReactionRd.newData(doReactionRd, "reaction", "싫어요 취소");
 		}
 		
 		reactionService.doChangeReaction(rq.getLoginedMemberId(), id, -1);

@@ -88,9 +88,6 @@
 				
 <!-- 				like -->
 				<div class="reaction_box flex items-center justify-center mx-4 text-xl cursor-pointer">	
-					<div class="hello"> <!-- /////////////////////////////////////////////////////////////// 테스트용 -->
-						yes
-					</div>	
 					<c:choose>
 						<c:when test="${article.userReaction == 1}">
 							<button class="good_btn bg-red-300" onClick="articleDetail_goodReaction()"
