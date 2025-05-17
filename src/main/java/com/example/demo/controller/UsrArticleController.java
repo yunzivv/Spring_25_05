@@ -16,6 +16,7 @@ import com.example.demo.service.ArticleService;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.CommentService;
 import com.example.demo.service.LikeService;
+import com.example.demo.service.ReactionService;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.Board;
 import com.example.demo.vo.Comment;
@@ -43,6 +44,9 @@ public class UsrArticleController {
 	
 	@Autowired
 	private LikeService likeService;
+	
+	@Autowired
+	private ReactionService reactionService;
 	
 	@Autowired
 	private CommentService commentService;
@@ -82,14 +86,13 @@ public class UsrArticleController {
 		
 		if(doReactionRd == null) {
 			System.err.println("insert");
-			return null;
-		}
-		else if((int)doReactionRd.getData1() == 1){
-			System.err.println("good -> bad");
+			reactionService.doGoodReaction(rq.getLoginedMemberId(), id);
 			return null;
 		}
 		
+		reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 1);
 		System.err.println("bad -> good");
+		//reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 1);
 			
 		return null;
 	}
@@ -107,14 +110,12 @@ public class UsrArticleController {
 		
 		if(doReactionRd == null) {
 			System.err.println("insert");
-			return null;
-		}
-		else if((int)doReactionRd.getData1() == 1){
-			System.err.println("good -> bad");
+			reactionService.doBadReaction(rq.getLoginedMemberId(), id);
 			return null;
 		}
 		
 		System.err.println("bad -> good");
+		reactionService.doChangeReaction(rq.getLoginedMemberId(), id, -1);
 			
 		return null;
 	}

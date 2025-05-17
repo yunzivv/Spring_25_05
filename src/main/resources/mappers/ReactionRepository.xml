@@ -21,4 +21,33 @@
 		AND memberId = #{loginedMemberId}
 	</select>
 	
+	<insert id="doGoodReaction" parameterType="int">
+		INSERT INTO reactionPoint SET
+		regDate = NOW(),
+		updateDate = NOW(),
+		memberId = #{loginedMemberId},
+		relTypeCode = 'article',
+		relId = #{id},
+		`point` = 1
+	</insert>
+	
+	<insert id="doBadReaction" parameterType="int">
+		INSERT INTO reactionPoint SET
+		regDate = NOW(),
+		updateDate = NOW(),
+		memberId = #{loginedMemberId},
+		relTypeCode = 'article',
+		relId = #{id},
+		`point` = -1
+	</insert>
+	
+	<update id="doChangeReaction" parameterType="int">
+		UPDATE reactionPoint SET
+		updateDate = NOW(), 
+		`point` = #{point}
+		WHERE memberId =  #{loginedMemberId}
+		AND relId =  #{id}
+		AND relTypeCode= 'article'
+	</update>
+	
 </mapper>

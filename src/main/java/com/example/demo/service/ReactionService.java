@@ -20,6 +20,7 @@ public class ReactionService {
 		this.reactionRepository = reactionRepository;
 	}
 	
+	// article Service에 중복됨 이 메서드는 사용중 X
 	private ResultData userReaction(int loginedMemberId, int id) {
 		
 		int reactionPoint = reactionRepository.getUserReaction(loginedMemberId, id);
@@ -29,5 +30,22 @@ public class ReactionService {
 		else return ResultData.from("F-A",Ut.f("%d번 게시글 반응", id), "싫어요", reactionPoint);
 		
 	}
-
+	
+	public void doGoodReaction(int loginedMemberId, int id) {
+		System.out.println("GoodReaction 실행");
+		int affectedRow = reactionRepository.doGoodReaction(loginedMemberId, id);
+		System.out.println("실행된 줄 : " + affectedRow);
+	}
+	
+	public void doBadReaction(int loginedMemberId, int id) {
+		System.out.println("BadReaction 실행");
+		int affectedRow = reactionRepository.doBadReaction(loginedMemberId, id);
+		System.out.println("실행된 줄 : " + affectedRow);
+	}
+	
+	public void doChangeReaction(int loginedMemberId, int id, int point) {
+		System.out.println("ChangeReaction 실행");
+		int affectedRow = reactionRepository.doChangeReaction(loginedMemberId, id, point);
+		System.out.println("실행된 줄 : " + affectedRow);
+	}
 }

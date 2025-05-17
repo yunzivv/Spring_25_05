@@ -11,4 +11,10 @@ public interface ReactionRepository {
 
 	int getIsReactioned(int loginedMemberId, int id);
 
+	int doGoodReaction(int loginedMemberId, int id);
+
+	int doBadReaction(int loginedMemberId, int id);
+
+	int doChangeReaction(int loginedMemberId, int id, int point);
+
 }
