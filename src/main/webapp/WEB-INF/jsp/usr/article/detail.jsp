@@ -23,15 +23,31 @@
 	}
 	
 // 	좋아요 활성화 함수
- 	function articleDetail_reAction() {
-	console.log("affected")
- 		$.get('../article/doReaction',{
-			id : params.id, <!-- 매개변수 설정 -->
-			ajaxMode : 'Y' <!-- 매개변수 설정 -->
-		}, function(data){ <!-- incHits의 return 값이 data에 저장된다. -->
-			$('.like_btn').html(data.data1);
+ 	function articleDetail_goodReaction() {
+ 		const value = $(".good_btn").val();
+		console.log(value)
+ 		$.get('../article/doGoodReaction',{
+			id : params.id,
+ 			rec : value,
+			ajaxMode : 'Y'
+		}, function(data){
+			$('.hello').html(data.data1);
 		}, 'json');
 	}
+	
+// 	싫어요 활성화 함수
+ 	function articleDetail_badReaction() {
+ 		const value = $(".bad_btn").val();
+		console.log(value)
+ 		$.get('../article/doBadReaction',{
+			id : params.id,
+ 			rec : value,
+ 			ajaxMode : 'Y'
+		}, function(data){
+			$('.hello').addClass("bg-red-300");
+		}, 'json');
+	}
+	
 	
 	$(function() {
 		articleDetail_increaseHits();
@@ -71,22 +87,29 @@
 				<div class="flex-grow"></div>
 				
 <!-- 				like -->
-				<div class="reaction_box flex items-center justify-center mx-4 text-xl cursor-pointer">		
+				<div class="reaction_box flex items-center justify-center mx-4 text-xl cursor-pointer">	
+					<div class="hello"> <!-- /////////////////////////////////////////////////////////////// 테스트용 -->
+						yes
+					</div>	
 					<c:choose>
 						<c:when test="${article.userReaction == 1}">
-							<button class="good_btn bg-red-400" onClick="articleDetail_reAction()">good&nbsp;${article.extra_goodReactionPoint }</button>
+							<button class="good_btn bg-red-400" onClick="articleDetail_goodReaction()"
+							value="${article.userReaction}">good&nbsp;${article.extra_goodReactionPoint }</button>
 						</c:when>
 						<c:otherwise>
-							<button class="bad_btn" onClick="articleDetail_reAction()">good&nbsp;${article.extra_goodReactionPoint }</button>
+							<button class="good_btn" onClick="articleDetail_goodReaction()"
+							value="${article.userReaction}">good&nbsp;${article.extra_goodReactionPoint }</button>
 				   		</c:otherwise>
 					</c:choose>  
 					&nbsp;&nbsp;&nbsp;
 					<c:choose>
 						<c:when test="${article.userReaction == -1}">
-							<button class="good_btn bg-red-400" onClick="articleDetail_reAction()">bad&nbsp; ${article.extra_badReactionPoint }</button>
+							<button class="bad_btn bg-red-400" onClick="articleDetail_badReaction()"
+							value="${article.userReaction}">bad&nbsp; ${article.extra_badReactionPoint }</button>
 						</c:when>
 						<c:otherwise>
-							<button class="bad_btn" onClick="articleDetail_reAction()">bad&nbsp; ${article.extra_badReactionPoint }</button>
+							<button class="bad_btn" onClick="articleDetail_badReaction()"
+							value="${article.userReaction}">bad&nbsp; ${article.extra_badReactionPoint }</button>
 				   		</c:otherwise>
 					</c:choose>
 					

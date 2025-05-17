@@ -69,12 +69,13 @@ public class UsrArticleController {
 		return "/usr/article/detail";
 	}
 	
-	@RequestMapping("/usr/article/doReaction")
+	@RequestMapping("/usr/article/doGoodReaction")
 	@ResponseBody
-	public ResultData doReaction(HttpServletRequest req, int id) {
+	public ResultData doGoodReaction(HttpServletRequest req, int id, String rec) {
 
 		
 		System.out.println("article controller doRdaction 실행됨");
+		System.out.println(rec);
 		
 		Rq rq = (Rq) req.getAttribute("rq");
 		ResultData doReactionRd = articleService.userReaction(rq.getLoginedMemberId(), id);
@@ -88,7 +89,32 @@ public class UsrArticleController {
 			return null;
 		}
 		
-		System.err.println("good -> bad");
+		System.err.println("bad -> good");
+			
+		return null;
+	}
+	
+	@RequestMapping("/usr/article/doBadReaction")
+	@ResponseBody
+	public ResultData doBadReaction(HttpServletRequest req, int id, String rec) {
+
+		
+		System.out.println("article controller doRdaction 실행됨");
+		System.out.println(rec);
+		
+		Rq rq = (Rq) req.getAttribute("rq");
+		ResultData doReactionRd = articleService.userReaction(rq.getLoginedMemberId(), id);
+		
+		if(doReactionRd == null) {
+			System.err.println("insert");
+			return null;
+		}
+		else if((int)doReactionRd.getData1() == 1){
+			System.err.println("good -> bad");
+			return null;
+		}
+		
+		System.err.println("bad -> good");
 			
 		return null;
 	}

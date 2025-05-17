@@ -62,6 +62,10 @@ CREATE TABLE reactionPoint (
 	`point` INT(10) NOT NULL
 );
 
+# reactionPoint 테이블 제약조건 추가
+ALTER TABLE reactionPoint
+ADD UNIQUE KEY uniq_member_type_rel (memberId, relTypeCode, relId);
+
 
 # 댓글 테이블 추가
 CREATE TABLE `comment` (
@@ -141,10 +145,21 @@ INSERT INTO `COMMENT` SET
 
 
 # reactionPoint 데이터 추가
-INSERT INTO reactionPoint 
-VALUES (12, NOW(), NOW(), 2, 'article', 105, -1);
+INSERT INTO reactionPoint SET
+regDate = NOW(),
+updateDate = NOW(),
+memberID = FLOOR(RAND() * 8) + 1,
+relTypeCode = 'article',
+relId = FLOOR(RAND() * 64) + 1,
+`point` = (2 * FLOOR(RAND() * 2)) - 1;
 
-
+# reactionPoint 테이블 중복 제거
+DELETE rp1
+FROM reactionPoint rp1
+JOIN reactionPoint rp2
+  ON rp1.memberId = rp2.memberId
+ AND rp1.relId = rp2.relId
+ AND rp1.id > rp2.id;
 
 SELECT * FROM article;
 SELECT * FROM `member`;
