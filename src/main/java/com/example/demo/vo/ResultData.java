@@ -18,6 +18,10 @@ public class ResultData<DT> {
 	private DT data1;
 	@Getter
 	private String data1Name;
+	@Getter
+	private DT data2;
+	@Getter
+	private String data2Name;
 	
 	public static <DT> ResultData<DT> from(String ResultCode, String msg) {
 		return from(ResultCode, msg, null, null);

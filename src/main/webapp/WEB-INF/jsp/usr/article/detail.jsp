@@ -31,7 +31,9 @@
 			ajaxMode : 'Y'
 		}, function(data){
 			$('.good_btn').toggleClass("bg-red-300");
-			$('.good_btn').removeClass("bg-red-300");
+			$('.bad_btn').removeClass("bg-red-300");
+			$('.good_btn').html("good " + data.data1.extra_goodReactionPoint);
+			$('.bad_btn').html("bad " + data.data1.extra_badReactionPoint);
 		}, 'json');
 	}
 	
@@ -45,6 +47,8 @@
 		}, function(data){
 			$('.bad_btn').toggleClass("bg-red-300");
 			$('.good_btn').removeClass("bg-red-300");
+			$('.good_btn').html("good " + data.data1.extra_goodReactionPoint);
+			$('.bad_btn').html("bad " + data.data1.extra_badReactionPoint);
 		}, 'json');
 	}
 	
@@ -91,22 +95,22 @@
 					<c:choose>
 						<c:when test="${article.userReaction == 1}">
 							<button class="good_btn bg-red-300" onClick="articleDetail_goodReaction()"
-							value="${article.userReaction}">good&nbsp;${article.extra_goodReactionPoint }</button>
+							value="${article.userReaction}">good ${article.extra_goodReactionPoint }</button>
 						</c:when>
 						<c:otherwise>
 							<button class="good_btn" onClick="articleDetail_goodReaction()"
-							value="${article.userReaction}">good&nbsp;${article.extra_goodReactionPoint }</button>
+							value="${article.userReaction}">good ${article.extra_goodReactionPoint }</button>
 				   		</c:otherwise>
 					</c:choose>  
 					&nbsp;&nbsp;&nbsp;
 					<c:choose>
 						<c:when test="${article.userReaction == -1}">
 							<button class="bad_btn bg-red-300" onClick="articleDetail_badReaction()"
-							value="${article.userReaction}">bad&nbsp; ${article.extra_badReactionPoint }</button>
+							value="${article.userReaction}">bad ${article.extra_badReactionPoint }</button>
 						</c:when>
 						<c:otherwise>
 							<button class="bad_btn" onClick="articleDetail_badReaction()"
-							value="${article.userReaction}">bad&nbsp; ${article.extra_badReactionPoint }</button>
+							value="${article.userReaction}">bad ${article.extra_badReactionPoint }</button>
 				   		</c:otherwise>
 					</c:choose>
 					
