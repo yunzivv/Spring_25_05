@@ -30,11 +30,10 @@
  			rec : value,
 			ajaxMode : 'Y'
 		}, function(data){
-			$('.good_btn').toggleClass("fa-solid");
-			$('.bad_btn').removeClass("fa-solid");
-			$('.bad_btn').addClass("fa-regular");
-			$('.good_reaction_count').html(data.data1.extra_goodReactionPoint);
-			$('.bad_reaction_count').html(data.data1.extra_badReactionPoint);
+			$('.good_btn').toggleClass("bg-neutral-300");
+			$('.bad_btn').removeClass("bg-neutral-300");
+			$('.good_btn').html("👍 " + data.data1.extra_goodReactionPoint);
+			$('.bad_btn').html("👎 " + data.data1.extra_badReactionPoint);
 		}, 'json');
 	}
 	
@@ -46,11 +45,10 @@
  			rec : value,
  			ajaxMode : 'Y'
 		}, function(data){
-			$('.bad_btn').toggleClass("fa-solid");
-			$('.good_btn').removeClass("fa-solid");
-			$('.good_btn').addClass("fa-regular");
-			$('.good_reaction_count').html(data.data1.extra_goodReactionPoint);
-			$('.bad_reaction_count').html(data.data1.extra_badReactionPoint);
+			$('.bad_btn').toggleClass("bg-neutral-300");
+			$('.good_btn').removeClass("bg-neutral-300");
+			$('.good_btn').html("👍 " + data.data1.extra_goodReactionPoint);
+			$('.bad_btn').html("👎 " + data.data1.extra_badReactionPoint);
 		}, 'json');
 	}
 	
@@ -94,39 +92,32 @@
 				
 <!-- 				like -->
 				<div class="reaction_box flex items-center justify-center mx-4 text-xl cursor-pointer">	
-					<button class="good_btn" onClick="articleDetail_goodReaction()"value="${article.userReaction}">
-						<c:choose>
-							<c:when test="${article.userReaction == 1}">
-								<i  class=fa-solid fa-heart"></i>
-								<span class="good_reaction_count">
-									${article.extra_goodReactionPoint }
-								</span> 
-							</c:when>
-							<c:otherwise>
-								<i class="fa-regular fa-heart"></i>
-								<span class="good_reaction_count">
-									${article.extra_goodReactionPoint }
-								</span> 
-					   		</c:otherwise>
-						</c:choose>  
-					</button>
-					&nbsp;&nbsp;&nbsp;
-					<button class="bad_btn" onClick="articleDetail_badReaction()"value="${article.userReaction}">
-						<c:choose>
-							<c:when test="${article.userReaction == -1}">
-								<i class="fa-solid fa-heart-crack"></i>
-								<span class="bad_reaction_count">
-									${article.extra_badReactionPoint }
-								</span> 
-							</c:when>
-							<c:otherwise>
-								<i class="fa-regular fa-heart-crack"></i>
-								<span class="bad_reaction_count">
-									${article.extra_badReactionPoint }
-								</span> 
-					   		</c:otherwise>
-						</c:choose>  
-					</button>
+					<c:choose>
+						<c:when test="${article.userReaction == 1}">
+							<button class="good_btn btn btn-circle btn-xl btn-outline bg-neutral-300 px-3 text-base whitespace-nowrap" 
+							onClick="articleDetail_goodReaction()" value="${article.userReaction}">
+							👍 ${article.extra_goodReactionPoint }</button>
+						</c:when>
+						<c:otherwise>
+							<button class="good_btn btn btn-circle btn-xl btn-outline px-3 text-base whitespace-nowrap" 
+							onClick="articleDetail_goodReaction()" value="${article.userReaction}">
+							👍 ${article.extra_goodReactionPoint }</button>
+				   		</c:otherwise>
+					</c:choose> 
+					&nbsp;&nbsp; 
+					<c:choose>
+						<c:when test="${article.userReaction == -1}">
+							<button class="bad_btn btn btn-circle btn-xl btn-outline bg-neutral-300 px-3 text-base whitespace-nowrap" 
+							onClick="articleDetail_badReaction()" value="${article.userReaction}">
+							👎 ${article.extra_badReactionPoint }</button>
+						</c:when>
+						<c:otherwise>
+							<button class="bad_btn btn btn-circle btn-xl btn-outline px-3 text-base whitespace-nowrap" 
+							onClick="articleDetail_badReaction()" value="${article.userReaction}">
+							👎 ${article.extra_badReactionPoint }</button>
+				   		</c:otherwise>
+					</c:choose>
+					
 				</div>
 					
 <!-- 				modify, delete btn -->
@@ -152,6 +143,35 @@
 		<div class="content mt-2 p-4">
 			${article.body}
 		</div>
+<!-- 		<div> -->
+<!-- 			<button class="btn btn-xl btn-circle hover:bg-neutral-300 font-black felx flex-col" -->
+<%-- 			 onClick="articleDetail_goodReaction()" value="${article.userReaction}"> --%>
+<%-- 			<c:choose> --%>
+<%-- 				<c:when test="${article.userReaction == 1}"> --%>
+<!-- 				<span class="goodIcon -m-1">♥</span> -->
+<%-- 			 	<div class="good_count -m-2">${article.extra_goodReactionPoint }</div> --%>
+<%-- 				 	</c:when> --%>
+<%-- 					<c:otherwise> --%>
+<!-- 			 	<span class="goodIcon -m-1">♡</span> -->
+<%-- 			 	<div class="good_count -m-2">${article.extra_goodReactionPoint }</div> --%>
+<%-- 			 		</c:otherwise> --%>
+<%-- 			</c:choose>   --%>
+<!-- 			</button> -->
+			
+<!-- 			<button class="btn btn-xl btn-circle hover:bg-neutral-300 font-black felx flex-col"  -->
+<%-- 			onClick="articleDetail_badReaction()" value="${article.userReaction}"> --%>
+<%-- 				<c:choose> --%>
+<%-- 				<c:when test="${article.userReaction == -1}"> --%>
+<!-- 				 	<span class="badIcon -m-1"> ✕ </span> -->
+<%-- 					<div class="bad_count -m-2">${article.extra_badReactionPoint }</div> --%>
+<%-- 			 	</c:when> --%>
+<%-- 				<c:otherwise> --%>
+<!-- 				 	<span class="badIcon -m-1 text-red-400"> ✕ </span> -->
+<%-- 				 	<div class="bad_count -m-2">${article.extra_badReactionPoint }</div> --%>
+<%-- 			 	  </c:otherwise> --%>
+<%-- 			</c:choose> --%>
+<!-- 			</button> -->
+<!-- 		</div> -->
 	</div>
 </div>
 

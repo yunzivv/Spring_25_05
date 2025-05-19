@@ -117,7 +117,6 @@ public class UsrArticleController {
 			doReactionRd = ResultData.from("S-1","reaction 성공", "싫어요", article);
 			
 		}else if((int)doReactionRd.getData1() == -1) {
-			System.out.println("싫어요 취소");
 			reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 0);
 			article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
 			doReactionRd = doReactionRd.newData(doReactionRd, "싫어요 취소", article);

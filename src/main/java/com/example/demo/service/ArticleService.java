@@ -74,13 +74,6 @@ public class ArticleService {
 		if(userReactionRd == null) return;
 		article.setUserReaction((int)userReactionRd.getData1());
 
-		
-		
-		
-		
-		
-		
-		System.out.println(userReactionRd.getData1Name() + userReactionRd.getData1()); ////////////// 출력
 	}
 
 

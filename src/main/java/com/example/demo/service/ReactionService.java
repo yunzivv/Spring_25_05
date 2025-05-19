@@ -32,20 +32,14 @@ public class ReactionService {
 	}
 	
 	public void doGoodReaction(int loginedMemberId, int id) {
-		System.out.println("GoodReaction 실행");
 		int affectedRow = reactionRepository.doGoodReaction(loginedMemberId, id);
-		System.out.println("실행된 줄 : " + affectedRow);
 	}
 	
 	public void doBadReaction(int loginedMemberId, int id) {
-		System.out.println("BadReaction 실행");
 		int affectedRow = reactionRepository.doBadReaction(loginedMemberId, id);
-		System.out.println("실행된 줄 : " + affectedRow);
 	}
 	
 	public void doChangeReaction(int loginedMemberId, int id, int point) {
-		System.out.println("ChangeReaction 실행");
 		int affectedRow = reactionRepository.doChangeReaction(loginedMemberId, id, point);
-		System.out.println("실행된 줄 : " + affectedRow);
 	}
 }
