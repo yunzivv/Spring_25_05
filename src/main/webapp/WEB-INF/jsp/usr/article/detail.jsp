@@ -30,10 +30,11 @@
  			rec : value,
 			ajaxMode : 'Y'
 		}, function(data){
-			$('.good_btn').toggleClass("bg-red-300");
-			$('.bad_btn').removeClass("bg-red-300");
-			$('.good_btn').html("good " + data.data1.extra_goodReactionPoint);
-			$('.bad_btn').html("bad " + data.data1.extra_badReactionPoint);
+			$('.good_btn').toggleClass("fa-solid");
+			$('.bad_btn').removeClass("fa-solid");
+			$('.bad_btn').addClass("fa-regular");
+			$('.good_reaction_count').html(data.data1.extra_goodReactionPoint);
+			$('.bad_reaction_count').html(data.data1.extra_badReactionPoint);
 		}, 'json');
 	}
 	
@@ -45,10 +46,11 @@
  			rec : value,
  			ajaxMode : 'Y'
 		}, function(data){
-			$('.bad_btn').toggleClass("bg-red-300");
-			$('.good_btn').removeClass("bg-red-300");
-			$('.good_btn').html("good " + data.data1.extra_goodReactionPoint);
-			$('.bad_btn').html("bad " + data.data1.extra_badReactionPoint);
+			$('.bad_btn').toggleClass("fa-solid");
+			$('.good_btn').removeClass("fa-solid");
+			$('.good_btn').addClass("fa-regular");
+			$('.good_reaction_count').html(data.data1.extra_goodReactionPoint);
+			$('.bad_reaction_count').html(data.data1.extra_badReactionPoint);
 		}, 'json');
 	}
 	
@@ -92,28 +94,39 @@
 				
 <!-- 				like -->
 				<div class="reaction_box flex items-center justify-center mx-4 text-xl cursor-pointer">	
-					<c:choose>
-						<c:when test="${article.userReaction == 1}">
-							<button class="good_btn bg-red-300" onClick="articleDetail_goodReaction()"
-							value="${article.userReaction}">good ${article.extra_goodReactionPoint }</button>
-						</c:when>
-						<c:otherwise>
-							<button class="good_btn" onClick="articleDetail_goodReaction()"
-							value="${article.userReaction}">good ${article.extra_goodReactionPoint }</button>
-				   		</c:otherwise>
-					</c:choose>  
+					<button class="good_btn" onClick="articleDetail_goodReaction()"value="${article.userReaction}">
+						<c:choose>
+							<c:when test="${article.userReaction == 1}">
+								<i  class=fa-solid fa-heart"></i>
+								<span class="good_reaction_count">
+									${article.extra_goodReactionPoint }
+								</span> 
+							</c:when>
+							<c:otherwise>
+								<i class="fa-regular fa-heart"></i>
+								<span class="good_reaction_count">
+									${article.extra_goodReactionPoint }
+								</span> 
+					   		</c:otherwise>
+						</c:choose>  
+					</button>
 					&nbsp;&nbsp;&nbsp;
-					<c:choose>
-						<c:when test="${article.userReaction == -1}">
-							<button class="bad_btn bg-red-300" onClick="articleDetail_badReaction()"
-							value="${article.userReaction}">bad ${article.extra_badReactionPoint }</button>
-						</c:when>
-						<c:otherwise>
-							<button class="bad_btn" onClick="articleDetail_badReaction()"
-							value="${article.userReaction}">bad ${article.extra_badReactionPoint }</button>
-				   		</c:otherwise>
-					</c:choose>
-					
+					<button class="bad_btn" onClick="articleDetail_badReaction()"value="${article.userReaction}">
+						<c:choose>
+							<c:when test="${article.userReaction == -1}">
+								<i class="fa-solid fa-heart-crack"></i>
+								<span class="bad_reaction_count">
+									${article.extra_badReactionPoint }
+								</span> 
+							</c:when>
+							<c:otherwise>
+								<i class="fa-regular fa-heart-crack"></i>
+								<span class="bad_reaction_count">
+									${article.extra_badReactionPoint }
+								</span> 
+					   		</c:otherwise>
+						</c:choose>  
+					</button>
 				</div>
 					
 <!-- 				modify, delete btn -->

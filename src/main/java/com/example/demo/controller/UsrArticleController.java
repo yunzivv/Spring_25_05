@@ -81,29 +81,23 @@ public class UsrArticleController {
 		ResultData doReactionRd = articleService.userReaction(rq.getLoginedMemberId(), id);
 		
 		Article article;
-		int goodPoint;
 		
 		if(doReactionRd == null) {
 			// 삽입
 			reactionService.doGoodReaction(rq.getLoginedMemberId(), id);
 			article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
-			goodPoint = article.getExtra_goodReactionPoint();
 			doReactionRd = ResultData.from("S-1","reaction 성공", "싫어요", article);
 		}else if((int)doReactionRd.getData1() == 1) {
 			// 취소
 			reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 0);
 			article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
-			goodPoint = article.getExtra_goodReactionPoint();
 			doReactionRd = doReactionRd.newData(doReactionRd, "좋아요 취소",article);
 		}else {
 			// 수정
 			reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 1);
 			article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
-			goodPoint = article.getExtra_goodReactionPoint();
 			doReactionRd = doReactionRd.newData(doReactionRd, "좋아요로 수정", article);
 		}
-		
-		System.out.println(goodPoint); ///////////////////////////////////////////////////////////////////
 		
 		return doReactionRd;
 	}
@@ -116,30 +110,23 @@ public class UsrArticleController {
 		ResultData doReactionRd = articleService.userReaction(rq.getLoginedMemberId(), id);
 		
 		Article article;
-		int badPoint;
-		
 		
 		if(doReactionRd == null) {
 			reactionService.doBadReaction(rq.getLoginedMemberId(), id);
 			article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
-			badPoint = article.getExtra_badReactionPoint();
 			doReactionRd = ResultData.from("S-1","reaction 성공", "싫어요", article);
 			
 		}else if((int)doReactionRd.getData1() == -1) {
 			System.out.println("싫어요 취소");
 			reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 0);
 			article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
-			badPoint = article.getExtra_badReactionPoint();
 			doReactionRd = doReactionRd.newData(doReactionRd, "싫어요 취소", article);
 			
 		}else {
 			reactionService.doChangeReaction(rq.getLoginedMemberId(), id, -1);
 			article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
-			badPoint = article.getExtra_badReactionPoint();
 			doReactionRd = doReactionRd.newData(doReactionRd, "싫어요로 수정", article);
 		}
-		
-		System.out.println(badPoint); ///////////////////////////////////////////////////////////////////
 		
 		return doReactionRd;
 	}
