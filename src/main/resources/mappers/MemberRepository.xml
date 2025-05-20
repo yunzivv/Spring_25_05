@@ -8,6 +8,7 @@
 	<insert id="doJoin" parameterType="map">
 		INSERT INTO `member`
 		SET regDate = NOW(),
+		updateDate = NOW(),
 		loginId = #{loginId},
 		loginPw = #{loginPw},
 		`name` = #{name},

@@ -31,6 +31,11 @@ CREATE TABLE `member`(
     delDate DATETIME COMMENT '탈퇴날짜'
 );
 
+# 회원 테이블 수정
+ALTER TABLE `member` ADD COLUMN updateDate DATETIME AFTER regDate;
+UPDATE MEMBER
+SET updateDate = regDate;
+
 # board 테이블 추가		
 CREATE TABLE board(
 	id INT(100) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
