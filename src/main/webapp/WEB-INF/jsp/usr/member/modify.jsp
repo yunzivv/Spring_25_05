@@ -15,9 +15,11 @@
 			console.log(data);
 			if(data?.resultCode?.startsWith("S-1")) {
 				console.log("success");
+				window.alert("비밀번호가 확인되었습니다.");
 				$(".checkPw").addClass("hidden");
 				$(".modifyInfo").removeClass("hidden");				
 			}else {
+				window.alert("비밀번호가 일치하지 않습니다.");
 				console.log("fail");
 			}
 		}, 'json');
@@ -36,7 +38,7 @@
 				Check Your Password
 			</div>
 				<div style="display:flex; flex-direction:column; justify-content: center;">
-					<input type="text" name="loginPw" class="checkPw-inputArea mb-6 bg-neutral-50 border border-neutral-300 
+					<input type="password" name="loginPw" class="checkPw-inputArea mb-6 bg-neutral-50 border border-neutral-300 
 					text-neutral-800 text-sm rounded-lg block w-96  p-2.5" placeholder="Password">
 		 		</div>
 		 		<button onClick="memberInfo_modify()" class="py-2.5 px-5 me-2 mb-2 w-96 text-sm font-large bg-neutral-800 
@@ -47,7 +49,7 @@
 		</div>
 	</div>
 	<div class="modifyInfo hidden">
-		<div class="container mx-auto mt-12 max-w-min p-4 bg-neutral-200 border border-solid border-neutral-300 rounded-lg">
+		<div class="container mx-auto mt-12 max-w-min px-8 py-4 bg-neutral-200 border border-solid border-neutral-300 rounded-lg">
 			<div class="title my-3 text-center text-2xl font-semibold">
 				 회원 정보 수정
 			</div>
@@ -55,18 +57,18 @@
 					
 				<div calss="flex flex-col justify-center">
 		  			
-					<input type="text" name="loginId" id="loginId" placeholder="ID" value="${member.loginId }"
-					class="mb-6 border border-neutral-300 text-neutral-800 text-sm rounded-lg block w-96 p-2.5">
-					<input type="text" name="loginPw" id="loginPw" placeholder="Password"  value="${member.loginPw }"
-					class="mb-6 border border-neutral-300 text-neutral-800 text-sm rounded-lg block w-96  p-2.5">
-					<input type="text" name="name" id="name" placeholder="Name"  value="${member.name }"
-					class="mb-6 border border-neutral-300 text-neutral-800 text-sm rounded-lg block w-96  p-2.5">
-					<input type="text" name="nickName" id="nickName" placeholder="NickName"  value="${member.nickName }"
-					class="mb-6 border border-neutral-300 text-neutral-800 text-sm rounded-lg block w-96  p-2.5">
-					<input type="text" name="cellPhone" id="cellPhone" placeholder="cell-phone"  value="${member.cellPhone }"
-					class="mb-6 border border-neutral-300 text-neutral-800 text-sm rounded-lg block w-96  p-2.5">
-					<input type="email" name="email" id="email" placeholder="e-mail"  value="${member.email }"
-					class="mb-6 border border-neutral-300 text-neutral-800 text-sm rounded-lg block w-96  p-2.5">
+					아이디 <input type="text" name="loginId" id="loginId" placeholder="ID" value="${member.loginId }"
+					class="mb-6 border border-neutral-300 text-neutral-800 text-sm rounded-lg block w-96 p-2.5 bg-neutral-50">
+					비밀번호 <input type="text" name="loginPw" id="loginPw" placeholder="Password"  value="${member.loginPw }"
+					class="mb-6 border border-neutral-300 text-neutral-800 text-sm rounded-lg block w-96 p-2.5 bg-neutral-50">
+					이름 <input type="text" name="name" id="name" placeholder="Name"  value="${member.name }"
+					class="mb-6 border border-neutral-300 text-neutral-800 text-sm rounded-lg block w-96  p-2.5 bg-neutral-50">
+					닉네임 <input type="text" name="nickName" id="nickName" placeholder="NickName"  value="${member.nickName }"
+					class="mb-6 border border-neutral-300 text-neutral-800 text-sm rounded-lg block w-96  p-2.5 bg-neutral-50">
+					전화번호 <input type="text" name="cellPhone" id="cellPhone" placeholder="cell-phone"  value="${member.cellPhone }"
+					class="mb-6 border border-neutral-300 text-neutral-800 text-sm rounded-lg block w-96  p-2.5 bg-neutral-50">
+					e-mail <input type="email" name="email" id="email" placeholder="e-mail"  value="${member.email }"
+					class="mb-6 border border-neutral-300 text-neutral-800 text-sm rounded-lg block w-96  p-2.5 bg-neutral-50">
 		 		</div>
 		 		<button type="submit" class="py-2.5 px-5 me-2 mb-2 w-96 text-sm font-large bg-neutral-800 text-neutral-200 rounded-lg hover:bg-neutral-700">UPDATE</button>
 			</form>
