@@ -14,11 +14,21 @@
 <script>
 // 조회수 증가 함수
 	function articleDetail_increaseHits() {
+	
+		const localStorageKey = 'article__' + params.id + '__alreadyOnView';
+		
+		if(localStorage.getItem(localStorageKey)){ // 로컬 스토리지
+			return;
+		}
+		
+		localStorage.setItem(localStorageKey, true);
+		
 		$.get('../article/doIncHits',{
 			id : params.id, <!-- 매개변수 설정 -->
 			ajaxMode : 'Y' <!-- 매개변수 설정 -->
 		}, function(data){ <!-- incHits의 return 값이 data에 저장된다. -->
 			$('.article_detail_hit_count').html("조회수 : " + data.data1);
+			console.log(data);
 		}, 'json');
 	}
 	

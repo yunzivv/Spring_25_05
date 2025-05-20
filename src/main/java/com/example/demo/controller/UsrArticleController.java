@@ -140,7 +140,8 @@ public class UsrArticleController {
 			return increaseHitCountRd;
 		}
 		
-		return ResultData.newData(increaseHitCountRd, "hitCount", articleService.getHits(id));
+		return ResultData.from(increaseHitCountRd.getResultCode(), increaseHitCountRd.getMsg(), 
+				"hitCount", articleService.getHits(id), "article id", id);
 	}
 	
 	@RequestMapping("/usr/article/doCommentWrite")
