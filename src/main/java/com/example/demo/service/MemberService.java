@@ -41,5 +41,7 @@ public class MemberService {
 		return memberRepository.modifyMember(loginedMemberId, loginId, loginPw, name, nickName, cellPhone, email);
 	}
 
-
+	public boolean isUsableLoginId(String loginId) {
+		return memberRepository.isJoinableLogInId(loginId) != 1;
+	}
 }

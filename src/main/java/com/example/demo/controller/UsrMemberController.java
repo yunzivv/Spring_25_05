@@ -127,13 +127,10 @@ public class UsrMemberController {
 		Member member = memberService.getMemberById(rq.getLoginedMemberId());
 		
 		if(!member.getLoginPw().equals(pw)) {
-			System.out.println("비밀번호 확인 실패");
 			return ResultData.from("F-1", "비밀번호 불일치");			
 		}
-		System.out.println("비밀번호 확인 성공");
-		ResultData rd = ResultData.from("S-1", "비밀번호 일치 성공");
-		System.out.println(rd.getResultCode());
-		return rd;
+
+		return ResultData.from("S-1", "비밀번호 일치 성공");
 	}
 	
 	// 로그인 체크 -> 유무 체크 -> 권한 체크
@@ -144,7 +141,8 @@ public class UsrMemberController {
 		Rq rq = (Rq) req.getAttribute("rq");
 		int loginedMemberId = rq.getLoginedMemberId();
 		
-		if(Ut.isEmpty(loginId)) return Ut.jsHistoryBack("F-1", "아이디를 쓰시오");
+//		if(Ut.isEmpty(loginId)) return Ut.jsHistoryBack("F-1", "아이디를 쓰시오");
+//		if(memberService.isUsableLoginId(loginId)) return Ut.jsHistoryBack("F-7", "사용 중인 아이디입니다.");
 		if(Ut.isEmpty(loginPw)) return Ut.jsHistoryBack("F-2", "비밀번호를 쓰시오");
 		if(Ut.isEmpty(name)) return Ut.jsHistoryBack("F-3", "이름을 쓰시오");
 		if(Ut.isEmpty(nickName)) return Ut.jsHistoryBack("F-4", "닉네임을 쓰시오");

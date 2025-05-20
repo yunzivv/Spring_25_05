@@ -57,8 +57,9 @@
 					
 				<div calss="flex flex-col justify-center">
 		  			
-					아이디 <input type="text" name="loginId" id="loginId" placeholder="ID" value="${member.loginId }"
-					class="mb-6 border border-neutral-300 text-neutral-800 text-sm rounded-lg block w-96 p-2.5 bg-neutral-50">
+					아이디 <span class="text-red-400 text-sm">*수정이 불가합니다.*</span>
+					<input type="text" name="loginId" id="loginId" placeholder="ID" value="${member.loginId }" disabled
+					class="mb-6 border border-neutral-300 text-neutral-800 text-sm rounded-lg block w-96 p-2.5">
 					비밀번호 <input type="text" name="loginPw" id="loginPw" placeholder="Password"  value="${member.loginPw }"
 					class="mb-6 border border-neutral-300 text-neutral-800 text-sm rounded-lg block w-96 p-2.5 bg-neutral-50">
 					이름 <input type="text" name="name" id="name" placeholder="Name"  value="${member.name }"
