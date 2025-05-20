@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.interceptor.BeforeActionInterceptor;
@@ -96,11 +97,68 @@ public class UsrMemberController {
 		
 	}
 	
-	@RequestMapping("/usr/member/mypage")
-	public String mypage() {
+	@RequestMapping("/usr/member/myInfo")
+	public String myInfo(Model model, HttpServletRequest req) {
 		
-		return "/usr/member/mypage";
+		Rq rq = (Rq) req.getAttribute("rq");
+		Member member = memberService.getMemberById(rq.getLoginedMemberId());
+		
+		model.addAttribute("member", member);
+		
+		return "/usr/member/myInfo";
 	}
 
+	@RequestMapping("/usr/member/modify")
+	public String modify(Model model, HttpServletRequest req) {
+		
+		Rq rq = (Rq) req.getAttribute("rq");
+		Member member = memberService.getMemberById(rq.getLoginedMemberId());
+		
+		model.addAttribute("member", member);
+		
+		return "/usr/member/modify";
+	}
 	
+	@RequestMapping("/usr/member/checkPw")
+	@ResponseBody
+	public ResultData checkPw(HttpServletRequest req, String pw) {
+		
+		Rq rq = (Rq) req.getAttribute("rq");
+		Member member = memberService.getMemberById(rq.getLoginedMemberId());
+		
+		if(!member.getLoginPw().equals(pw)) {
+			System.out.println("비밀번호 확인 실패");
+			return ResultData.from("F-1", "비밀번호 불일치");			
+		}
+		System.out.println("비밀번호 확인 성공");
+		ResultData rd = ResultData.from("S-1", "비밀번호 일치 성공");
+		System.out.println(rd.getResultCode());
+		return rd;
+	}
+	
+	// 로그인 체크 -> 유무 체크 -> 권한 체크
+	@RequestMapping("/usr/member/doModify")
+	@ResponseBody
+	public String doModify(HttpServletRequest req, String loginId, String loginPw, String name, String nickName, String cellPhone, String email) {
+
+		Rq rq = (Rq) req.getAttribute("rq");
+		int loginedMemberId = rq.getLoginedMemberId();
+		
+		if(Ut.isEmpty(loginId)) return Ut.jsHistoryBack("F-1", "아이디를 쓰시오");
+		if(Ut.isEmpty(loginPw)) return Ut.jsHistoryBack("F-2", "비밀번호를 쓰시오");
+		if(Ut.isEmpty(name)) return Ut.jsHistoryBack("F-3", "이름을 쓰시오");
+		if(Ut.isEmpty(nickName)) return Ut.jsHistoryBack("F-4", "닉네임을 쓰시오");
+		if(Ut.isEmpty(cellPhone)) return Ut.jsHistoryBack("F-5", "전화번호 좀 쓰시오");
+		if(Ut.isEmpty(email) || !email.contains("@")) return Ut.jsHistoryBack("F-6", "이메일 정확히 쓰시오");		
+		
+		int memberUpdate = memberService.modifyMember(loginedMemberId, loginId, loginPw, name, nickName, cellPhone, email);	
+			
+		return Ut.jsReplace("S-1", Ut.f("%s 회원님 정보 수정 완료", nickName), "../member/myInfo");
+	}
 }
+
+
+
+
+
+

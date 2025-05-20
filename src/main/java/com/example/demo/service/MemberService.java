@@ -37,5 +37,9 @@ public class MemberService {
 		return memberRepository.getMemberByLoginId(loginId);
 	}
 
+	public int modifyMember(int loginedMemberId, String loginId, String loginPw, String name, String nickName, String cellPhone, String email) {
+		return memberRepository.modifyMember(loginedMemberId, loginId, loginPw, name, nickName, cellPhone, email);
+	}
+
 
 }

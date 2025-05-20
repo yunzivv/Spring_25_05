@@ -42,5 +42,18 @@
 		SELECT * FROM `member`
 		WHERE loginId = #{loginId}
 	</select>
-
+	
+	<update id="modifyMember" parameterType="map">
+		UPDATE `member`
+		<set>
+			<if test="loginId != null and loginId != ''">loginId = #{loginId},</if>
+			<if test="loginPw != null and loginPw != ''">loginPw = #{loginPw},</if>
+			<if test="name != null and name != ''">`name` = #{name},</if>
+			<if test="nickName != null and nickName != ''">nickName = #{nickName},</if>
+			<if test="cellPhone != null and cellPhone != ''">cellPhone = #{cellPhone},</if>
+			<if test="email != null and email != ''">email = #{email},</if>
+			updateDate = NOW()
+		</set>
+		WHERE id = #{loginedMemberId}
+	</update>
 </mapper>

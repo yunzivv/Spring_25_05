@@ -41,7 +41,7 @@
 					<li class="hover:underline hover:text-neutral-400">
 					<a onclick="return confirm('로그아웃 하시겠습니까?');" class="block px-6" href="../member/doLogout">LOGOUT</a>
 					</li>
-					<li class="hover:underline hover:text-neutral-400"><a class="block px-6" href="../member/mypage">MY PAGE</a></li>
+					<li class="hover:underline hover:text-neutral-400"><a class="block px-6" href="../member/myInfo">MY PAGE</a></li>
 				</c:if>
 			</ul>
 		</div>		

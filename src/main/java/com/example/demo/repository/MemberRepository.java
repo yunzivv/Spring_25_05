@@ -31,4 +31,6 @@ public interface MemberRepository {
 
 //  @Select("SELECT * FROM `member` WHERE loginId = #{loginId}")
 	public Member getMemberByLoginId(String loginId);
+
+	public int modifyMember(int loginedMemberId, String loginId, String loginPw, String name, String nickName, String cellPhone, String email);
 }

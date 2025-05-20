@@ -149,7 +149,7 @@ public class UsrArticleController {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
-		if (Ut.isEmpty(body))
+		if (Ut.isEmpty(body) || body.trim().length() == 0)
 			return Ut.jsHistoryBack("F-1", "내용 안썻어");
 
 		int commentId = commentService.doCommentWrtie(id, rq.getLoginedMemberId(), body);
@@ -245,10 +245,6 @@ public class UsrArticleController {
 	public String doDelete(HttpServletRequest req, int id) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
-
-		if (rq.isLogined() == false) {
-			return Ut.jsReplace("F-3", "로그인 후 이용", "../member/login");
-		}
 
 		Article article = articleService.getArticleById(id);
 

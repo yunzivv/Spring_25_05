@@ -23,13 +23,14 @@
 	}
 	
 // 	좋아요 활성화 함수
- 	function articleDetail_goodReaction() {
+ 	function articleDetail_goodReaction_toArticle() {
  		const value = $(".good_btn").val();
  		$.get('../article/doGoodReaction',{
 			id : params.id,
  			rec : value,
 			ajaxMode : 'Y'
 		}, function(data){
+			console.log(value);
 			$('.good_btn').toggleClass("bg-neutral-300");
 			$('.bad_btn').removeClass("bg-neutral-300");
 			$('.good_btn').html("👍 " + data.data1.extra_goodReactionPoint);
@@ -38,7 +39,7 @@
 	}
 	
 // 	싫어요 활성화 함수
- 	function articleDetail_badReaction() {
+ 	function articleDetail_badReaction_toArticle() {
  		const value = $(".bad_btn").val();
  		$.get('../article/doBadReaction',{
 			id : params.id,
@@ -95,12 +96,12 @@
 					<c:choose>
 						<c:when test="${article.userReaction == 1}">
 							<button class="good_btn btn btn-circle btn-xl btn-outline bg-neutral-300 px-3 text-base whitespace-nowrap" 
-							onClick="articleDetail_goodReaction()" value="${article.userReaction}">
+							onClick="articleDetail_goodReaction_toArticle()" value="${article.userReaction}">
 							👍 ${article.extra_goodReactionPoint }</button>
 						</c:when>
 						<c:otherwise>
 							<button class="good_btn btn btn-circle btn-xl btn-outline px-3 text-base whitespace-nowrap" 
-							onClick="articleDetail_goodReaction()" value="${article.userReaction}">
+							onClick="articleDetail_goodReaction_toArticle()" value="${article.userReaction}">
 							👍 ${article.extra_goodReactionPoint }</button>
 				   		</c:otherwise>
 					</c:choose> 
@@ -108,12 +109,12 @@
 					<c:choose>
 						<c:when test="${article.userReaction == -1}">
 							<button class="bad_btn btn btn-circle btn-xl btn-outline bg-neutral-300 px-3 text-base whitespace-nowrap" 
-							onClick="articleDetail_badReaction()" value="${article.userReaction}">
+							onClick="articleDetail_badReaction_toArticle()" value="${article.userReaction}">
 							👎 ${article.extra_badReactionPoint }</button>
 						</c:when>
 						<c:otherwise>
 							<button class="bad_btn btn btn-circle btn-xl btn-outline px-3 text-base whitespace-nowrap" 
-							onClick="articleDetail_badReaction()" value="${article.userReaction}">
+							onClick="articleDetail_badReaction_toArticle()" value="${article.userReaction}">
 							👎 ${article.extra_badReactionPoint }</button>
 				   		</c:otherwise>
 					</c:choose>
