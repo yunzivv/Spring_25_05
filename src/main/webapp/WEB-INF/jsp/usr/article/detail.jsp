@@ -40,7 +40,7 @@
  			rec : value,
 			ajaxMode : 'Y'
 		}, function(data){
-			console.log(value);
+			
 			$('.good_btn').toggleClass("bg-neutral-300");
 			$('.bad_btn').removeClass("bg-neutral-300");
 			$('.good_btn').html("👍 " + data.data1.extra_goodReactionPoint);

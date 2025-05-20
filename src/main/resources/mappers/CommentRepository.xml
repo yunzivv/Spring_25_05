@@ -10,7 +10,8 @@
 		FROM `comment` C
 		JOIN `member` M
 		ON C.memberId = M.id
-		WHERE articleId = #{id}
+		WHERE relId = #{relId}
+		AND relTypeCode = 'article'
 	</select>
 	
 	<insert id="doCommentWrtie">
@@ -19,7 +20,8 @@
 		regDate = NOW(),
 		updateDate = NOW(),
 		memberId = #{memberId},
-		articleId = #{articleId},
+		relTypeCode = #{relTypeCode},
+		relId = #{relId},
 		`body` = #{body}
 	</insert>
 

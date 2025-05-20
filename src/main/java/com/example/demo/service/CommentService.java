@@ -19,12 +19,12 @@ public class CommentService {
 		this.commentRepository = commentRepository;
 	}
 
-	public List<Comment> getComments(int id) {
-		return commentRepository.getComments(id);
+	public List<Comment> getComments(int relId) {
+		return commentRepository.getComments(relId);
 	}
 
-	public int doCommentWrtie(int id, int loginedMemberId, String body) {
-		return commentRepository.doCommentWrtie(id, loginedMemberId, body);
+	public int doCommentWrtie(String relTypeCode, int relId, int loginedMemberId, String body) {
+		return commentRepository.doCommentWrtie(relTypeCode, relId, loginedMemberId, body);
 	}
 
 

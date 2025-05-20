@@ -49,11 +49,11 @@ CREATE TABLE board(
 
 
 # like 테이블 추가
-CREATE TABLE `like` (
-	id INT(100) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	memberId INT(100) UNSIGNED NOT NULL,
-	articleId INT(100) UNSIGNED NOT NULL
-);
+--CREATE TABLE `like` (
+--	id INT(100) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+--	memberId INT(100) UNSIGNED NOT NULL,
+--	articleId INT(100) UNSIGNED NOT NULL
+--);
 
 
 # reactionPoint 테이블 추가
@@ -81,6 +81,11 @@ CREATE TABLE `comment` (
 	articleId INT(100) UNSIGNED NOT NULL,
 	`body` TEXT NOT NULL
 );
+
+# 댓글 테이블 수정
+ALTER TABLE `comment` CHANGE articleId relId INT(100) UNSIGNED NOT NULL;
+ALTER TABLE `comment` ADD COLUMN relTypeCode CHAR(50) NOT NULL AFTER memberId COMMENT '관련 데이터 타입 코드';
+UPDATE `comment` SET relTypeCode = 'article';
 
 
 # 게시물 테이블 데이터 추가

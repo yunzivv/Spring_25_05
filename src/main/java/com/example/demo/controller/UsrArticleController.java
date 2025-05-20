@@ -82,6 +82,10 @@ public class UsrArticleController {
 		
 		Article article;
 		
+		if(rq.getLoginedMemberId() <= 0) {
+			return null;
+		}
+		
 		if(doReactionRd == null) {
 			// 삽입
 			reactionService.doGoodReaction(rq.getLoginedMemberId(), id);
@@ -153,7 +157,7 @@ public class UsrArticleController {
 		if (Ut.isEmpty(body) || body.trim().length() == 0)
 			return Ut.jsHistoryBack("F-1", "내용 안썻어");
 
-		int commentId = commentService.doCommentWrtie(id, rq.getLoginedMemberId(), body);
+		int commentId = commentService.doCommentWrtie("article", id, rq.getLoginedMemberId(), body);
 
 		return Ut.jsReplace(Ut.f("../article/detail?id=%d", id));
 	}

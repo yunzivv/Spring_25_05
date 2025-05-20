@@ -9,8 +9,8 @@ import com.example.demo.vo.Comment;
 @Mapper
 public interface CommentRepository {
 
-	public List<Comment> getComments(int id);
+	public List<Comment> getComments(int relId);
 
-	public int doCommentWrtie(int articleId, int memberId, String body);
+	public int doCommentWrtie(String relTypeCode, int relId, int memberId, String body);
 
 }
