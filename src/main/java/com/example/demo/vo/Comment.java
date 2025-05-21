@@ -21,7 +21,6 @@ public class Comment {
 	private String body;
 	
 	private String extra_writer;
-	private String extra_boardCode;
 	
 	private int extra_goodReactionPoint;
 	private int extra_badReactionPoint;

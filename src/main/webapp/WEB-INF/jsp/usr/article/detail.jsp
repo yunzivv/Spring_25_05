@@ -154,35 +154,35 @@
 		<div class="content mt-2 p-4">
 			${article.body}
 		</div>
-<!-- 		<div> -->
-<!-- 			<button class="btn btn-xl btn-circle hover:bg-neutral-300 font-black felx flex-col" -->
-<%-- 			 onClick="articleDetail_goodReaction()" value="${article.userReaction}"> --%>
-<%-- 			<c:choose> --%>
-<%-- 				<c:when test="${article.userReaction == 1}"> --%>
-<!-- 				<span class="goodIcon -m-1">♥</span> -->
-<%-- 			 	<div class="good_count -m-2">${article.extra_goodReactionPoint }</div> --%>
-<%-- 				 	</c:when> --%>
-<%-- 					<c:otherwise> --%>
-<!-- 			 	<span class="goodIcon -m-1">♡</span> -->
-<%-- 			 	<div class="good_count -m-2">${article.extra_goodReactionPoint }</div> --%>
-<%-- 			 		</c:otherwise> --%>
-<%-- 			</c:choose>   --%>
-<!-- 			</button> -->
+		<div class="hidden">
+			<button class="btn btn-xl btn-circle hover:bg-neutral-300 font-black felx flex-col"
+			 onClick="articleDetail_goodReaction()" value="${article.userReaction}">
+			<c:choose>
+				<c:when test="${article.userReaction == 1}">
+				<span class="goodIcon -m-1">♥</span>
+			 	<div class="good_count -m-2">${article.extra_goodReactionPoint }</div>
+				 	</c:when>
+					<c:otherwise>
+			 	<span class="goodIcon -m-1">♡</span>
+			 	<div class="good_count -m-2">${article.extra_goodReactionPoint }</div>
+			 		</c:otherwise>
+			</c:choose>  
+			</button>
 			
-<!-- 			<button class="btn btn-xl btn-circle hover:bg-neutral-300 font-black felx flex-col"  -->
-<%-- 			onClick="articleDetail_badReaction()" value="${article.userReaction}"> --%>
-<%-- 				<c:choose> --%>
-<%-- 				<c:when test="${article.userReaction == -1}"> --%>
-<!-- 				 	<span class="badIcon -m-1"> ✕ </span> -->
-<%-- 					<div class="bad_count -m-2">${article.extra_badReactionPoint }</div> --%>
-<%-- 			 	</c:when> --%>
-<%-- 				<c:otherwise> --%>
-<!-- 				 	<span class="badIcon -m-1 text-red-400"> ✕ </span> -->
-<%-- 				 	<div class="bad_count -m-2">${article.extra_badReactionPoint }</div> --%>
-<%-- 			 	  </c:otherwise> --%>
-<%-- 			</c:choose> --%>
-<!-- 			</button> -->
-<!-- 		</div> -->
+			<button class="btn btn-xl btn-circle hover:bg-neutral-300 font-black felx flex-col" 
+			onClick="articleDetail_badReaction()" value="${article.userReaction}">
+				<c:choose>
+				<c:when test="${article.userReaction == -1}">
+				 	<span class="badIcon -m-1"> ✕ </span>
+					<div class="bad_count -m-2">${article.extra_badReactionPoint }</div>
+			 	</c:when>
+				<c:otherwise>
+				 	<span class="badIcon -m-1 text-red-400"> ✕ </span>
+				 	<div class="bad_count -m-2">${article.extra_badReactionPoint }</div>
+			 	  </c:otherwise>
+			</c:choose>
+			</button>
+		</div>
 	</div>
 </div>
 
@@ -206,17 +206,41 @@
 					<div class="comment-btn-box">
 						<c:if test="${comment.userCanModify}">
 							<button class="btn rounded-xl px-3 hover:bg-neutral-300">
-								<a href="modify?id=${article.id}">Modify</a>
+								Modify
 							</button>
 						</c:if>
 						<c:if test="${comment.userCanDelete}">
-							<button class="btn rounded-xl px-3 hover:bg-neutral-300">
-								<a onclick="return confirm('정말 삭제할거야? ㅠㅠ😢?');" 
-									href="doDelete?id=${article.id}">Delete</a>
+							<button class="btn rounded-xl px-3 hover:bg-neutral-300" onClick="">
+								Delete
 							</button>
 						</c:if>
-						👍 ${comment.extra_goodReactionPoint }
-						👍 ${comment.extra_badReactionPoint }
+						<c:choose>
+							<c:when test="${comment.userReaction == 1}">
+								<button class="good_btn btn btn-circle btn-xl btn-outline bg-neutral-300 px-3 text-base whitespace-nowrap" 
+								onClick="articleDetail_goodReaction_toArticle()" value="${comment.userReaction}">
+								👍 ${comment.extra_goodReactionPoint }</button>
+							</c:when>
+							<c:otherwise>
+								<button class="good_btn btn btn-circle btn-xl btn-outline px-3 text-base whitespace-nowrap" 
+								onClick="articleDetail_goodReaction_toArticle()" value="${comment.userReaction}">
+								👍 ${comment.extra_goodReactionPoint }</button>
+					   		</c:otherwise>
+						</c:choose> 
+						&nbsp;&nbsp; 
+						<c:choose>
+							<c:when test="${comment.userReaction == -1}">
+								<button class="bad_btn btn btn-circle btn-xl btn-outline bg-neutral-300 px-3 text-base whitespace-nowrap" 
+								onClick="articleDetail_badReaction_toArticle()" value="${comment.userReaction}">
+								👎 ${comment.extra_badReactionPoint }</button>
+							</c:when>
+							<c:otherwise>
+								<button class="bad_btn btn btn-circle btn-xl btn-outline px-3 text-base whitespace-nowrap" 
+								onClick="articleDetail_badReaction_toArticle()" value="${comment.userReaction}">
+								👎 ${comment.extra_badReactionPoint }</button>
+					   		</c:otherwise>
+						</c:choose>
+<%-- 						👍 ${comment.extra_goodReactionPoint } --%>
+<%-- 						👍 ${comment.extra_badReactionPoint } --%>
 					</div>
 				</div>
 			</c:forEach>
