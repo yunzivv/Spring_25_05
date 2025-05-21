@@ -17,9 +17,13 @@ public class Comment {
 	private LocalDateTime regDate;
 	private LocalDateTime updateDate;
 	private int memberId;
-	private int articleId;
+	private int relId;
 	private String body;
 	
 	private String extra_memberNickName;
+	
+	private boolean userCanModify;
+	private boolean userCanDelete;
+	private int userReaction;
 	
 }

@@ -79,10 +79,10 @@ public class ArticleService {
 
 	public ResultData userReaction(int loginedMemberId, int id) { // 
 		
-		int isReactioned = reactionRepository.getIsReactioned(loginedMemberId, id);
+		int isReactioned = reactionRepository.getIsReactioned(loginedMemberId, id, "article");
 		if(isReactioned == 0) return null;
 		
-		int reactionPoint = reactionRepository.getUserReaction(loginedMemberId, id);
+		int reactionPoint = reactionRepository.getUserReaction(loginedMemberId, id, "article");
 		
 		if(reactionPoint == 0) return ResultData.from("F-1",Ut.f("%d번 게시글 반응", id), "없음", reactionPoint);
 		else if(reactionPoint == 1) return ResultData.from("S-1",Ut.f("%d번 게시글 반응", id), "좋아요", reactionPoint);

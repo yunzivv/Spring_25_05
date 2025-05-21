@@ -7,14 +7,14 @@ import com.example.demo.vo.Like;
 @Mapper
 public interface ReactionRepository {
 
-	int getUserReaction(int loginedMemberId, int id);
+	int getUserReaction(int loginedMemberId, int id, String relTypeCode);
 
-	int getIsReactioned(int loginedMemberId, int id);
+	int getIsReactioned(int loginedMemberId, int id, String relTypeCode);
 
-	int doGoodReaction(int loginedMemberId, int id);
+	int doGoodReaction(int loginedMemberId, int id, String relTypeCode);
 
-	int doBadReaction(int loginedMemberId, int id);
+	int doBadReaction(int loginedMemberId, int id, String relTypeCode);
 
-	int doChangeReaction(int loginedMemberId, int id, int point);
+	int doChangeReaction(int loginedMemberId, int id, int point, String relTypeCode);
 
 }

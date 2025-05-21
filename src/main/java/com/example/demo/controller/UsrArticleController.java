@@ -67,7 +67,7 @@ public class UsrArticleController {
 		model.addAttribute("article", article);
 
 		// 댓글 조회
-		List<Comment> comments = commentService.getComments(id);
+		List<Comment> comments = commentService.getComments(id, rq.getLoginedMemberId());
 		model.addAttribute("comments", comments);
 		
 		return "/usr/article/detail";
@@ -88,17 +88,17 @@ public class UsrArticleController {
 		
 		if(doReactionRd == null) {
 			// 삽입
-			reactionService.doGoodReaction(rq.getLoginedMemberId(), id);
+			reactionService.doGoodReaction(rq.getLoginedMemberId(), id, "article");
 			article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
 			doReactionRd = ResultData.from("S-1","reaction 성공", "싫어요", article);
 		}else if((int)doReactionRd.getData1() == 1) {
 			// 취소
-			reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 0);
+			reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 0, "article");
 			article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
 			doReactionRd = doReactionRd.newData(doReactionRd, "좋아요 취소",article);
 		}else {
 			// 수정
-			reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 1);
+			reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 1, "article");
 			article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
 			doReactionRd = doReactionRd.newData(doReactionRd, "좋아요로 수정", article);
 		}
@@ -116,17 +116,17 @@ public class UsrArticleController {
 		Article article;
 		
 		if(doReactionRd == null) {
-			reactionService.doBadReaction(rq.getLoginedMemberId(), id);
+			reactionService.doBadReaction(rq.getLoginedMemberId(), id, "article");
 			article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
 			doReactionRd = ResultData.from("S-1","reaction 성공", "싫어요", article);
 			
 		}else if((int)doReactionRd.getData1() == -1) {
-			reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 0);
+			reactionService.doChangeReaction(rq.getLoginedMemberId(), id, 0, "article");
 			article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
 			doReactionRd = doReactionRd.newData(doReactionRd, "싫어요 취소", article);
 			
 		}else {
-			reactionService.doChangeReaction(rq.getLoginedMemberId(), id, -1);
+			reactionService.doChangeReaction(rq.getLoginedMemberId(), id, -1, "article");
 			article = articleService.getArticleForPrint(id, rq.getLoginedMemberId());
 			doReactionRd = doReactionRd.newData(doReactionRd, "싫어요로 수정", article);
 		}
