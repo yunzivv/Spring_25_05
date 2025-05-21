@@ -29,40 +29,75 @@
 		}, function(data){ <!-- incHits의 return 값이 data에 저장된다. -->
 			$('.article_detail_hit_count').html("조회수 : " + data.data1);
 			console.log(data);
+			console.log($("comment_reaction_box").find(".good_btn").val());
+			console.log($("comment_reaction_box").find(".bad_btn").val());
 		}, 'json');
 	}
 	
-// 	좋아요 활성화 함수
+// 	article 좋아요 활성화 함수
  	function articleDetail_goodReaction_toArticle() {
- 		const value = $(".good_btn").val();
+ 		const value = $(".article_reaction_box").find(".good_btn").val();
  		$.get('../article/doGoodReaction',{
 			id : params.id,
- 			rec : value,
+ 			rec : "article",
 			ajaxMode : 'Y'
 		}, function(data){
-			
-			$('.good_btn').toggleClass("bg-neutral-300");
-			$('.bad_btn').removeClass("bg-neutral-300");
-			$('.good_btn').html("👍 " + data.data1.extra_goodReactionPoint);
-			$('.bad_btn').html("👎 " + data.data1.extra_badReactionPoint);
+			console.log(data);
+			$(".article_reaction_box").find(".good_btn").toggleClass("bg-neutral-300");
+			$(".article_reaction_box").find('.bad_btn').removeClass("bg-neutral-300");
+			$(".article_reaction_box").find('.good_btn').html("👍 " + data.data1.extra_goodReactionPoint);
+			$(".article_reaction_box").find('.bad_btn').html("👎 " + data.data1.extra_badReactionPoint);
 		}, 'json');
 	}
 	
-// 	싫어요 활성화 함수
+// 	article 싫어요 활성화 함수
  	function articleDetail_badReaction_toArticle() {
- 		const value = $(".bad_btn").val();
+ 		const value = $(".article_reaction_box").find(".bad_btn").val();
  		$.get('../article/doBadReaction',{
 			id : params.id,
- 			rec : value,
+ 			rec : "article",
  			ajaxMode : 'Y'
 		}, function(data){
-			$('.bad_btn').toggleClass("bg-neutral-300");
-			$('.good_btn').removeClass("bg-neutral-300");
-			$('.good_btn').html("👍 " + data.data1.extra_goodReactionPoint);
-			$('.bad_btn').html("👎 " + data.data1.extra_badReactionPoint);
+			console.log(data);
+			$(".article_reaction_box").find('.bad_btn').toggleClass("bg-neutral-300");
+			$(".article_reaction_box").find('.good_btn').removeClass("bg-neutral-300");
+			$(".article_reaction_box").find('.good_btn').html("👍 " + data.data1.extra_goodReactionPoint);
+			$(".article_reaction_box").find('.bad_btn').html("👎 " + data.data1.extra_badReactionPoint);
 		}, 'json');
 	}
 	
+// 	comment 좋아요 활성화 함수
+ 	function articleDetail_goodReaction_toComment() {
+ 		const value = $(".comment_reaction_box").find(".good_btn").val();
+ 		$.get('../article/doGoodReaction',{
+			id : params.id,
+ 			rec : "comment",
+			ajaxMode : 'Y'
+		}, function(data){
+			console.log(data);
+			$(".comment_reaction_box").find('.good_btn').toggleClass("bg-neutral-300");
+			$(".comment_reaction_box").find('.bad_btn').removeClass("bg-neutral-300");
+			$(".comment_reaction_box").find('.good_btn').html("👍 " + data.data1.extra_goodReactionPoint);
+			$(".comment_reaction_box").find('.bad_btn').html("👎 " + data.data1.extra_badReactionPoint);
+		}, 'json');
+	}
+	
+// 	comment 싫어요 활성화 함수
+ 	function articleDetail_badReaction_toComment() {
+ 		const value = $(".comment_reaction_box").find(".bad_btn").val();
+ 		$.get('../article/doBadReaction',{
+			id : params.id,
+ 			rec : "comment",
+ 			ajaxMode : 'Y'
+		}, function(data){
+			console.log(data);
+			$(".comment_reaction_box").find('.bad_btn').toggleClass("bg-neutral-300");
+			$(".comment_reaction_box").find('.good_btn').removeClass("bg-neutral-300");
+			$(".comment_reaction_box").find('.good_btn').html("👍 " + data.data1.extra_goodReactionPoint);
+			$(".comment_reaction_box").find('.bad_btn').html("👎 " + data.data1.extra_badReactionPoint);
+		}, 'json');
+	}	
+
 	
 	$(function() {
 		articleDetail_increaseHits();
@@ -102,7 +137,7 @@
 				<div class="flex-grow"></div>
 				
 <!-- 				like -->
-				<div class="reaction_box flex items-center justify-center mx-4 text-xl cursor-pointer">	
+				<div class="article_reaction_box flex items-center justify-center mx-4 text-xl cursor-pointer">	
 					<c:choose>
 						<c:when test="${article.userReaction == 1}">
 							<button class="good_btn btn btn-circle btn-xl btn-outline bg-neutral-300 px-3 text-base whitespace-nowrap" 
@@ -203,7 +238,7 @@
 					<strong class="ml-2 mr-6">${comment.extra_writer }</strong>
 					<div class="flex-grow">${comment.body }</div>
 <!-- 					btn -->
-					<div class="comment-btn-box">
+					<div class="comment_reaction_box">
 						<c:if test="${comment.userCanModify}">
 							<button class="btn rounded-xl px-3 hover:bg-neutral-300">
 								Modify
@@ -217,12 +252,12 @@
 						<c:choose>
 							<c:when test="${comment.userReaction == 1}">
 								<button class="good_btn btn btn-circle btn-xl btn-outline bg-neutral-300 px-3 text-base whitespace-nowrap" 
-								onClick="articleDetail_goodReaction_toArticle()" value="${comment.userReaction}">
+								onClick="articleDetail_goodReaction_toComment()" value="${comment.userReaction}">
 								👍 ${comment.extra_goodReactionPoint }</button>
 							</c:when>
 							<c:otherwise>
 								<button class="good_btn btn btn-circle btn-xl btn-outline px-3 text-base whitespace-nowrap" 
-								onClick="articleDetail_goodReaction_toArticle()" value="${comment.userReaction}">
+								onClick="articleDetail_goodReaction_toComment()" value="${comment.userReaction}">
 								👍 ${comment.extra_goodReactionPoint }</button>
 					   		</c:otherwise>
 						</c:choose> 
@@ -230,12 +265,12 @@
 						<c:choose>
 							<c:when test="${comment.userReaction == -1}">
 								<button class="bad_btn btn btn-circle btn-xl btn-outline bg-neutral-300 px-3 text-base whitespace-nowrap" 
-								onClick="articleDetail_badReaction_toArticle()" value="${comment.userReaction}">
+								onClick="articleDetail_badReaction_toComment()" value="${comment.userReaction}">
 								👎 ${comment.extra_badReactionPoint }</button>
 							</c:when>
 							<c:otherwise>
 								<button class="bad_btn btn btn-circle btn-xl btn-outline px-3 text-base whitespace-nowrap" 
-								onClick="articleDetail_badReaction_toArticle()" value="${comment.userReaction}">
+								onClick="articleDetail_badReaction_toComment()" value="${comment.userReaction}">
 								👎 ${comment.extra_badReactionPoint }</button>
 					   		</c:otherwise>
 						</c:choose>
