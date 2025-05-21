@@ -200,7 +200,7 @@
 					  </div>
 					</div>
 <!-- 					content -->
-					<strong class="ml-2 mr-6">${comment.extra_memberNickName }</strong>
+					<strong class="ml-2 mr-6">${comment.extra_writer }</strong>
 					<div class="flex-grow">${comment.body }</div>
 <!-- 					btn -->
 					<div class="comment-btn-box">
@@ -215,6 +215,8 @@
 									href="doDelete?id=${article.id}">Delete</a>
 							</button>
 						</c:if>
+						👍 ${comment.extra_goodReactionPoint }
+						👍 ${comment.extra_badReactionPoint }
 					</div>
 				</div>
 			</c:forEach>
