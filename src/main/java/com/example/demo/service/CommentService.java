@@ -30,6 +30,7 @@ public class CommentService {
 	public List<Comment> getComments(int relId, int loginedMemberId) {
 
 		List<Comment> comments = commentRepository.getComments(relId);
+		updateForPrintData(loginedMemberId, comments);
 
 		return comments;
 	}
@@ -48,8 +49,8 @@ public class CommentService {
 			comment.setUserCanDelete(userCanModifyRd.isSuccess());
 
 			ResultData userReactionRd = userReaction(loginedMemberId, comment.getId());
-			if (userReactionRd == null)
-				return;
+			if (userReactionRd == null) continue;
+			
 			comment.setUserReaction((int) userReactionRd.getData1());
 		}
 
@@ -76,8 +77,7 @@ public class CommentService {
 	public ResultData userReaction(int loginedMemberId, int id) { //
 
 		int isReactioned = reactionRepository.getIsReactioned(loginedMemberId, id, "comment");
-		if (isReactioned == 0)
-			return null;
+		if (isReactioned == 0) return null;
 
 		int reactionPoint = reactionRepository.getUserReaction(loginedMemberId, id, "comment");
 

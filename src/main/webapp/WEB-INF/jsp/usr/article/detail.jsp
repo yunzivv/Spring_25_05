@@ -132,7 +132,7 @@
 				</div>
 					
 <!-- 				modify, delete btn -->
-				<div class="btn-box">
+				<div class="article-btn-box">
 					<c:if test="${article.userCanModify}">
 						<button class="btn rounded-xl ml-4 mr-1 px-3 hover:bg-neutral-300">
 							<a href="modify?id=${article.id}">Modify</a>
@@ -193,13 +193,29 @@
 			<c:forEach var="comment" items="${comments }">
 				<hr class="border-neutral-500 my-4"/>
 				<div class="flex items-center px-4">
+<!-- 					profile -->
 					<div class="avatar">
 					  <div class="w-12 rounded">
 					    <img src="https://img.daisyui.com/images/profile/demo/batperson@192.webp" />
 					  </div>
 					</div>
+<!-- 					content -->
 					<strong class="ml-2 mr-6">${comment.extra_memberNickName }</strong>
 					<div class="flex-grow">${comment.body }</div>
+<!-- 					btn -->
+					<div class="comment-btn-box">
+						<c:if test="${comment.userCanModify}">
+							<button class="btn rounded-xl px-3 hover:bg-neutral-300">
+								<a href="modify?id=${article.id}">Modify</a>
+							</button>
+						</c:if>
+						<c:if test="${comment.userCanDelete}">
+							<button class="btn rounded-xl px-3 hover:bg-neutral-300">
+								<a onclick="return confirm('정말 삭제할거야? ㅠㅠ😢?');" 
+									href="doDelete?id=${article.id}">Delete</a>
+							</button>
+						</c:if>
+					</div>
 				</div>
 			</c:forEach>
 		</div>
