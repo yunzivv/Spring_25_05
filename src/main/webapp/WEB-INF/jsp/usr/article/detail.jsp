@@ -39,7 +39,7 @@
  		const value = $(".article_reaction_box").find(".good_btn").val();
  		$.get('../article/doGoodReaction',{
 			id : params.id,
- 			rec : "article",
+			relTypeCode : "article",
 			ajaxMode : 'Y'
 		}, function(data){
 			console.log(data);
@@ -55,7 +55,7 @@
  		const value = $(".article_reaction_box").find(".bad_btn").val();
  		$.get('../article/doBadReaction',{
 			id : params.id,
- 			rec : "article",
+			relTypeCode : "article",
  			ajaxMode : 'Y'
 		}, function(data){
 			console.log(data);
@@ -71,7 +71,7 @@
  		const value = $(".comment_reaction_box").find(".good_btn").val();
  		$.get('../article/doGoodReaction',{
 			id : params.id,
- 			rec : "comment",
+			relTypeCode : "comment",
 			ajaxMode : 'Y'
 		}, function(data){
 			console.log(data);
@@ -87,7 +87,7 @@
  		const value = $(".comment_reaction_box").find(".bad_btn").val();
  		$.get('../article/doBadReaction',{
 			id : params.id,
- 			rec : "comment",
+			relTypeCode : "comment",
  			ajaxMode : 'Y'
 		}, function(data){
 			console.log(data);
