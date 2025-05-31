@@ -174,8 +174,48 @@ INSERT INTO `COMMENT` SET
 	relTypeCode = 'article',
 	relId = FLOOR(1 + RAND() * 64),
 	`body` = 'comment';
-	
 
+# faq 테이블 추가	
+CREATE TABLE faq (
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(100) NOT NULL,
+    `body` TEXT NOT NULL,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL
+);
+
+# faq 테이블 데이터 추가
+INSERT INTO faq SET
+    title = "특정 단어를 검색하는 법은 무엇인가요?",
+    `body` = "특정 단어를 검색하는 법은 게시판 메뉴에 접속하여 검색하고 싶은 게시판, 검색 대상을 선택하신 후 
+    상단의 검색어 입력창에 특정 단어를 입력하면 해당 단어가 포함된 게시물을 검색할 수 있습니다.",
+    regDate = NOW(),
+    updateDate = NOW();
+    
+INSERT INTO faq SET
+    title = "게시물을 작성하는 법은 무엇인가요?",
+    `body` = "게시물을 작성하기 위해서는 로그인이 필요합니다. 로그인을 하신 후 게시판 메뉴에 접속하여 
+    화면 상단의 '글 작성' 버튼을 클릭하신 후 게시판 선택과 글 작성이 가능합니다. 
+    게시판 선택은 필수이며, 적절한 게시판을 선택하여 주시길 바랍니다.
+    또, 게시글을 작성하실 때는 제목과 내용이 공란이거나 공백으로만 이루어진 경우 글 작성이 불가합니다.",
+    regDate = NOW(),
+    updateDate = NOW();
+
+INSERT INTO faq SET
+    title = "게시물을 수정하는 법은 무엇인가요?",
+    `body` = "게시글은 작성자 본인만 수정이 가능합니다. 
+    로그인 후 수정하고 싶은 게시물 페이지에 접속하면 제목 우측에 'Modify' 버튼을 클릭하시어 해당 게시글을 수정할 수 있습니다.
+    게시글 수정 시 제목과 내용이 공란이거나 공백으로만 이루어진 경우 글 수정이 불가합니다.",
+    regDate = NOW(),
+    updateDate = NOW();
+    
+INSERT INTO faq SET
+    title = "게시물을 삭제하는 법은 무엇인가요?",
+    `body` = "게시글은 작성자 본인만 삭제가 가능합니다. 
+    로그인 후 삭제하고 싶은 게시물 페이지에 접속하면 제목 우측에 'Delete' 버튼을 클릭하시어 해당 게시글을 삭제 할 수 있습니다.
+    게시글 삭제 후 취소는 불가하오니 이 점 유의해 주시길 바랍니다.",
+    regDate = NOW(),
+    updateDate = NOW();
 
 
 SELECT * FROM article;

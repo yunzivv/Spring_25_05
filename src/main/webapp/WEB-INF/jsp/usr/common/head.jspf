@@ -24,6 +24,7 @@
 
 			<ul class="menu_ flex">
 				<li class="hover:underline hover:text-neutral-400"><a class="block px-6" href="/">HOME</a></li>
+				<li class="hover:underline hover:text-neutral-400"><a class="block px-6" href="../home/faq">FAQ</a></li>
 				<li id ="list" class="relative">
 					<a class="block px-6" href="../article/list">LIST</a>
 					<ul class="absolute hidden w-full t-full py-5 text-center text-lg whitespace-nowrap">
